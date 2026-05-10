@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>ANEIMERA PERÚ - Portal Integrado</title>
+    <meta name="description" content="Portal oficial de la Asociación Nacional de Estudiantes de Ingeniería Mecánica, Eléctrica, Electrónica y Ramas Afines (ANEIMERA PERÚ).">
+    <meta property="og:title" content="ANEIMERA PERÚ - Portal Integrado">
+    <meta property="og:description" content="Impulsando la excelencia técnica y el desarrollo profesional de la ingeniería en el Perú.">
+    <meta property="og:image" content="https://aneimeraunmsm.github.io/ANEIMERA_PERU/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="https://aneimeraunmsm.github.io/ANEIMERA_PERU/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://aneimeraunmsm.github.io/ANEIMERA_PERU/">
+    <link rel="alternate" hreflang="es-PE" href="https://aneimeraunmsm.github.io/ANEIMERA_PERU/">
+    <link rel="alternate" hreflang="x-default" href="https://aneimeraunmsm.github.io/ANEIMERA_PERU/">
+    <link rel="icon" href="assets/favicon.png">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "ANEIMERA PERÚ",
+      "alternateName": "Asociación Nacional de Estudiantes de Ingeniería Mecánica, Eléctrica, Electrónica y Ramas Afines",
+      "url": "https://aneimeraunmsm.github.io/ANEIMERA_PERU/",
+      "logo": "https://aneimeraunmsm.github.io/ANEIMERA_PERU/assets/logo.png",
+      "areaServed": "PE",
+      "sameAs": [
+        "https://www.facebook.com/aneimeraperu",
+        "https://www.instagram.com/aneimeraperu",
+        "https://www.linkedin.com/company/aneimeraperu"
+            ]
+        }
+        </script>
+        <link rel="manifest" href="manifest.json">
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <link rel="preload" href="/assets/fonts/Inter.woff2" as="font" type="font/woff2" crossorigin>
+        <link rel="preload" href="/assets/fonts/MaterialSymbolsOutlined.woff2" as="font" type="font/woff2" crossorigin>
+        <link rel="stylesheet" href="/assets/css/shared-fonts.css">
+        <script src="/js/rum.js" defer></script>
+        <style>
+      /* Cuando la fuente variable está disponible, restaurar settings para los iconos */
+      @supports (font-variation-settings: normal) {
+        .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        color: currentColor; /* asegurar que el icono use color */
+        text-shadow: none;
+        }
+      }
+        .grid-pattern {
+            background-image: 
+                linear-gradient(to right, rgba(0,0,0,0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0,0,0,0.1) 1px, transparent 1px);
+            background-size: 8px 8px;
+        }
+        .circuit-overlay-capitulos {
+            background-image: radial-gradient(#1a1c1c 1px, transparent 1px), radial-gradient(#1a1c1c 1px, transparent 1px);
+            background-size: 32px 32px;
+            background-position: 0 0, 16px 16px;
+            opacity: 0.05;
+            pointer-events: none;
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+        .technical-grid {
+            background-image: 
+                linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+            background-size: 64px 64px;
+        }
+        .blueprint-grid {
+            background-image: 
+                linear-gradient(to right, rgba(0,0,0,0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0,0,0,0.1) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        .grid-bg-noticias {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+        }
+        .cut-corner {
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%);
+        }
+        .circuit-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .circuit-overlay-eventos {
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10h80v80h-80z' fill='none' stroke='%23000000' stroke-width='0.5' stroke-opacity='0.1'/%3E%3Cpath d='M10 50h80M50 10v80' stroke='%23000000' stroke-width='0.5' stroke-opacity='0.1'/%3E%3Ccircle cx='50' cy='50' r='2' fill='%23000000' fill-opacity='0.1'/%3E%3C/svg%3E");
+            background-size: 50px 50px;
+        }
+        .tab-content {
+            display: none;
+        }
+        #tab-inicio {
+            display: block;
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-surface-variant": "#5e3f3b",
+                      "surface-container-lowest": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "on-tertiary": "#ffffff",
+                      "primary-container": "#e30613",
+                      "on-surface": "#1a1c1c",
+                      "on-error-container": "#93000a",
+                      "secondary-fixed": "#d8e2ff",
+                      "surface-container-high": "#e8e8e8",
+                      "primary": "#b5000b",
+                      "on-secondary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "on-primary-fixed-variant": "#930007",
+                      "outline": "#936e69",
+                      "on-secondary-fixed-variant": "#2c4678",
+                      "surface-container-highest": "#e2e2e2",
+                      "on-tertiary-fixed-variant": "#474747",
+                      "secondary-fixed-dim": "#aec6ff",
+                      "surface-variant": "#e2e2e2",
+                      "outline-variant": "#e9bcb6",
+                      "inverse-on-surface": "#f0f1f1",
+                      "surface-container": "#eeeeee",
+                      "surface-dim": "#dadada",
+                      "tertiary-fixed": "#e2e2e2",
+                      "surface-bright": "#f9f9f9",
+                      "tertiary": "#595959",
+                      "surface": "#f9f9f9",
+                      "on-tertiary-container": "#f7f7f7",
+                      "on-secondary-fixed": "#001a42",
+                      "primary-fixed": "#ffdad5",
+                      "on-primary-container": "#fff5f3",
+                      "inverse-surface": "#2f3131",
+                      "on-primary-fixed": "#410001",
+                      "primary-fixed-dim": "#ffb4aa",
+                      "on-tertiary-fixed": "#1b1b1b",
+                      "surface-tint": "#c0000c",
+                      "secondary-container": "#aac3fe",
+                      "tertiary-container": "#717171",
+                      "error": "#ba1a1a",
+                      "tertiary-fixed-dim": "#c6c6c6",
+                      "background": "#f9f9f9",
+                      "on-background": "#1a1c1c",
+                      "on-secondary-container": "#365083",
+                      "inverse-primary": "#ffb4aa",
+                      "surface-container-low": "#f3f3f4",
+                      "on-primary": "#ffffff",
+                      "secondary": "#445e92"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin": "64px",
+                      "container-max": "1440px",
+                      "gutter": "24px",
+                      "unit": "8px"
+              },
+              "fontFamily": {
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "display-xl": [
+                              "Inter"
+                      ],
+                      "headline-sm": [
+                              "Inter"
+                      ],
+                      "label-mono": [
+                              "monospace"
+                      ]
+              },
+              "fontSize": {
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "64px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "display-xl": [
+                              "96px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "900"
+                              }
+                      ],
+                      "headline-sm": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-mono": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body-md min-h-screen pt-20">
+
+    <!-- TopNavBar -->
+    <nav class="fixed top-0 w-full z-50 flex justify-between items-center px-4 md:px-16 h-20 bg-surface-container-lowest border-b-2 border-on-surface transition-all duration-75 shadow-sm">
+        <div class="text-2xl font-black tracking-tighter text-on-surface cursor-pointer" onclick="switchTab('inicio')">
+            ANEIMERA PERÚ
+        </div>
+        <div class="hidden md:flex items-center gap-8 font-inter uppercase font-bold tracking-tight text-sm">
+            <a class="tab-link nav-item text-primary-container border-b-2 border-primary-container pb-1 cursor-pointer" href="#inicio" onclick="switchTab('inicio'); event.preventDefault();" data-tab="inicio">Inicio</a>
+            <a class="tab-link nav-item text-on-surface hover:text-primary-container transition-colors cursor-pointer" href="#capitulos" onclick="switchTab('capitulos'); event.preventDefault();" data-tab="capitulos">Capítulos</a>
+            <a class="tab-link nav-item text-on-surface hover:text-primary-container transition-colors cursor-pointer" href="#eventos" onclick="switchTab('eventos'); event.preventDefault();" data-tab="eventos">Eventos</a>
+            <a class="tab-link nav-item text-on-surface hover:text-primary-container transition-colors cursor-pointer" href="#membresia" onclick="switchTab('membresia'); event.preventDefault();" data-tab="membresia">Membresía</a>
+            <a class="tab-link nav-item text-on-surface hover:text-primary-container transition-colors cursor-pointer" href="#noticias" onclick="switchTab('noticias'); event.preventDefault();" data-tab="noticias">Noticias</a>
+        </div>
+        <div class="flex items-center gap-4">
+            <button type="button" aria-label="Buscar" onclick="switchTab('noticias')" class="text-on-surface hover:text-primary-container transition-colors p-1 bg-transparent border-0 cursor-pointer"><span class="material-symbols-outlined" aria-hidden="true">search</span></button>
+            <button class="hidden md:block bg-primary-container text-on-primary-container font-inter uppercase font-bold tracking-tight text-sm px-6 py-2 hover:bg-primary transition-all duration-75 scale-100 active:translate-y-0.5 cursor-pointer" onclick="switchTab('membresia')">
+                UNIRSE
+            </button>
+            <button id="mobile-menu-btn" class="md:hidden text-on-surface p-2">
+                <span class="material-symbols-outlined text-3xl">menu</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-surface-container-lowest z-40 hidden flex-col pt-24 px-8 pb-8 md:hidden">
+        <div class="flex flex-col gap-6 font-inter uppercase font-bold tracking-widest text-lg">
+            <a class="border-b-2 border-on-surface pb-4 text-on-surface cursor-pointer" href="#inicio" onclick="switchTab('inicio'); event.preventDefault(); window.closeMobileMenu();">Inicio</a>
+            <a class="border-b-2 border-on-surface pb-4 text-on-surface cursor-pointer" href="#capitulos" onclick="switchTab('capitulos'); event.preventDefault(); window.closeMobileMenu();">Capítulos</a>
+            <a class="border-b-2 border-on-surface pb-4 text-on-surface cursor-pointer" href="#eventos" onclick="switchTab('eventos'); event.preventDefault(); window.closeMobileMenu();">Eventos</a>
+            <a class="border-b-2 border-on-surface pb-4 text-on-surface cursor-pointer" href="#noticias" onclick="switchTab('noticias'); event.preventDefault(); window.closeMobileMenu();">Noticias</a>
+            <button class="bg-primary-container text-on-primary-container w-full py-4 mt-4 cursor-pointer font-bold" onclick="switchTab('membresia'); window.closeMobileMenu();">
+                UNIRSE A LA RED
+            </button>
+        </div>
+    </div>
+
+    <div id="tab-inicio" class="tab-content grid-pattern relative">
+        
+<header class="pt-24 pb-10 px-4 md:px-16 md:pt-48 md:pb-24 max-w-container-max mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<div class="lg:col-span-8">
+<h1 class="font-display-xl text-[44px] sm:text-[72px] md:text-[96px] lg:text-[120px] leading-[0.9] tracking-tighter text-on-surface uppercase mb-8 border-l-[8px] border-primary-container pl-4 md:pl-8">
+                    INGENIERÍA QUE TRANSFORMA EL PERÚ
+                </h1>
+<p class="font-body-lg text-body-lg text-tertiary mb-12 max-w-2xl text-xl leading-relaxed">
+                    Asociación Nacional de Estudiantes de Ingeniería Mecánica, Eléctrica, Electrónica y Ramas Afines. Impulsando la excelencia técnica y el desarrollo profesional desde 1998.
+                </p>
+<div class="flex flex-wrap gap-4">
+<button onclick="switchTab('capitulos')" class="bg-on-surface text-surface-container-lowest font-inter uppercase font-bold text-sm px-8 py-4 hover:bg-primary-container transition-colors tracking-widest">
+                        EXPLORAR CAPÍTULOS
+                    </button>
+<button onclick="switchTab('noticias')" class="border-2 border-on-surface text-on-surface font-inter uppercase font-bold text-sm px-8 py-4 hover:bg-surface-container-highest transition-colors tracking-widest bg-surface-container-lowest">
+                        CONOCER MÁS
+                    </button>
+</div>
+</div>
+<div class="lg:col-span-4 mt-12 lg:mt-0">
+<div class="border-4 border-on-surface bg-surface-container-lowest p-8 h-full flex flex-col justify-between shadow-[8px_8px_0px_0px_rgba(26,28,28,1)]">
+<div>
+<div class="font-label-mono text-label-mono text-tertiary uppercase mb-2 tracking-widest">Métrica Principal</div>
+<div class="text-[56px] md:text-[80px] font-black leading-none text-primary-container mb-2 counter-value" data-target="12" data-suffix="+">0</div>
+<div class="font-body-md text-xl text-on-surface font-black uppercase mt-1">Capítulos Activos</div>
+</div>
+<div class="mt-8 pt-8 border-t-4 border-on-surface">
+<div class="font-label-mono text-label-mono text-tertiary uppercase mb-2 tracking-widest">Red Nacional</div>
+<div class="text-[56px] md:text-[80px] font-black leading-none text-on-surface mb-2 counter-value" data-target="5" data-suffix="k+">0</div>
+<div class="font-body-md text-xl text-on-surface font-black uppercase mt-1">Miembros Inscritos</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Impact Metrics Section -->
+<section class="py-24 bg-on-surface text-surface-container-lowest border-y-4 border-primary-container">
+<div class="max-w-container-max mx-auto px-4 md:px-16">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+<div class="border-l-4 border-primary-container pl-6">
+<div class="text-6xl font-black mb-4 counter-value" data-target="25" data-suffix="+">0</div>
+<div class="font-label-mono uppercase tracking-widest text-primary-fixed-dim mb-2">Años de Excelencia</div>
+<p class="text-surface-variant">Formando líderes en el sector industrial y tecnológico peruano.</p>
+</div>
+<div class="border-l-4 border-primary-container pl-6">
+<div class="text-6xl font-black mb-4 counter-value" data-target="50" data-suffix="+">0</div>
+<div class="font-label-mono uppercase tracking-widest text-primary-fixed-dim mb-2">Proyectos Anuales</div>
+<p class="text-surface-variant">Iniciativas de investigación y desarrollo a nivel nacional.</p>
+</div>
+<div class="border-l-4 border-primary-container pl-6">
+<div class="text-6xl font-black mb-4 counter-value" data-target="10" data-suffix="k">0</div>
+<div class="font-label-mono uppercase tracking-widest text-primary-fixed-dim mb-2">Horas de Capacitación</div>
+<p class="text-surface-variant">Cursos, talleres y seminarios técnicos para nuestros miembros.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Areas of Operation Section -->
+<section class="py-16 px-4 md:py-24 md:px-16 max-w-container-max mx-auto bg-surface-container-lowest border-x-2 border-on-surface my-12">
+<h2 class="font-display-xl text-[36px] md:text-6xl uppercase text-on-surface mb-10 md:mb-16 border-b-4 border-on-surface pb-6">Áreas de Operación</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+<div class="border-2 border-on-surface p-8 hover:bg-surface-container-highest transition-colors group">
+<span class="material-symbols-outlined text-5xl mb-6 text-primary-container group-hover:text-on-surface transition-colors" data-icon="precision_manufacturing">precision_manufacturing</span>
+<h3 class="text-xl font-black uppercase mb-4">Ingeniería Mecánica</h3>
+<p class="text-tertiary">Diseño, análisis y manufactura de sistemas térmicos y mecánicos avanzados.</p>
+</div>
+<div class="border-2 border-on-surface p-8 hover:bg-surface-container-highest transition-colors group">
+<span class="material-symbols-outlined text-5xl mb-6 text-primary-container group-hover:text-on-surface transition-colors" data-icon="electric_bolt">electric_bolt</span>
+<h3 class="text-xl font-black uppercase mb-4">Ingeniería Eléctrica</h3>
+<p class="text-tertiary">Generación, transmisión y distribución de energía para el desarrollo sostenible.</p>
+</div>
+<div class="border-2 border-on-surface p-8 hover:bg-surface-container-highest transition-colors group">
+<span class="material-symbols-outlined text-5xl mb-6 text-primary-container group-hover:text-on-surface transition-colors" data-icon="memory">memory</span>
+<h3 class="text-xl font-black uppercase mb-4">Ingeniería Electrónica</h3>
+<p class="text-tertiary">Innovación en sistemas de control, automatización y telecomunicaciones.</p>
+</div>
+<div class="border-2 border-on-surface p-8 hover:bg-surface-container-highest transition-colors group">
+<span class="material-symbols-outlined text-5xl mb-6 text-primary-container group-hover:text-on-surface transition-colors" data-icon="engineering">engineering</span>
+<h3 class="text-xl font-black uppercase mb-4">Ramas Afines</h3>
+<p class="text-tertiary">Integración multidisciplinaria en mecatrónica, energía y tecnologías emergentes.</p>
+</div>
+</div>
+</section>
+
+    </div>
+
+    <div id="tab-capitulos" class="tab-content relative bg-background text-on-background technical-grid min-h-screen">
+        <div class="circuit-overlay-capitulos"></div>
+        <div class="relative z-10">
+            <main class="pt-20 relative z-10 technical-grid">
+<!-- Hero Section -->
+<section class="max-w-[1440px] mx-auto px-4 md:px-margin py-16 md:py-24 relative">
+<div class="grid grid-cols-12 gap-gutter items-center">
+<div class="col-span-12 lg:col-span-7 z-10">
+<p class="font-label-mono text-label-mono text-primary mb-4 uppercase tracking-widest border-b border-black inline-block pb-1">DIR_NAL_CAP</p>
+<h1 class="font-display-xl text-[56px] md:text-display-xl text-on-surface uppercase mb-6 drop-shadow-[4px_4px_0px_rgba(0,0,0,1)]">Red Nacional<br/>De Talento</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mb-12 bg-white p-4 border border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                        Explora la red de capítulos universitarios de ANEIMERA PERÚ. Un ecosistema interconectado de futuros líderes en ingeniería mecánica, eléctrica y electrónica.
+                    </p>
+</div>
+<div class="col-span-12 lg:col-span-5 relative mt-16 lg:mt-0 p-8 flex items-center justify-center">
+<picture>
+    <source type="image/avif" srcset="/assets/images/index-blueprint.avif">
+    <source type="image/webp" srcset="/assets/images/index-blueprint.webp">
+    <img alt="Technical Blueprint" class="w-full h-auto border-2 border-black shadow-[8px_8px_0px_0px_rgba(227,6,19,1)] grayscale contrast-125 object-cover aspect-square" src="/assets/images/index-blueprint.jpg" loading="lazy" width="800" height="800"/>
+</picture>
+<div class="absolute -bottom-6 -left-6 bg-primary-container text-white font-label-mono text-sm px-4 py-2 rotate-[-5deg]">EST. 1998</div>
+</div>
+</div>
+</section>
+<!-- Directory Section -->
+<section class="bg-white border-y-2 border-black">
+<div class="max-w-[1440px] mx-auto px-4 md:px-margin py-12 md:py-16">
+<div class="flex justify-between items-end mb-12 border-b-2 border-black pb-4">
+<h2 class="font-headline-md text-headline-md uppercase">Directorio<br/>Universitario</h2>
+<div class="relative w-72">
+<label class="font-label-mono text-label-mono block mb-1 uppercase">Buscar Capítulo</label>
+<div class="flex border border-black focus-within:border-primary">
+<span class="material-symbols-outlined p-2 text-on-surface-variant">search</span>
+<input id="search-capitulos" class="w-full border-none focus:ring-0 bg-transparent font-body-md text-body-md" placeholder="EJ: UNI, UNMSM..." type="text"/>
+</div>
+</div>
+</div>
+<div id="grid-capitulos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+    <!-- Contenido dinámico renderizado por JS -->
+</div>
+</div>
+</section>
+<!-- Foundation & Contact Section (Bento Grid) -->
+<section class="max-w-[1440px] mx-auto px-4 md:px-margin py-16 md:py-24">
+<div class="grid grid-cols-12 gap-unit auto-rows-[minmax(100px,_auto)]">
+<!-- Foundation Guide -->
+<div class="col-span-12 lg:col-span-8 bg-black text-white p-12 border-2 border-black relative overflow-hidden group">
+<div class="absolute inset-0 technical-grid opacity-20"></div>
+<div class="relative z-10">
+<p class="font-label-mono text-label-mono text-primary mb-2 uppercase border-b border-white/20 inline-block pb-1">PROTOCOLO_FUNDACION</p>
+<h2 class="font-headline-md text-headline-md uppercase mb-8">Cómo fundar<br/>Un Capítulo</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="border-t-2 border-primary pt-4">
+<span class="font-display-xl text-display-xl text-primary opacity-50 block mb-2 leading-none">01</span>
+<h4 class="font-inter uppercase font-bold text-sm mb-2">Requisitos Base</h4>
+<p class="font-body-md text-body-md text-zinc-400">Grupo mínimo de 15 estudiantes y respaldo de la facultad.</p>
+</div>
+<div class="border-t-2 border-primary pt-4">
+<span class="font-display-xl text-display-xl text-primary opacity-50 block mb-2 leading-none">02</span>
+<h4 class="font-inter uppercase font-bold text-sm mb-2">Documentación</h4>
+<p class="font-body-md text-body-md text-zinc-400">Presentación de estatutos internos y plan de trabajo anual.</p>
+</div>
+<div class="border-t-2 border-primary pt-4">
+<span class="font-display-xl text-display-xl text-primary opacity-50 block mb-2 leading-none">03</span>
+<h4 class="font-inter uppercase font-bold text-sm mb-2">Aprobación NAL</h4>
+<p class="font-body-md text-body-md text-zinc-400">Evaluación y resolución por la asamblea nacional.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Contact Form -->
+<div class="col-span-12 lg:col-span-4 bg-white border-2 border-black p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+<p class="font-label-mono text-label-mono text-on-surface-variant mb-2 uppercase border-b border-black inline-block pb-1">FORMULARIO_CONTACTO</p>
+<h3 class="font-headline-sm text-headline-sm uppercase mb-6">Iniciar Proceso</h3>
+<form id="form-capitulos" class="space-y-6">
+<div>
+<label class="font-label-mono text-label-mono block mb-2 uppercase text-on-surface">Universidad</label>
+<input id="cap-uni" required class="w-full border-0 border-b border-black bg-transparent focus:ring-0 focus:border-primary font-body-md text-body-md py-2 px-0" placeholder="Nombre completo de institución" type="text"/>
+</div>
+<div>
+<label class="font-label-mono text-label-mono block mb-2 uppercase text-on-surface">Representante</label>
+<input id="cap-rep" required class="w-full border-0 border-b border-black bg-transparent focus:ring-0 focus:border-primary font-body-md text-body-md py-2 px-0" placeholder="Nombres y Apellidos" type="text"/>
+</div>
+<div>
+<label class="font-label-mono text-label-mono block mb-2 uppercase text-on-surface">Email de contacto</label>
+<input id="cap-email" required class="w-full border-0 border-b border-black bg-transparent focus:ring-0 focus:border-primary font-body-md text-body-md py-2 px-0" placeholder="correo@institucional.edu.pe" type="email"/>
+</div>
+<button class="w-full py-4 bg-primary text-white font-inter uppercase font-bold text-sm border border-black hover:bg-black transition-colors shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none" type="submit">
+                            ENVIAR SOLICITUD
+                        </button>
+</form>
+</div>
+</div>
+</section>
+</main>
+        </div>
+    </div>
+
+    <div id="tab-eventos" class="tab-content relative bg-background text-on-background">
+        
+<header class="w-full bg-surface-container-highest border-b-2 border-on-background pt-24 pb-16 relative overflow-hidden circuit-overlay-eventos">
+<div class="max-w-[1440px] mx-auto px-4 md:px-16 relative z-10">
+<div class="flex flex-col md:flex-row justify-between items-end gap-8">
+<div>
+<span class="font-label-mono text-label-mono text-tertiary uppercase tracking-widest block mb-4 border-l-2 border-primary pl-4">PROGRAMACIÓN ESTRATÉGICA</span>
+<h1 class="font-display-xl text-[56px] md:text-display-xl text-on-background uppercase">Agenda 2026</h1>
+</div>
+<div class="flex items-center gap-4 border-2 border-on-background p-4 bg-surface-container-lowest">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">calendar_month</span>
+<div>
+<div class="font-label-mono text-label-mono text-tertiary">ESTADO ACTUAL</div>
+<div class="font-body-md text-body-md font-bold text-on-background">PLANIFICACIÓN ACTIVA</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-[1440px] mx-auto w-full">
+<!-- Calendar & Events Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-0 border-b-2 border-on-background">
+<aside class="lg:col-span-2 border-r-2 border-on-background bg-surface-container p-8">
+<div class="font-label-mono text-label-mono text-tertiary uppercase mb-4 border-b border-surface-dim pb-2">Filtros de Evento</div>
+<div class="mb-8">
+<h3 class="font-inter font-bold uppercase text-sm mb-3">Categoría</h3>
+<div class="space-y-2 font-body-md text-body-md">
+<label class="flex items-center gap-2"><input class="filter-evento-cat accent-primary" type="checkbox" value="Conferencia"/> Conferencias</label>
+<label class="flex items-center gap-2"><input class="filter-evento-cat accent-primary" type="checkbox" value="Visita"/> Visitas Industriales</label>
+<label class="flex items-center gap-2"><input class="filter-evento-cat accent-primary" type="checkbox" value="Taller"/> Talleres Técnicos</label>
+<label class="flex items-center gap-2"><input class="filter-evento-cat accent-primary" type="checkbox" value="Networking"/> Networking</label>
+</div>
+</div>
+<div>
+<h3 class="font-inter font-bold uppercase text-sm mb-3">Sede</h3>
+<select id="filter-evento-sede" class="w-full border border-on-background bg-surface-container-lowest px-3 py-2 font-body-md text-body-md">
+<option value="ALL">Nacional</option>
+<option value="LIMA">Lima</option>
+<option value="AREQUIPA">Arequipa</option>
+<option value="TRUJILLO">Trujillo</option>
+<option value="PIURA">Piura</option>
+<option value="CUSCO">Cusco</option>
+</select>
+</div>
+</aside>
+
+<section class="lg:col-span-10 p-8 md:p-12 bg-surface-container-lowest">
+<h2 class="font-headline-sm text-headline-sm uppercase mb-6">Calendario Técnico - Próximos Eventos</h2>
+<div class="space-y-4" id="dynamic-eventos" role="status" aria-busy="true" aria-label="Cargando eventos">
+<div class="h-40 border-2 border-on-background bg-surface-container-low animate-pulse"></div>
+<div class="h-40 border-2 border-on-background bg-surface-container-low animate-pulse"></div>
+</div>
+</section>
+</div>
+
+<!-- Past Events & Gallery Section -->
+<section class="py-16 px-6 md:px-16 bg-surface-container-high border-b-2 border-on-background">
+<div class="flex justify-between items-end mb-12">
+<div>
+<h2 class="font-headline-md text-headline-md uppercase mb-2">Eventos Pasados</h2>
+<p class="font-label-mono text-label-mono text-tertiary uppercase">Archivo Técnico y Certificaciones</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="dynamic-eventos-pasados" role="status" aria-busy="true" aria-label="Cargando eventos pasados">
+<div class="h-64 border-2 border-on-background bg-surface-container-lowest animate-pulse"></div>
+<div class="h-64 border-2 border-on-background bg-surface-container-lowest animate-pulse"></div>
+<div class="h-64 border-2 border-on-background bg-surface-container-lowest animate-pulse"></div>
+</div>
+</section>
+</main>
+
+    </div>
+
+    <div id="tab-membresia" class="tab-content blueprint-grid">
+        <main class="pt-24 pb-8 px-4 md:pt-32 md:pb-margin md:px-margin max-w-container-max mx-auto blueprint-grid min-h-screen">
+<!-- Hero Section -->
+<section class="mb-24 grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
+<div class="col-span-1 lg:col-span-7">
+<div class="inline-block bg-on-surface text-on-primary px-3 py-1 font-label-mono text-label-mono mb-6 uppercase tracking-widest border border-on-surface shadow-[4px_4px_0px_0px_rgba(26,28,28,1)]">REQ_2024_01</div>
+<h1 class="font-headline-lg text-[40px] md:text-headline-lg text-on-surface mb-6 uppercase leading-tight">
+                    INTEGRIDAD.<br/>INNOVACIÓN.<br/><span class="text-primary">EXCELENCIA.</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl border-l-4 border-primary pl-6 py-2 mb-8 bg-surface-container-low/50">
+                    Únete a la red más prestigiosa de estudiantes de ingeniería en el Perú. Construye el futuro, conecta con líderes de la industria y potencia tus habilidades técnicas y blandas en un entorno de alto rendimiento.
+                </p>
+<a class="inline-flex items-center justify-center bg-primary text-on-primary font-inter uppercase font-bold text-sm px-8 py-4 rounded-none hover:bg-on-surface transition-colors shadow-[4px_4px_0px_0px_rgba(26,28,28,1)] active:translate-y-1 active:shadow-none gap-2" href="#formulario">
+                    INICIAR POSTULACIÓN <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+<div class="col-span-1 lg:col-span-5 relative h-[500px] border-2 border-on-surface shadow-[8px_8px_0px_0px_rgba(26,28,28,1)] bg-surface-container overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('/assets/images/membership-hero.jpg');"></div>
+<!-- Technical Overlay -->
+<div class="absolute top-0 left-0 w-full h-8 bg-on-surface flex items-center px-4 justify-between">
+<span class="font-label-mono text-label-mono text-on-primary">SYS_OPT_01</span>
+<div class="flex gap-2">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<div class="w-2 h-2 rounded-full bg-surface-variant"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Timeline Section -->
+<section class="mb-24 border-t-2 border-b-2 border-on-surface py-16 relative">
+<div class="absolute left-1/2 top-0 bottom-0 w-[2px] bg-on-surface -translate-x-1/2 opacity-20 hidden md:block"></div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-16 text-center uppercase">Proceso de Selección</h2>
+<div class="space-y-16 relative">
+<!-- Step 1 -->
+<div class="flex flex-col md:flex-row items-center gap-8 md:gap-16">
+<div class="md:w-1/2 text-right hidden md:block">
+<h3 class="font-headline-sm text-headline-sm text-on-surface uppercase">Postulación</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Completa el formulario de registro con tus datos académicos y áreas de interés. Asegúrate de adjuntar tu CV actualizado.</p>
+</div>
+<div class="relative z-10 w-16 h-16 bg-surface-container-lowest border-4 border-primary text-primary flex items-center justify-center font-headline-sm shrink-0">
+                        01
+                    </div>
+<div class="md:w-1/2 text-left md:hidden text-center">
+<h3 class="font-headline-sm text-headline-sm text-on-surface uppercase">Postulación</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Completa el formulario de registro con tus datos académicos y áreas de interés. Asegúrate de adjuntar tu CV actualizado.</p>
+</div>
+<div class="md:w-1/2 md:flex justify-start hidden">
+<div class="border-l-4 border-primary pl-6 py-4 bg-surface-container-low max-w-sm">
+<span class="font-label-mono text-label-mono text-primary block mb-2">OUTPUT_EXPECTED</span>
+<span class="font-body-md text-body-md text-on-surface">Perfil digital completo y CV validado en sistema.</span>
+</div>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="flex flex-col md:flex-row items-center gap-8 md:gap-16">
+<div class="md:w-1/2 md:flex justify-end hidden">
+<div class="border-r-4 border-on-surface pr-6 py-4 bg-surface-container-low max-w-sm text-right">
+<span class="font-label-mono text-label-mono text-on-surface-variant block mb-2">EVAL_CRITERIA</span>
+<span class="font-body-md text-body-md text-on-surface">Habilidades técnicas, liderazgo y alineación cultural.</span>
+</div>
+</div>
+<div class="relative z-10 w-16 h-16 bg-on-surface text-on-primary flex items-center justify-center font-headline-sm shrink-0">
+                        02
+                    </div>
+<div class="md:w-1/2 text-left text-center md:text-left">
+<h3 class="font-headline-sm text-headline-sm text-on-surface uppercase">Evaluación</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Revisión de perfiles por el comité técnico. Se evaluará el rendimiento académico y la experiencia previa en proyectos extracurriculares.</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="flex flex-col md:flex-row items-center gap-8 md:gap-16">
+<div class="md:w-1/2 text-right hidden md:block">
+<h3 class="font-headline-sm text-headline-sm text-on-surface uppercase">Entrevista</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Entrevista presencial o virtual con directores de área. Presentación de un caso de estudio breve enfocado en tu área de interés.</p>
+</div>
+<div class="relative z-10 w-16 h-16 bg-surface-container-lowest border-4 border-on-surface text-on-surface flex items-center justify-center font-headline-sm shrink-0">
+                        03
+                    </div>
+<div class="md:w-1/2 text-left md:hidden text-center">
+<h3 class="font-headline-sm text-headline-sm text-on-surface uppercase">Entrevista</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Entrevista presencial o virtual con directores de área. Presentación de un caso de estudio breve enfocado en tu área de interés.</p>
+</div>
+<div class="md:w-1/2 md:flex justify-start hidden">
+<div class="border-l-4 border-primary pl-6 py-4 bg-surface-container-low max-w-sm">
+<span class="font-label-mono text-label-mono text-primary block mb-2">PHASE_STATUS</span>
+<span class="font-body-md text-body-md text-on-surface">Resolución de problemas en tiempo real.</span>
+</div>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="flex flex-col md:flex-row items-center gap-8 md:gap-16">
+<div class="md:w-1/2 md:flex justify-end hidden">
+<div class="border-r-4 border-on-surface pr-6 py-4 bg-primary text-on-primary max-w-sm text-right shadow-[4px_4px_0px_0px_rgba(26,28,28,1)]">
+<span class="font-label-mono text-label-mono text-on-primary/80 block mb-2">FINAL_STAGE</span>
+<span class="font-body-md text-body-md text-on-primary font-bold">Bienvenido a la red ANEIMERA.</span>
+</div>
+</div>
+<div class="relative z-10 w-16 h-16 bg-primary text-on-primary flex items-center justify-center font-headline-sm shrink-0 shadow-[4px_4px_0px_0px_rgba(26,28,28,1)]">
+                        04
+                    </div>
+<div class="md:w-1/2 text-left text-center md:text-left">
+<h3 class="font-headline-sm text-headline-sm text-on-surface uppercase">Onboarding</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Inducción oficial, asignación de mentor y acceso a todas las plataformas y beneficios exclusivos de la asociación.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Application Form Section -->
+<section class="mb-24" id="formulario">
+<div class="bg-surface-container-lowest border-2 border-on-surface shadow-[8px_8px_0px_0px_rgba(26,28,28,1)] p-0">
+<!-- Header Bar -->
+<div class="bg-on-surface px-8 py-4 flex justify-between items-center text-on-primary">
+<h2 class="font-inter uppercase font-bold tracking-widest text-lg">Formulario de Aplicación</h2>
+<span class="font-label-mono text-label-mono opacity-80">SYS_INPUT_FORM_V1.2</span>
+</div>
+<div class="p-8 md:p-12">
+<form class="space-y-10">
+<!-- Personal Info -->
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface uppercase border-b-2 border-on-surface pb-2 mb-6 flex items-center justify-between">
+                                Información Personal
+                                <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">person</span>
+</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="flex flex-col">
+<label class="font-label-mono text-label-mono text-on-surface-variant uppercase mb-2" for="nombres">Nombres Completos</label>
+<input class="border-0 border-b-[1px] border-on-surface bg-transparent py-2 focus:ring-0 focus:border-primary font-body-md text-on-surface px-0 rounded-none" id="nombres" placeholder="Ej. Juan Carlos" type="text" required minlength="2" maxlength="100"/>
+</div>
+<div class="flex flex-col">
+<label class="font-label-mono text-label-mono text-on-surface-variant uppercase mb-2" for="apellidos">Apellidos</label>
+<input class="border-0 border-b-[1px] border-on-surface bg-transparent py-2 focus:ring-0 focus:border-primary font-body-md text-on-surface px-0 rounded-none" id="apellidos" placeholder="Ej. Pérez Gómez" type="text" required minlength="2" maxlength="100"/>
+</div>
+<div class="flex flex-col">
+<label class="font-label-mono text-label-mono text-on-surface-variant uppercase mb-2" for="email">Correo Electrónico</label>
+<input class="border-0 border-b-[1px] border-on-surface bg-transparent py-2 focus:ring-0 focus:border-primary font-body-md text-on-surface px-0 rounded-none" id="email" placeholder="correo@universidad.edu.pe" type="email" required maxlength="254"/>
+</div>
+<div class="flex flex-col">
+<label class="font-label-mono text-label-mono text-on-surface-variant uppercase mb-2" for="telefono">Teléfono Móvil</label>
+<input class="border-0 border-b-[1px] border-on-surface bg-transparent py-2 focus:ring-0 focus:border-primary font-body-md text-on-surface px-0 rounded-none" id="telefono" placeholder="+51 999 999 999" type="tel" required pattern="[0-9+\s\(\)\-]{7,20}" title="Ingresa un número de teléfono válido"/>
+</div>
+</div>
+</div>
+<!-- Academic Info -->
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface uppercase border-b-2 border-on-surface pb-2 mb-6 flex items-center justify-between">
+                                Datos Académicos
+                                <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">school</span>
+</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="flex flex-col md:col-span-2">
+<label class="font-label-mono text-label-mono text-on-surface-variant uppercase mb-2" for="universidad">Universidad</label>
+<select class="border-0 border-b-[1px] border-on-surface bg-transparent py-2 focus:ring-0 focus:border-primary font-body-md text-on-surface px-0 rounded-none uppercase" id="universidad" required>
+<option value="">Seleccione su institución...</option>
+<option value="uni">Universidad Nacional de Ingeniería (UNI)</option>
+<option value="unmsm">Universidad Nacional Mayor de San Marcos (UNMSM)</option>
+<option value="pucp">Pontificia Universidad Católica del Perú (PUCP)</option>
+<option value="other">Otra</option>
+</select>
+</div>
+<div class="flex flex-col">
+<label class="font-label-mono text-label-mono text-on-surface-variant uppercase mb-2" for="carrera">Carrera / Especialidad</label>
+<input class="border-0 border-b-[1px] border-on-surface bg-transparent py-2 focus:ring-0 focus:border-primary font-body-md text-on-surface px-0 rounded-none" id="carrera" placeholder="Ej. Ingeniería Mecatrónica" type="text" required minlength="3" maxlength="150"/>
+</div>
+<div class="flex flex-col">
+<label class="font-label-mono text-label-mono text-on-surface-variant uppercase mb-2" for="ciclo">Ciclo Actual</label>
+<select class="border-0 border-b-[1px] border-on-surface bg-transparent py-2 focus:ring-0 focus:border-primary font-body-md text-on-surface px-0 rounded-none uppercase" id="ciclo" required>
+<option value="">Seleccionar...</option>
+<option value="1-3">1ro a 3er Ciclo</option>
+<option value="4-6">4to a 6to Ciclo</option>
+<option value="7-9">7mo a 9no Ciclo</option>
+<option value="10+">10mo Ciclo o Egresado</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Areas of Interest (Bento style selection) -->
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface uppercase border-b-2 border-on-surface pb-2 mb-6 flex items-center justify-between">
+                                Área de Interés
+                                <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">account_tree</span>
+</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Selecciona el área principal donde deseas aportar y desarrollarte dentro de la asociación.</p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Option 1 -->
+<label class="relative block cursor-pointer group">
+<input class="peer sr-only" name="area" type="radio" value="proyectos"/>
+<div class="h-full border-2 border-on-surface p-6 hover:bg-surface-container-low transition-colors peer-checked:bg-on-surface peer-checked:text-on-primary peer-checked:shadow-[4px_4px_0px_0px_rgba(227,6,19,1)]">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-3xl group-hover:text-primary peer-checked:text-primary transition-colors">precision_manufacturing</span>
+<div class="w-4 h-4 border-2 border-current rounded-none peer-checked:bg-primary peer-checked:border-primary"></div>
+</div>
+<h4 class="font-inter font-bold uppercase text-lg mb-2">Proyectos</h4>
+<p class="font-label-mono text-label-mono opacity-80 uppercase">Desarrollo Técnico e Innovación</p>
+</div>
+</label>
+<!-- Option 2 -->
+<label class="relative block cursor-pointer group">
+<input class="peer sr-only" name="area" type="radio" value="marketing"/>
+<div class="h-full border-2 border-on-surface p-6 hover:bg-surface-container-low transition-colors peer-checked:bg-on-surface peer-checked:text-on-primary peer-checked:shadow-[4px_4px_0px_0px_rgba(227,6,19,1)]">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-3xl group-hover:text-primary peer-checked:text-primary transition-colors">campaign</span>
+<div class="w-4 h-4 border-2 border-current rounded-none peer-checked:bg-primary peer-checked:border-primary"></div>
+</div>
+<h4 class="font-inter font-bold uppercase text-lg mb-2">Marketing</h4>
+<p class="font-label-mono text-label-mono opacity-80 uppercase">Comunicaciones y Relaciones Públicas</p>
+</div>
+</label>
+<!-- Option 3 -->
+<label class="relative block cursor-pointer group">
+<input class="peer sr-only" name="area" type="radio" value="presidencia"/>
+<div class="h-full border-2 border-on-surface p-6 hover:bg-surface-container-low transition-colors peer-checked:bg-on-surface peer-checked:text-on-primary peer-checked:shadow-[4px_4px_0px_0px_rgba(227,6,19,1)]">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-3xl group-hover:text-primary peer-checked:text-primary transition-colors">account_balance</span>
+<div class="w-4 h-4 border-2 border-current rounded-none peer-checked:bg-primary peer-checked:border-primary"></div>
+</div>
+<h4 class="font-inter font-bold uppercase text-lg mb-2">Gestión</h4>
+<p class="font-label-mono text-label-mono opacity-80 uppercase">Liderazgo y Administración Directiva</p>
+</div>
+</label>
+</div>
+</div>
+<div class="pt-8 border-t-[1px] border-on-surface flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-3 w-full md:w-auto">
+<input type="checkbox" id="privacy-consent" required class="w-5 h-5 border-2 border-black bg-transparent text-primary focus:ring-0 rounded-none cursor-pointer">
+<label for="privacy-consent" class="font-body-md text-sm text-on-surface-variant max-w-sm">Acepto la <button type="button" class="text-primary hover:underline font-bold bg-transparent border-0 p-0" onclick="window.showInfoModal('Política de privacidad', 'La política de privacidad se encuentra en desarrollo. El tratamiento de datos se realiza conforme a la Ley N° 29733.')">política de privacidad</button> y el tratamiento de mis datos personales según la Ley N° 29733.</label>
+</div>
+<button class="w-full md:w-auto bg-primary text-on-primary font-inter uppercase font-bold text-sm px-12 py-4 rounded-none hover:bg-on-surface transition-colors shadow-[4px_4px_0px_0px_rgba(26,28,28,1)] active:translate-y-1 active:shadow-none flex items-center justify-center gap-2" type="submit">
+                                ENVIAR APLICACIÓN <span class="material-symbols-outlined text-[18px]">send</span>
+</button>
+</div>
+</form>
+</div>
+</div>
+</section>
+<!-- FAQ Section -->
+<section class="mb-24 grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<div class="col-span-1 lg:col-span-4">
+<div class="sticky top-28">
+<h2 class="font-headline-md text-headline-md text-on-surface uppercase mb-4">Beneficios &amp; FAQ</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Información vital sobre el valor de la membresía en la Asociación Nacional de Estudiantes de Ingeniería.</p>
+<div class="w-16 h-2 bg-primary mb-8"></div>
+</div>
+</div>
+<div class="col-span-1 lg:col-span-8 space-y-6">
+<!-- FAQ Item 1 -->
+<div class="border-2 border-on-surface bg-surface-container-lowest p-6 hover:shadow-[4px_4px_0px_0px_rgba(26,28,28,1)] transition-shadow cursor-pointer group">
+<h3 class="font-headline-sm text-headline-sm text-on-surface uppercase flex justify-between items-center mb-4">
+                        Networking Industrial
+                        <span class="material-symbols-outlined text-primary group-hover:rotate-45 transition-transform">add</span>
+</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Acceso directo a una red de contactos que incluye gerentes de proyectos, ingenieros senior y directores de las principales empresas del sector minero, energético y manufacturero del país.</p>
+</div>
+<!-- FAQ Item 2 -->
+<div class="border-2 border-on-surface bg-surface-container-lowest p-6 hover:shadow-[4px_4px_0px_0px_rgba(26,28,28,1)] transition-shadow cursor-pointer group">
+<h3 class="font-headline-sm text-headline-sm text-on-surface uppercase flex justify-between items-center mb-4">
+                        Talleres Técnicos Especializados
+                        <span class="material-symbols-outlined text-primary group-hover:rotate-45 transition-transform">add</span>
+</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Capacitaciones exclusivas en software de diseño (CAD/CAM), simulación de procesos, automatización industrial e instrumentación impartidas por profesionales certificados.</p>
+</div>
+<!-- FAQ Item 3 -->
+<div class="border-2 border-on-surface bg-surface-container-lowest p-6 hover:shadow-[4px_4px_0px_0px_rgba(26,28,28,1)] transition-shadow cursor-pointer group">
+<h3 class="font-headline-sm text-headline-sm text-on-surface uppercase flex justify-between items-center mb-4">
+                        Convenios e Instituciones
+                        <span class="material-symbols-outlined text-primary group-hover:rotate-45 transition-transform">add</span>
+</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Descuentos significativos en certificaciones internacionales, cursos de posgrado y eventos organizados por colegios de ingenieros y cámaras de comercio aliadas a ANEIMERA.</p>
+</div>
+</div>
+</section>
+<!-- Redes Sociales Section -->
+<section class="mb-24" id="redes-sociales">
+<div class="border-t-2 border-b-2 border-on-surface py-16">
+<h2 class="font-headline-md text-headline-md text-on-surface uppercase mb-4 text-center">Síguenos en Redes</h2>
+<p class="font-body-md text-body-md text-on-surface-variant text-center mb-12">Conecta con la comunidad ANEIMERA PERÚ en todas las plataformas.</p>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+<a href="https://facebook.com/aneimeraperu" target="_blank" rel="noopener noreferrer" class="group border-2 border-on-surface bg-surface-container-lowest p-8 flex flex-col items-center gap-4 hover:bg-on-surface hover:text-on-primary transition-all duration-200 hover:shadow-[8px_8px_0px_0px_rgba(227,6,19,1)]">
+<svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+<span class="font-label-mono text-label-mono uppercase tracking-widest">Facebook</span>
+</a>
+<a href="https://instagram.com/aneimeraperu" target="_blank" rel="noopener noreferrer" class="group border-2 border-on-surface bg-surface-container-lowest p-8 flex flex-col items-center gap-4 hover:bg-on-surface hover:text-on-primary transition-all duration-200 hover:shadow-[8px_8px_0px_0px_rgba(227,6,19,1)]">
+<svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+<span class="font-label-mono text-label-mono uppercase tracking-widest">Instagram</span>
+</a>
+<a href="https://linkedin.com/company/aneimeraperu" target="_blank" rel="noopener noreferrer" class="group border-2 border-on-surface bg-surface-container-lowest p-8 flex flex-col items-center gap-4 hover:bg-on-surface hover:text-on-primary transition-all duration-200 hover:shadow-[8px_8px_0px_0px_rgba(227,6,19,1)]">
+<svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+<span class="font-label-mono text-label-mono uppercase tracking-widest">LinkedIn</span>
+</a>
+<a href="https://tiktok.com/@aneimeraperu" target="_blank" rel="noopener noreferrer" class="group border-2 border-on-surface bg-surface-container-lowest p-8 flex flex-col items-center gap-4 hover:bg-on-surface hover:text-on-primary transition-all duration-200 hover:shadow-[8px_8px_0px_0px_rgba(227,6,19,1)]">
+<svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+<span class="font-label-mono text-label-mono uppercase tracking-widest">TikTok</span>
+</a>
+</div>
+</div>
+</section>
+</main>
+    </div>
+
+    <div id="tab-noticias" class="tab-content grid-bg-noticias">
+      <main class="pt-24 pb-8 px-4 md:pt-32 md:pb-margin md:px-margin max-w-container-max mx-auto">
+  <!-- Header Section -->
+  <div class="mb-gutter border-b-4 border-black pb-4">
+  <h1 class="font-display-xl text-[52px] md:text-display-xl text-on-background uppercase mb-4">Editorial Técnico</h1>
+  <div class="flex gap-6 font-label-mono text-label-mono text-tertiary">
+  <span class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">article</span> V.2026.01</span>
+  <span class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">date_range</span> <span id="header-fecha-actual"></span></span>
+  <span class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">location_on</span> LIMA, PE</span>
+  </div>
+  </div>
+  <div class="grid grid-cols-12 gap-gutter">
+  <!-- Main Featured Article (Span 8) - DINÁMICO -->
+  <div class="col-span-12 lg:col-span-8 border-2 border-black p-6 bg-surface relative circuit-pattern" id="reportaje-principal-container" role="status" aria-busy="true" aria-label="Cargando reportaje principal">
+  <div class="absolute top-0 right-0 bg-black text-white px-4 py-1 font-label-mono text-label-mono">REPORTAJE PRINCIPAL</div>
+  <div class="h-96 w-full border-2 border-black mb-6 bg-surface-container overflow-hidden animate-pulse" id="rp-img-wrapper">
+  </div>
+  <div class="flex gap-4 font-label-mono text-label-mono text-primary mb-4" id="rp-meta"></div>
+  <h2 class="font-headline-md text-headline-md mb-4 uppercase" id="rp-titulo">Cargando reportaje principal...</h2>
+  <p class="font-body-lg text-body-lg text-on-surface-variant mb-6" id="rp-desc"></p>
+  <a id="rp-link" href="#" aria-disabled="true" tabindex="-1" class="inline-flex bg-black text-white px-6 py-3 font-label-mono text-label-mono items-center gap-2 uppercase cut-corner cursor-not-allowed opacity-60 pointer-events-none transition-colors">
+    Leer Artículo Completo <span class="material-symbols-outlined">arrow_forward</span>
+  </a>
+  </div>
+  <!-- Sidebar (Span 4) -->
+  <div class="col-span-12 lg:col-span-4 flex flex-col gap-gutter">
+  <!-- Latest Updates Widget - DINÁMICO -->
+  <div class="border-2 border-black bg-white">
+  <div class="bg-on-secondary-fixed text-white p-3 font-label-mono text-label-mono flex justify-between items-center">
+  <span>ULTIMAS ACTUALIZACIONES</span>
+  <span class="material-symbols-outlined text-[16px]">sync</span>
+  </div>
+  <div class="p-4 flex flex-col gap-4" id="ultimas-actualizaciones-container" role="status" aria-busy="true" aria-label="Cargando últimas publicaciones">
+  <div class="animate-pulse h-16 bg-surface-container w-full"></div>
+  <div class="animate-pulse h-16 bg-surface-container w-full"></div>
+  <div class="animate-pulse h-16 bg-surface-container w-full"></div>
+  </div>
+  </div>
+  <!-- Categories -->
+  <div class="border-2 border-black bg-surface p-4">
+  <h3 class="font-label-mono text-label-mono text-black border-b border-black pb-2 mb-4">CATEGORÍAS DE PUBLICACIÓN</h3>
+  <ul class="flex flex-col gap-2 font-body-md text-body-md uppercase font-bold">
+  <li class="flex justify-between items-center hover:text-primary cursor-pointer transition-colors p-2 hover:bg-surface-container">
+  <span>Investigación Aplicada</span>
+  <span class="font-label-mono text-label-mono text-tertiary" id="cat-count-investigacion">—</span>
+  </li>
+  <li class="flex justify-between items-center hover:text-primary cursor-pointer transition-colors p-2 hover:bg-surface-container">
+  <span>Institucional</span>
+  <span class="font-label-mono text-label-mono text-tertiary" id="cat-count-institucional">—</span>
+  </li>
+  <li class="flex justify-between items-center hover:text-primary cursor-pointer transition-colors p-2 hover:bg-surface-container">
+  <span>Opinión Técnica</span>
+  <span class="font-label-mono text-label-mono text-tertiary" id="cat-count-opinion">—</span>
+  </li>
+  <li class="flex justify-between items-center hover:text-primary cursor-pointer transition-colors p-2 hover:bg-surface-container">
+  <span>Comunidad Estudiantil</span>
+  <span class="font-label-mono text-label-mono text-tertiary" id="cat-count-comunidad">—</span>
+  </li>
+  </ul>
+  </div>
+  </div>
+  </div>
+  <!-- Secondary Articles Grid - Solo INVESTIGACIÓN -->
+  <div class="mt-margin">
+  <h2 class="font-headline-sm text-headline-sm uppercase border-b-2 border-black pb-2 mb-gutter flex justify-between items-end">
+  <span>Archivo Técnico</span>
+  <span class="font-label-mono text-label-mono text-primary font-normal border border-primary px-2 py-1">INVESTIGACIÓN</span>
+  </h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter" id="dynamic-noticias">
+  <!-- Dynamic news investigación will be rendered here -->
+  </div>
+  </div>
+  <!-- Newsletter Subscription -->
+  <div class="mt-margin bg-on-surface text-white border-4 border-black p-8 relative overflow-hidden">
+  <div class="absolute inset-0 circuit-pattern opacity-20"></div>
+  <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+  <div>
+  <h2 class="font-headline-md text-[32px] md:text-headline-md text-primary mb-2 uppercase">Boletín Técnico</h2>
+  <p class="font-body-lg text-body-lg text-surface-dim mb-6">Suscríbase para recibir notificaciones de nuevas publicaciones, convocatorias y eventos.</p>
+  </div>
+  <div>
+  <form id="form-suscripcion" class="flex flex-col gap-4">
+  <div class="flex flex-col">
+  <label class="font-label-mono text-label-mono text-surface-dim mb-1" for="email_sub">DIRECCIÓN DE CORREO [REQ]</label>
+  <input class="bg-transparent border-b-2 border-white focus:border-primary outline-none py-2 font-body-md text-white placeholder:text-tertiary" id="email_sub" placeholder="ingeniero@ejemplo.pe" required="" type="email"/>
+  </div>
+  <div class="flex items-center gap-2 mt-2">
+  <input class="border-2 border-white bg-transparent text-primary focus:ring-0 w-4 h-4 rounded-none" id="consent" required="" type="checkbox"/>
+  <label class="font-label-mono text-label-mono text-surface-dim" for="consent">ACEPTO TÉRMINOS DE COMUNICACIÓN</label>
+  </div>
+  <button class="bg-primary text-white font-label-mono text-label-mono uppercase py-4 mt-4 hover:bg-white hover:text-black transition-colors border-2 border-transparent hover:border-black cut-corner flex justify-center items-center gap-2" id="btn-suscribirse" type="submit">
+    SUSCRIBIRSE AL SISTEMA <span class="material-symbols-outlined">send</span>
+  </button>
+  </form>
+  </div>
+  </div>
+  </div>
+  </main>
+    </div>
+
+    <footer class="w-full py-12 px-4 md:px-16 flex flex-col md:flex-row justify-between items-start gap-8 bg-inverse-surface border-t-4 border-primary-container">
+<div class="flex flex-col gap-4">
+<div class="text-surface-container-lowest font-black text-xl">
+                ANEIMERA PERÚ
+            </div>
+<div class="font-inter uppercase text-[10px] tracking-widest text-surface-dim max-w-md leading-relaxed">
+                © 2026 ANEIMERA PERÚ | ASOCIACIÓN NACIONAL DE ESTUDIANTES DE INGENIERÍA MECÁNICA, ELÉCTRICA, ELECTRÓNICA Y RAMAS AFINES
+            </div>
+</div>
+<div class="flex flex-wrap gap-8 font-inter uppercase text-[10px] tracking-widest">
+<a class="text-surface-dim hover:text-surface-container-lowest hover:underline decoration-primary-container decoration-2 transition-opacity duration-200 cursor-pointer" href="pages/directorio.html">Directorio Nacional</a>
+<button type="button" class="text-surface-dim hover:text-surface-container-lowest hover:underline decoration-primary-container decoration-2 transition-opacity duration-200 cursor-pointer bg-transparent border-0 p-0" onclick="window.showInfoModal('Estatutos', 'Los estatutos se encuentran en revisión y se publicarán cuando estén formalmente actualizados.')">Estatutos</button>
+<button type="button" class="text-surface-dim hover:text-surface-container-lowest hover:underline decoration-primary-container decoration-2 transition-opacity duration-200 cursor-pointer bg-transparent border-0 p-0" onclick="window.showInfoModal('Transparencia', 'El portal de transparencia todavía está en desarrollo. Cuando esté listo, se publicará aquí.')">Transparencia</button>
+<a class="text-surface-dim hover:text-surface-container-lowest hover:underline decoration-primary-container decoration-2 transition-opacity duration-200 cursor-pointer" onclick="switchTab('membresia')">Contacto</a>
+</div>
+</footer>
+
+    <div id="info-modal" class="fixed inset-0 z-[70] hidden bg-black/80 p-4" role="dialog" aria-modal="true" aria-labelledby="info-modal-title">
+      <div class="w-full max-w-lg border-2 border-black bg-surface-container-lowest shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] mx-auto my-auto" style="transform: translate(-50%, -50%); left: 50%; top: 50%;">
+        <div class="flex items-center justify-between border-b-2 border-black bg-black px-6 py-4 text-white">
+          <h3 id="info-modal-title" class="font-headline-sm text-headline-sm uppercase">Información</h3>
+          <button type="button" class="font-label-mono text-label-mono uppercase hover:text-primary transition-colors" onclick="window.closeInfoModal()">Cerrar</button>
+        </div>
+        <div class="px-6 py-6">
+          <p id="info-modal-body" class="font-body-md text-body-md text-on-surface-variant leading-relaxed"></p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+    const VALID_TABS = ['inicio', 'capitulos', 'eventos', 'membresia', 'noticias'];
+
+    function switchTab(tabId, pushState = true) {
+        if (!VALID_TABS.includes(tabId)) tabId = 'inicio';
+        document.querySelectorAll('.tab-content').forEach(el => {
+            el.style.display = 'none';
+        });
+        const target = document.getElementById('tab-' + tabId);
+        if (target) target.style.display = 'block';
+        document.querySelectorAll('.tab-link').forEach(el => {
+            el.classList.remove('text-primary-container', 'border-b-2', 'border-primary-container', 'pb-1');
+            el.classList.add('text-on-surface');
+        });
+        const activeLink = document.querySelector(`.tab-link[data-tab="${tabId}"]`);
+        if (activeLink) {
+            activeLink.classList.remove('text-on-surface');
+            activeLink.classList.add('text-primary-container', 'border-b-2', 'border-primary-container', 'pb-1');
+        }
+        if (pushState) history.pushState({ tabId }, '', tabId === 'inicio' ? location.pathname : '#' + tabId);
+        window.scrollTo(0, 0);
+    }
+
+    window.addEventListener('popstate', (e) => {
+        switchTab(e.state?.tabId || 'inicio', false);
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const hash = location.hash.slice(1);
+        switchTab(VALID_TABS.includes(hash) ? hash : 'inicio', false);
+
+        // WCAG 2.1 — marcar todos los iconos Material Symbols como decorativos.
+        // Los iconos funcionales (e.g. search button) tienen aria-label en su <button> padre.
+        document.querySelectorAll('.material-symbols-outlined').forEach(el => {
+            if (!el.hasAttribute('aria-hidden')) el.setAttribute('aria-hidden', 'true');
+        });
+    });
+    </script>
+
+    <script type="module" src="/js/app.mjs"></script>
+    <script src="/js/main.js" defer></script>
+</body>
+</html>

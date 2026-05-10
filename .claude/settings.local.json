@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Recurse -Force)",
+      "Bash(Select-Object FullName, Length)",
+      "Bash(Sort-Object FullName)",
+      "PowerShell(cd \"c:\\\\Users\\\\Admin\\\\Desktop\\\\Pagina ANEIMERA PERU\"; Get-ChildItem -Recurse -Force | Select-Object FullName, @{N='Size';E={$_.Length}} | Format-Table -AutoSize)",
+      "PowerShell(cd \"c:\\\\Users\\\\Admin\\\\Desktop\\\\Pagina ANEIMERA PERU\"; Get-ChildItem -Recurse -File | Select-Object FullName, @{N='Size\\(bytes\\)';E={$_.Length}} | Sort-Object FullName)",
+      "PowerShell(cd \"c:\\\\Users\\\\Admin\\\\Desktop\\\\Pagina ANEIMERA PERU\"; Get-ChildItem -File -Recurse | Where-Object {$_.Extension -in @\\(\".html\", \".json\", \".py\", \".rules\"\\)} | ForEach-Object {[PSCustomObject]@{File=$_.FullName; Size=\"$\\($_.Length\\) bytes\"}} | Sort-Object File)"
+    ]
+  }
+}

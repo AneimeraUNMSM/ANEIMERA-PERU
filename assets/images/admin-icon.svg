@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="ANEIMERA Admin">
+  <rect width="512" height="512" rx="96" fill="#b5000b"/>
+  <circle cx="256" cy="256" r="176" fill="#fff" opacity="0.12"/>
+  <path d="M256 120 138 392h56l21-50h82l21 50h56L256 120zm0 73 30 74h-60l30-74z" fill="#fff"/>
+</svg>

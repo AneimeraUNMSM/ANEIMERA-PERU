@@ -1,0 +1,135 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ──────────────────────────────────────────
+    // HELPERS
+    // ──────────────────────────────────────────
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function userDoc() {
+      return get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data;
+    }
+
+    function userExists() {
+      return isSignedIn()
+        && exists(/databases/$(database)/documents/usuarios/$(request.auth.uid));
+    }
+
+    function isAdmin() {
+      return userExists() && userDoc().rol in ['SUPERADMIN', 'EDITOR'];
+    }
+
+    function isSuperAdmin() {
+      return userExists() && userDoc().rol == 'SUPERADMIN';
+    }
+
+    function isValidString(field, maxLen) {
+      return field is string && field.size() > 0 && field.size() <= maxLen;
+    }
+
+    function isValidEmail(field) {
+      return field is string
+        && field.size() <= 254
+        && field.matches('^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$');
+    }
+
+    // ──────────────────────────────────────────
+    // CONTENIDO PÚBLICO (lectura libre, escritura admin)
+    // ──────────────────────────────────────────
+    match /eventos/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /noticias/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /capitulos/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /directorio_nacional/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /config/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // ──────────────────────────────────────────
+    // FORMULARIOS PÚBLICOS (create restringido por schema)
+    // ──────────────────────────────────────────
+    match /postulaciones_membresia/{id} {
+      allow read, update, delete: if isAdmin();
+
+      allow create: if
+        // Schema cerrado: ningún campo extra permitido
+        request.resource.data.keys().hasOnly([
+          'nombres', 'apellidos', 'email', 'telefono', 'universidad',
+          'carrera', 'ciclo', 'area_interes', 'fecha_registro', 'status'
+        ])
+        // Campos mínimos obligatorios
+        && request.resource.data.keys().hasAll([
+          'nombres', 'apellidos', 'email', 'universidad', 'status', 'fecha_registro'
+        ])
+        // Validación de tipos y tamaños
+        && isValidString(request.resource.data.nombres, 100)
+        && isValidString(request.resource.data.apellidos, 100)
+        && isValidEmail(request.resource.data.email)
+        && isValidString(request.resource.data.universidad, 200)
+        // Estado inicial fijo (impide auto-aprobarse)
+        && request.resource.data.status == 'pendiente'
+        // Timestamp del servidor obligatorio (no spoofeable por cliente)
+        && request.resource.data.fecha_registro == request.time;
+    }
+
+    match /solicitudes_capitulo/{id} {
+      allow read, update, delete: if isAdmin();
+
+      allow create: if
+        request.resource.data.keys().hasOnly([
+          'universidad', 'representante', 'email', 'fecha_registro', 'status'
+        ])
+        && request.resource.data.keys().hasAll([
+          'universidad', 'email', 'status', 'fecha_registro'
+        ])
+        && isValidString(request.resource.data.universidad, 200)
+        && isValidEmail(request.resource.data.email)
+        && request.resource.data.status == 'pendiente'
+        && request.resource.data.fecha_registro == request.time;
+    }
+
+    // ──────────────────────────────────────────
+    // ADMINISTRACIÓN
+    // ──────────────────────────────────────────
+    match /usuarios/{uid} {
+      allow read: if isSignedIn() && (request.auth.uid == uid || isSuperAdmin());
+      allow write, delete: if isSuperAdmin();
+    }
+
+    match /audit_log/{id} {
+      allow read: if isSuperAdmin();
+      // Atribución forzosa: autor verificado por UID Y email; timestamp del servidor
+      allow create: if isAdmin()
+        && request.resource.data.uidAdmin == request.auth.uid
+        && request.resource.data.emailAdmin == request.auth.token.email
+        && request.resource.data.timestamp == request.time;
+      allow update, delete: if false;
+    }
+
+    // ──────────────────────────────────────────
+    // DEFAULT DENY (cinturón + tirantes)
+    // ──────────────────────────────────────────
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

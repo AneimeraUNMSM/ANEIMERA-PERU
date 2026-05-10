@@ -1,0 +1,25 @@
+/*
+  Strict security headers for Netlify (example). Adjust before deploying.
+*/
+/* Add HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy */
+/* Avoid overly strict CSP until inline scripts/styles are removed or nonce strategy implemented */
+
+/*
+Example (relaxed to allow inline for now):
+*/
+/* /index.html */
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://www.gstatic.com https://cdn.tailwindcss.com 'unsafe-inline';
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data:;
+*/
+
+/* Apply to all paths */
+/* Netlify header format */
+/* Note: update CSP to remove 'unsafe-inline' after moving inline scripts/styles to external files */
+/
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://www.gstatic.com https://cdn.tailwindcss.com 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data:;
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload

@@ -1,0 +1,27 @@
+name: Lighthouse CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Serve site
+        uses: crazy-max/ghaction-http-server@v2
+        with:
+          port: 8080
+          dir: .
+      - name: Run Lighthouse
+        uses: treosh/lighthouse-ci-action@v6
+        with:
+          urls: 'http://127.0.0.1:8080/index.html'
+          config: |
+            settings:
+              emulatedFormFactor: 'desktop'
+              onlyCategories: ['performance','accessibility','best-practices']
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}

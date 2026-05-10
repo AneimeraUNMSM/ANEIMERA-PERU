@@ -1,0 +1,16 @@
+[
+  {
+    "path": "assets\\images\\index-blueprint.jpg",
+    "converted": [
+      "assets\\images\\index-blueprint.webp",
+      "assets\\images\\index-blueprint.avif"
+    ]
+  },
+  {
+    "path": "assets\\images\\membership-hero.jpg",
+    "converted": [
+      "assets\\images\\membership-hero.webp",
+      "assets\\images\\membership-hero.avif"
+    ]
+  }
+]

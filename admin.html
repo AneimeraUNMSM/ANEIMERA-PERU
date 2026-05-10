@@ -1,0 +1,1877 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>ANEIMERA PERÚ - Sistema de Control Central</title>
+    <meta name="description" content="Sistema de Control Central de ANEIMERA PERÚ">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="canonical" href="https://aneimeraunmsm.github.io/ANEIMERA_PERU/admin.html">
+    <link rel="icon" href="assets/images/admin-icon.svg">
+    <link rel="manifest" href="manifest.json">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="preload" href="/assets/fonts/Inter.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/MaterialSymbolsOutlined.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/assets/css/shared-fonts.css">
+    <script src="/js/rum.js" defer></script>
+    <!-- Quill.js for Rich Text Editing -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" integrity="sha384-07UbSXbd8HpaOfxZsiO6Y8H1HTX6v0J96b5qP6PKSpYEuSZSYD4GFFHlLRjvjVrL" crossorigin="anonymous">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js" integrity="sha384-AOnYUgW6MQR78EvTqtkbNavz7dVI7dtLm7QdcIMBoy06adLIzNT40hHPYl9Rr5m5" crossorigin="anonymous"></script>
+    <!-- DOMPurify for HTML sanitization on write -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.3/purify.min.js" integrity="sha384-P00jmvqaN0eGBigZZV13Uwz/H1F8rCioMENGo4uFDs538iAm+CDDbPEkY09MR7G8" crossorigin="anonymous"></script>
+    <!-- Chart.js for Metrics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js" integrity="sha384-T/4KgSWuZEPozpPz7rnnp/5lDSnpY1VPJCojf1S81uTHS1E38qgLfMgVsAeRCWc4" crossorigin="anonymous"></script>
+    <!-- SheetJS for Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" integrity="sha384-vtjasyidUo0kW94K5MXDXntzOJpQgBKXmE7e2Ga4LG0skTTLeBi97eFAXsqewJjw" crossorigin="anonymous"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-variant": "#e2e2e2", "on-surface": "#1a1c1c", "on-secondary-fixed": "#001a42",
+                        "surface-container-low": "#f3f3f4", "surface-container-high": "#e8e8e8", "inverse-primary": "#ffb4aa",
+                        "background": "#f9f9f9", "secondary-container": "#aac3fe", "on-background": "#1a1c1c",
+                        "on-secondary-fixed-variant": "#2c4678", "secondary-fixed": "#d8e2ff", "outline": "#936e69",
+                        "secondary-fixed-dim": "#aec6ff", "primary-fixed-dim": "#ffb4aa", "on-tertiary-fixed-variant": "#474747",
+                        "secondary": "#445e92", "error": "#ba1a1a", "error-container": "#ffdad6", "on-primary-fixed-variant": "#930007",
+                        "on-error-container": "#93000a", "surface-bright": "#f9f9f9", "primary-container": "#e30613",
+                        "surface-container": "#eeeeee", "primary": "#b5000b", "outline-variant": "#e9bcb6",
+                        "tertiary-fixed-dim": "#c6c6c6", "inverse-on-surface": "#f0f1f1", "surface-tint": "#c0000c",
+                        "on-tertiary": "#ffffff", "on-tertiary-fixed": "#1b1b1b", "surface-container-highest": "#e2e2e2",
+                        "on-secondary": "#ffffff", "on-primary": "#ffffff", "tertiary-fixed": "#e2e2e2", "surface-dim": "#dadada",
+                        "surface-container-lowest": "#ffffff", "on-secondary-container": "#365083", "on-tertiary-container": "#f7f7f7",
+                        "tertiary": "#595959", "inverse-surface": "#2f3131", "surface": "#f9f9f9", "tertiary-container": "#717171",
+                        "on-surface-variant": "#5e3f3b", "on-primary-container": "#fff5f3", "primary-fixed": "#ffdad5",
+                        "on-error": "#ffffff", "on-primary-fixed": "#410001"
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                    spacing: { "unit": "8px", "margin": "64px", "gutter": "24px", "container-max": "1440px" },
+                    fontFamily: {
+                        "label-mono": ["monospace"], "headline-md": ["Inter"], "body-md": ["Inter"],
+                        "headline-sm": ["Inter"], "display-xl": ["Inter"], "headline-lg": ["Inter"], "body-lg": ["Inter"]
+                    },
+                    fontSize: {
+                        "display-xl":  ["96px", { "lineHeight": "1.0", "letterSpacing": "-0.04em", "fontWeight": "900" }],
+                        "headline-lg": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "headline-md": ["48px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "headline-sm": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "body-lg":     ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-md":     ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-mono":  ["12px", { "lineHeight": "1.0", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .technical-grid {
+            background-image: 
+                linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .scanline {
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.05));
+            background-size: 100% 4px;
+        }
+        .block-shadow { box-shadow: 8px 8px 0px 0px rgba(0,0,0,1); }
+        .block-shadow-red { box-shadow: 8px 8px 0px 0px #e30613; }
+        .clip-corner:hover { clip-path: polygon(0 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%); }
+        .tech-tab { position: relative; overflow: hidden; transition: all 0.2s ease; }
+        .tech-tab.active { background-color: black; color: white; border-bottom: 0; transform: translateY(2px); border-color: black; }
+        .tech-tab.active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; background-color: #e30613; }
+        .hidden { display: none !important; }
+        
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f9f9f9; border-left: 2px solid #000; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #000; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #e30613; }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased overflow-x-hidden min-h-screen flex flex-col">
+
+    <!-- Login Section -->
+    <main id="login-section" class="min-h-screen technical-grid flex items-center justify-center p-8 z-50 relative w-full">
+        <div class="bg-white border-2 border-black block-shadow max-w-md w-full relative z-10">
+            <div class="bg-black text-white p-4 border-b-2 border-black scanline flex items-center gap-3">
+                <span class="material-symbols-outlined text-primary-container">terminal</span>
+                <h1 class="font-label-mono text-sm uppercase tracking-widest text-white">Acceso Restringido // CMS</h1>
+            </div>
+            <form id="login-form" class="p-8 space-y-6 bg-white">
+                <div class="flex flex-col gap-2 group">
+                    <label class="font-label-mono text-xs uppercase text-black font-bold">Identificador (Correo)</label>
+                    <input type="email" id="login-email" required class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-label-mono p-3 rounded-none outline-none focus:bg-white transition-colors">
+                </div>
+                <div class="flex flex-col gap-2 group">
+                    <label class="font-label-mono text-xs uppercase text-black font-bold">Clave de Seguridad</label>
+                    <input type="password" id="login-password" required class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-label-mono p-3 rounded-none outline-none focus:bg-white transition-colors">
+                </div>
+                <button type="submit" class="w-full bg-primary-container text-white font-inter font-black uppercase tracking-widest py-4 border-2 border-primary-container hover:bg-black hover:border-black transition-none clip-corner flex justify-center items-center gap-2 mt-4">
+                    <span class="material-symbols-outlined text-sm">login</span> INICIAR SESIÓN
+                </button>
+                <div id="login-error" class="hidden font-label-mono text-xs text-primary-container bg-error-container p-3 border border-primary-container mt-4 uppercase font-bold text-center"></div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Dashboard Section -->
+    <div id="dashboard-section" class="hidden min-h-screen w-full flex">
+        <!-- SideNavBar -->
+        <nav id="admin-sidebar" class="bg-white h-screen w-72 border-r-2 border-black shadow-[4px_0px_0px_0px_rgba(227,6,19,1)] fixed left-0 top-0 flex flex-col z-40 -translate-x-full md:translate-x-0 transition-transform duration-300">
+            <div class="p-6 border-b-2 border-black flex flex-col items-center justify-center space-y-2 relative scanline bg-white">
+                <div class="w-16 h-16 bg-black rounded-none border-2 border-red-600 flex items-center justify-center relative z-10">
+                    <span class="material-symbols-outlined text-white text-3xl" data-weight="fill">engineering</span>
+                </div>
+                <h1 class="font-inter text-xs font-black uppercase tracking-widest text-black text-center mt-4 relative z-10">SISTEMA TÉCNICO</h1>
+                <p class="font-inter text-[10px] font-bold text-neutral-500 uppercase tracking-widest relative z-10">V.1.0-LIMA</p>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto font-inter text-xs font-black uppercase tracking-widest bg-white">
+                <a href="#" onclick="switchTab('dashboard')" class="nav-item text-black flex items-center p-4 w-full border-b border-black/5 hover:bg-black hover:text-white transition-none group bg-black !text-white">
+                    <span class="material-symbols-outlined mr-3">dashboard</span> Panel Control
+                </a>
+                <a href="#" onclick="switchTab('eventos')" class="nav-item text-black flex items-center p-4 w-full border-b border-black/5 hover:bg-black hover:text-white transition-none group">
+                    <span class="material-symbols-outlined mr-3">event</span> Eventos
+                </a>
+                <a href="#" onclick="switchTab('noticias')" class="nav-item text-black flex items-center p-4 w-full border-b border-black/5 hover:bg-black hover:text-white transition-none group">
+                    <span class="material-symbols-outlined mr-3">article</span> Noticias
+                </a>
+                <a href="#" onclick="switchTab('postulaciones')" class="nav-item text-black flex items-center p-4 w-full border-b border-black/5 hover:bg-black hover:text-white transition-none group justify-between">
+                    <div class="flex items-center"><span class="material-symbols-outlined mr-3">assignment_ind</span> Postulaciones</div>
+                    <span id="badge-pendientes" class="hidden bg-primary-container text-white font-label-mono text-[10px] px-2 py-0.5 font-bold rounded-full animate-pulse" title="Postulaciones pendientes > 48h">0</span>
+                </a>
+                <a href="#" onclick="switchTab('capitulos')" class="nav-item text-black flex items-center p-4 w-full border-b border-black/5 hover:bg-black hover:text-white transition-none group">
+                    <span class="material-symbols-outlined mr-3">account_balance</span> Capítulos
+                </a>
+                <a href="#" onclick="switchTab('directorio')" class="nav-item text-black flex items-center p-4 w-full border-b border-black/5 hover:bg-black hover:text-white transition-none group">
+                    <span class="material-symbols-outlined mr-3">person_search</span> Directorio Nac.
+                </a>
+                <a href="#" id="nav-usuarios" onclick="switchTab('usuarios')" class="hidden nav-item text-black flex items-center p-4 w-full border-b border-black/5 hover:bg-black hover:text-white transition-none group">
+                    <span class="material-symbols-outlined mr-3">group</span> Usuarios
+                </a>
+            </div>
+            
+            <div class="border-t-2 border-black font-inter text-xs font-black uppercase tracking-widest bg-neutral-50 mt-auto">
+                <button id="btn-logout" class="w-full text-black flex items-center p-4 hover:bg-primary-container hover:text-white transition-none border-none outline-none text-left">
+                    <span class="material-symbols-outlined mr-3">logout</span> Cerrar Sesión
+                </button>
+            </div>
+        </nav>
+
+        <main class="ml-0 md:ml-[288px] min-h-screen relative technical-grid pt-16 md:pt-12 px-4 md:px-margin pb-24 w-full">
+            <div class="max-w-[1440px] mx-auto mb-6 md:mb-8">
+                <div class="flex justify-between items-end mb-6 md:mb-8 border-b-4 border-black pb-4">
+                    <div class="flex items-center gap-3">
+                        <button id="admin-menu-toggle" class="md:hidden w-10 h-10 border-2 border-black bg-black text-white flex items-center justify-center mr-2" onclick="document.getElementById('admin-sidebar').classList.toggle('-translate-x-full'); document.getElementById('admin-overlay').classList.toggle('hidden')">
+                            <span class="material-symbols-outlined">menu</span>
+                        </button>
+                        <h2 id="page-title" class="font-headline-lg text-2xl sm:text-4xl lg:text-6xl text-black font-black uppercase tracking-tighter">PANEL CONTROL //</h2>
+                    </div>
+                    <div class="flex items-center gap-4 hidden sm:flex">
+                        <div class="flex flex-col items-end">
+                            <span class="font-label-mono text-[10px] text-neutral-500 uppercase">System Status</span>
+                            <span class="font-label-mono text-xs text-black font-bold flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> ONLINE</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Mobile overlay to close sidebar -->
+            <div id="admin-overlay" class="hidden fixed inset-0 bg-black/50 z-30 md:hidden" onclick="document.getElementById('admin-sidebar').classList.add('-translate-x-full'); document.getElementById('admin-overlay').classList.add('hidden')"></div>
+
+            <!-- Tab: Dashboard -->
+            <div id="tab-dashboard" class="tab-content block max-w-[1440px] mx-auto relative">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-8">
+                    <div class="bg-white border-2 border-black block-shadow flex flex-col p-4 hover:-translate-y-1 transition-transform">
+                        <span class="font-label-mono text-neutral-500 uppercase font-bold text-xs mb-2">Eventos</span>
+                        <span class="font-display-xl text-4xl md:text-5xl font-black" id="stat-eventos">0</span>
+                    </div>
+                    <div class="bg-white border-2 border-black block-shadow flex flex-col p-4 hover:-translate-y-1 transition-transform">
+                        <span class="font-label-mono text-neutral-500 uppercase font-bold text-xs mb-2">Noticias</span>
+                        <span class="font-display-xl text-4xl md:text-5xl font-black" id="stat-noticias">0</span>
+                    </div>
+                    <div class="bg-white border-2 border-black block-shadow flex flex-col p-4 hover:-translate-y-1 transition-transform">
+                        <span class="font-label-mono text-neutral-500 uppercase font-bold text-xs mb-2">Postulaciones</span>
+                        <span class="font-display-xl text-4xl md:text-5xl font-black text-primary-container" id="stat-postulaciones">0</span>
+                    </div>
+                    <div class="bg-white border-2 border-black block-shadow flex flex-col p-4 hover:-translate-y-1 transition-transform">
+                        <span class="font-label-mono text-neutral-500 uppercase font-bold text-xs mb-2">Admins</span>
+                        <span class="font-display-xl text-4xl md:text-5xl font-black" id="stat-usuarios">0</span>
+                    </div>
+                </div>
+                
+                <!-- NEW: Charts Section -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-white border-2 border-black block-shadow p-6 relative z-10 flex flex-col justify-center items-center h-[300px]">
+                        <h4 class="font-inter font-bold uppercase tracking-widest text-xs mb-4 w-full text-left border-b-2 border-black pb-2">Estado de Postulaciones</h4>
+                        <div class="w-full h-full relative"><canvas id="chart-postulaciones"></canvas></div>
+                    </div>
+                    <div class="bg-white border-2 border-black block-shadow p-6 relative z-10 flex flex-col justify-center items-center h-[300px]">
+                        <h4 class="font-inter font-bold uppercase tracking-widest text-xs mb-4 w-full text-left border-b-2 border-black pb-2">Distribución de Eventos</h4>
+                        <div class="w-full h-full relative"><canvas id="chart-eventos"></canvas></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white border-2 border-black block-shadow relative z-10 flex flex-col h-[400px]">
+                        <div class="bg-black text-white p-4 border-b-2 border-black scanline shrink-0">
+                            <h3 class="font-inter font-bold uppercase tracking-widest text-sm">Resumen de Eventos</h3>
+                        </div>
+                        <div id="dash-lista-eventos" class="divide-y-2 divide-black flex-1 bg-neutral-50 overflow-y-auto custom-scrollbar p-0">
+                        </div>
+                    </div>
+                    <div class="bg-white border-2 border-black block-shadow relative z-10 flex flex-col h-[400px]">
+                        <div class="bg-black text-white p-4 border-b-2 border-black scanline shrink-0">
+                            <h3 class="font-inter font-bold uppercase tracking-widest text-sm">Nuevas Postulaciones</h3>
+                        </div>
+                        <div id="dash-lista-postulaciones" class="divide-y-2 divide-black flex-1 bg-neutral-50 overflow-y-auto custom-scrollbar p-0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Eventos -->
+            <div id="tab-eventos" class="tab-content hidden max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-gutter relative">
+                <!-- Form -->
+                <div class="col-span-1 lg:col-span-5 flex flex-col gap-6">
+                    <div class="bg-white border-2 border-black block-shadow relative z-10 p-0 flex flex-col h-full">
+                        <div class="bg-black text-white font-label-mono p-3 uppercase flex justify-between items-center border-b-2 border-black scanline">
+                            <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm text-primary-container">terminal</span> <span class="text-xs">MOD_INPUT_01 // EVENTOS</span></div>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <form id="form-evento" class="space-y-6 flex-1">
+                                <input type="hidden" id="ev-edit-id">
+                                <div class="flex flex-col gap-2 group">
+                                    <label class="font-label-mono text-xs text-black uppercase font-bold">Título del Evento</label>
+                                    <input id="ev-titulo" required class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-body-md py-3 px-4 rounded-none outline-none focus:bg-white transition-colors" placeholder="Ej: Simposio de Ingeniería..." type="text"/>
+                                </div>
+                                <div class="grid grid-cols-3 gap-6">
+                                    <div class="flex flex-col gap-2 group">
+                                        <label class="font-label-mono text-xs text-black uppercase font-bold">Fecha</label>
+                                        <input id="ev-fecha" required class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-body-md py-3 px-3 rounded-none outline-none focus:bg-white transition-colors" type="date"/>
+                                    </div>
+                                    <div class="flex flex-col gap-2 group">
+                                        <label class="font-label-mono text-xs text-black uppercase font-bold">Hora</label>
+                                        <input id="ev-hora" class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-body-md py-3 px-3 rounded-none outline-none focus:bg-white transition-colors" type="time" placeholder="09:00"/>
+                                    </div>
+                                    <div class="flex flex-col gap-2 group">
+                                        <label class="font-label-mono text-xs text-black uppercase font-bold">Lugar</label>
+                                        <input id="ev-lugar" required class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-body-md py-3 px-3 rounded-none outline-none focus:bg-white transition-colors" type="text" placeholder="Auditorio Principal"/>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-6">
+                                    <div class="flex flex-col gap-2 group">
+                                        <label class="font-label-mono text-xs text-black uppercase font-bold">Tipo</label>
+                                        <select id="ev-tipo" required class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-body-md py-3 px-3 rounded-none outline-none focus:bg-white transition-colors">
+                                            <option value="CONFERENCIA MAGISTRAL">Conferencia Magistral</option>
+                                            <option value="VISITA INDUSTRIAL">Visita Industrial</option>
+                                            <option value="TALLER TECNICO">Taller Técnico</option>
+                                            <option value="NETWORKING">Networking</option>
+                                            <option value="SIMPOSIO">Simposio</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex flex-col gap-2 group">
+                                        <label class="font-label-mono text-xs text-black uppercase font-bold">ID (REF) <span class="text-tertiary font-normal">— Auto</span></label>
+                                        <input id="ev-id" readonly class="w-full bg-surface-container border-2 border-black focus:ring-0 font-label-mono py-3 px-3 rounded-none outline-none text-tertiary cursor-not-allowed" type="text" placeholder="Se genera al guardar"/>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-6">
+                                    <div class="flex flex-col gap-2 group">
+                                        <label class="font-label-mono text-xs text-black uppercase font-bold">Imagen del Evento (Opcional)</label>
+                                        <input id="ev-img-file" class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-label-mono py-2 px-3 rounded-none outline-none focus:bg-white transition-colors cursor-pointer file:bg-black file:text-white file:border-0 file:px-4 file:py-2 file:mr-4 file:font-label-mono file:uppercase file:cursor-pointer hover:file:bg-primary" type="file" accept="image/*"/>
+                                        <img id="ev-img-preview" class="hidden mt-2 border-2 border-black max-h-40 object-cover w-full" />
+                                    </div>
+                                    <div class="flex flex-col gap-2 group">
+                                        <label class="font-label-mono text-xs text-black uppercase font-bold">Link de Registro (Forms)</label>
+                                        <input id="ev-link" class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-label-mono py-3 px-4 rounded-none outline-none focus:bg-white transition-colors" type="url" placeholder="https://forms.gle/..."/>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col gap-2 group">
+                                    <label class="font-label-mono text-xs text-black uppercase font-bold">Descripción / Intro</label>
+                                    <input type="hidden" id="ev-desc">
+                                    <div class="border-2 border-black bg-white" style="border-radius: 0;">
+                                        <div id="quill-ev-desc" class="h-40 font-body-md text-sm"></div>
+                                    </div>
+                                </div>
+                                <!-- CRONOGRAMA TÉCNICO -->
+                                <div class="border-2 border-black">
+                                    <div class="bg-secondary text-white px-4 py-2 flex justify-between items-center border-b-2 border-black">
+                                        <span class="font-label-mono text-xs uppercase flex items-center gap-2"><span class="material-symbols-outlined text-sm">schedule</span> Cronograma Técnico</span>
+                                        <button type="button" onclick="addCronogramaItem()" class="bg-white text-black font-label-mono text-[10px] uppercase px-3 py-1 hover:bg-primary-container hover:text-white transition-colors">+ Agregar Bloque</button>
+                                    </div>
+                                    <div id="ev-cronograma-list" class="divide-y divide-black/20 max-h-64 overflow-y-auto">
+                                        <!-- Dynamic items -->
+                                    </div>
+                                    <div id="ev-cronograma-empty" class="p-4 text-center font-label-mono text-xs text-tertiary uppercase">Sin bloques de cronograma — Haz click en "+ Agregar Bloque"</div>
+                                </div>
+                                <!-- REQUISITOS -->
+                                <div class="flex flex-col gap-2 group">
+                                    <label class="font-label-mono text-xs text-black uppercase font-bold flex items-center gap-2"><span class="material-symbols-outlined text-sm">engineering</span> Requisitos (uno por línea)</label>
+                                    <textarea id="ev-requisitos" rows="4" class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-body-md py-3 px-4 rounded-none outline-none focus:bg-white transition-colors resize-y" placeholder="Ej:
+Estar afiliado a ANEIMERA
+Conocimientos en sistemas de potencia
+Traer laptop con software instalado"></textarea>
+                                </div>
+                                <div class="grid grid-cols-2 gap-6 p-4 border-2 border-black bg-surface-container">
+                                    <div class="flex flex-col gap-2 group">
+                                        <label class="font-label-mono text-xs text-black uppercase font-bold">Publicación</label>
+                                        <select id="ev-estado" class="w-full bg-white border-2 border-black focus:ring-0 focus:border-primary-container font-label-mono py-2 px-2 rounded-none outline-none transition-colors" onchange="document.getElementById('ev-prog-wrapper').classList.toggle('hidden', this.value !== 'PROGRAMADO')">
+                                            <option value="PUBLICADO">Publicar Ahora</option>
+                                            <option value="PROGRAMADO">Programar</option>
+                                        </select>
+                                    </div>
+                                    <div id="ev-prog-wrapper" class="flex flex-col gap-2 group hidden">
+                                        <label class="font-label-mono text-xs text-primary-container uppercase font-bold">Fecha Programada</label>
+                                        <input id="ev-fecha-prog" class="w-full bg-white border-2 border-primary-container focus:ring-0 focus:border-primary font-label-mono py-2 px-2 rounded-none outline-none transition-colors" type="datetime-local"/>
+                                    </div>
+                                </div>
+                                <button type="submit" class="w-full bg-primary-container text-white font-inter font-black uppercase tracking-widest py-4 border-2 border-primary-container hover:bg-black hover:border-black transition-none clip-corner flex items-center justify-center gap-2 mt-6">
+                                    <span class="material-symbols-outlined">publish</span> Guardar Evento
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- List -->
+                <div class="col-span-1 lg:col-span-7 flex flex-col gap-6">
+                    <div class="bg-white border-2 border-black block-shadow relative z-10 flex flex-col h-[800px]">
+                        <div class="bg-black text-white flex items-center justify-between p-4 border-b-2 border-black scanline shrink-0">
+                            <h3 class="font-inter font-bold uppercase tracking-widest text-sm">Registro de Eventos // LOG</h3>
+                            <input type="text" id="search-eventos" placeholder="Buscar localmente..." class="bg-black border border-white text-white font-label-mono text-xs px-2 py-1 outline-none w-1/3" onkeyup="renderLocal('eventos')">
+                        </div>
+                        <div id="lista-eventos" class="divide-y-2 divide-black flex-1 bg-neutral-50 overflow-y-auto custom-scrollbar"></div>
+                        <button onclick="cargarMas('eventos', 'timestamp')" class="w-full bg-surface-container-high border-t-2 border-black py-3 font-inter font-bold uppercase text-xs hover:bg-neutral-200 transition-colors">Cargar Más</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Noticias -->
+            <div id="tab-noticias" class="tab-content hidden max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-gutter relative">
+                <!-- Form -->
+                <div class="col-span-1 lg:col-span-5 flex flex-col gap-6">
+                    <div class="bg-white border-2 border-black block-shadow relative z-10 p-0 flex flex-col h-full">
+                        <div class="bg-black text-white font-label-mono p-3 uppercase flex justify-between items-center border-b-2 border-black scanline">
+                            <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm text-primary-container">terminal</span> <span class="text-xs">MOD_INPUT_02 // NOTICIAS</span></div>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <form id="form-noticia" class="space-y-6 flex-1">
+                                <input type="hidden" id="not-edit-id">
+                                <div class="flex flex-col gap-2 group">
+                                    <label class="font-label-mono text-xs text-black uppercase font-bold">Título de la Noticia</label>
+                                    <input id="not-titulo" required class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-body-md py-3 px-4 rounded-none outline-none focus:bg-white transition-colors" placeholder="Ej: Nuevo avance en robótica..." type="text"/>
+                                </div>
+                                <div class="grid grid-cols-2 gap-6">
+                                    <div class="flex flex-col gap-2 group">
+                                        <label class="font-label-mono text-xs text-black uppercase font-bold">Categoría</label>
+                                        <select id="not-cat" required class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-body-md py-3 px-3 rounded-none outline-none focus:bg-white transition-colors">
+                                            <option value="INVESTIGACIÓN">Investigación</option>
+                                            <option value="INSTITUCIONAL">Institucional</option>
+                                            <option value="TECNOLOGÍA">Tecnología</option>
+                                            <option value="INGENIERÍA">Ingeniería</option>
+                                            <option value="EVENTOS">Eventos</option>
+                                            <option value="GENERAL">General</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex flex-col gap-2 group">
+                                        <label class="font-label-mono text-xs text-black uppercase font-bold">ID (REF) <span class="text-tertiary font-normal">— Auto</span></label>
+                                        <input id="not-id" readonly class="w-full bg-surface-container border-2 border-black focus:ring-0 font-label-mono py-3 px-3 rounded-none outline-none text-tertiary cursor-not-allowed" type="text" placeholder="Se genera al guardar"/>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col gap-2 group">
+                                    <label class="font-label-mono text-xs text-black uppercase font-bold">Imagen de la Noticia</label>
+                                    <input id="not-img-file" class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-label-mono py-2 px-3 rounded-none outline-none focus:bg-white transition-colors cursor-pointer file:bg-black file:text-white file:border-0 file:px-4 file:py-2 file:mr-4 file:font-label-mono file:uppercase file:cursor-pointer hover:file:bg-primary" type="file" accept="image/*"/>
+                                    <img id="not-img-preview" class="hidden mt-2 border-2 border-black max-h-40 object-cover w-full" />
+                                </div>
+                                <div class="flex flex-col gap-2 group">
+                                    <label class="font-label-mono text-xs text-black uppercase font-bold">Cuerpo del Artículo</label>
+                                    <input type="hidden" id="not-desc">
+                                    <div class="border-2 border-black bg-white" style="border-radius: 0;">
+                                        <div id="quill-not-desc" class="h-40 font-body-md text-sm"></div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col gap-2 group">
+                                    <label class="font-label-mono text-xs text-black uppercase font-bold flex items-center gap-2"><span class="material-symbols-outlined text-sm">sell</span> Etiquetas (separadas por coma)</label>
+                                    <input id="not-tags" class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-body-md py-3 px-4 rounded-none outline-none focus:bg-white transition-colors" type="text" placeholder="Ej: Ingeniería, Potencia, Redes"/>
+                                </div>
+                                <div class="grid grid-cols-2 gap-6 p-4 border-2 border-black bg-surface-container">
+                                    <div class="flex flex-col gap-2 group">
+                                        <label class="font-label-mono text-xs text-black uppercase font-bold">Publicación</label>
+                                        <select id="not-estado" class="w-full bg-white border-2 border-black focus:ring-0 focus:border-primary-container font-label-mono py-2 px-2 rounded-none outline-none transition-colors" onchange="document.getElementById('not-prog-wrapper').classList.toggle('hidden', this.value !== 'PROGRAMADO')">
+                                            <option value="PUBLICADO">Publicar Ahora</option>
+                                            <option value="PROGRAMADO">Programar</option>
+                                        </select>
+                                    </div>
+                                    <div id="not-prog-wrapper" class="flex flex-col gap-2 group hidden">
+                                        <label class="font-label-mono text-xs text-primary-container uppercase font-bold">Fecha Programada</label>
+                                        <input id="not-fecha-prog" class="w-full bg-white border-2 border-primary-container focus:ring-0 focus:border-primary font-label-mono py-2 px-2 rounded-none outline-none transition-colors" type="datetime-local"/>
+                                    </div>
+                                </div>
+                                <button type="submit" class="w-full bg-primary-container text-white font-inter font-black uppercase tracking-widest py-4 border-2 border-primary-container hover:bg-black hover:border-black transition-none clip-corner flex items-center justify-center gap-2 mt-6">
+                                    <span class="material-symbols-outlined">publish</span> Guardar Noticia
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- List -->
+                <div class="col-span-1 lg:col-span-7 flex flex-col gap-6">
+                    <div class="bg-white border-2 border-black block-shadow relative z-10 flex flex-col h-[800px]">
+                        <div class="bg-black text-white flex items-center justify-between p-4 border-b-2 border-black scanline shrink-0">
+                            <h3 class="font-inter font-bold uppercase tracking-widest text-sm">Registro de Noticias // LOG</h3>
+                            <input type="text" id="search-noticias" placeholder="Buscar localmente..." class="bg-black border border-white text-white font-label-mono text-xs px-2 py-1 outline-none w-1/3" onkeyup="renderLocal('noticias')">
+                        </div>
+                        <div id="lista-noticias" class="divide-y-2 divide-black flex-1 bg-neutral-50 overflow-y-auto custom-scrollbar"></div>
+                        <button onclick="cargarMas('noticias', 'timestamp')" class="w-full bg-surface-container-high border-t-2 border-black py-3 font-inter font-bold uppercase text-xs hover:bg-neutral-200 transition-colors">Cargar Más</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Postulaciones -->
+            <div id="tab-postulaciones" class="tab-content hidden max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-gutter relative">
+                <div class="col-span-1 lg:col-span-12 flex flex-col gap-6">
+                    <div class="bg-white border-2 border-black block-shadow relative z-10 flex flex-col h-[800px]">
+                        <div class="bg-black text-white flex flex-wrap items-center justify-between p-4 border-b-2 border-black scanline shrink-0 gap-4">
+                            <h3 class="font-inter font-bold uppercase tracking-widest text-sm">Registro de Postulaciones</h3>
+                            <div class="flex items-center gap-2 flex-1 justify-end">
+                                <input type="text" id="search-postulaciones" placeholder="Buscar localmente..." class="bg-black border border-white text-white font-label-mono text-xs px-2 py-1 outline-none flex-1 max-w-[200px]" onkeyup="renderLocal('postulaciones_membresia')">
+                                <button onclick="exportCSV()" class="bg-primary-container text-white px-3 py-1 font-inter font-bold uppercase text-xs hover:bg-white hover:text-primary-container transition-colors border border-primary-container">CSV</button>
+                                <button onclick="exportXLSX()" class="bg-green-600 text-white px-3 py-1 font-inter font-bold uppercase text-xs hover:bg-green-700 transition-colors border border-green-600">EXCEL</button>
+                            </div>
+                        </div>
+                        <div id="lista-postulaciones" class="divide-y-2 divide-black flex-1 bg-neutral-50 overflow-y-auto custom-scrollbar"></div>
+                        <button onclick="cargarMas('postulaciones_membresia', 'fecha_registro')" class="w-full bg-surface-container-high border-t-2 border-black py-3 font-inter font-bold uppercase text-xs hover:bg-neutral-200 transition-colors">Cargar Más</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Usuarios -->
+            <div id="tab-usuarios" class="tab-content hidden max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-gutter relative">
+                <!-- Form -->
+                <div class="col-span-1 lg:col-span-5 flex flex-col gap-6">
+                    <div class="bg-white border-2 border-black block-shadow relative z-10 p-0 flex flex-col h-full">
+                        <div class="bg-black text-white font-label-mono p-3 uppercase flex justify-between items-center border-b-2 border-black scanline">
+                            <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm text-primary-container">terminal</span> <span class="text-xs">MOD_INPUT_03 // USUARIOS</span></div>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <form id="form-usuario" class="space-y-6 flex-1">
+                                <div class="bg-surface-container-low p-4 border-l-4 border-primary text-sm text-on-surface font-body-md">
+                                    Agrega nuevos administradores para que puedan crear eventos y noticias en este panel.
+                                </div>
+                                <div class="flex flex-col gap-2 group">
+                                    <label class="font-label-mono text-xs text-black uppercase font-bold">Correo Electrónico</label>
+                                    <input id="usr-email" required type="email" class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-body-md py-3 px-4 rounded-none outline-none focus:bg-white transition-colors" placeholder="correo@ejemplo.com"/>
+                                </div>
+                                <div class="flex flex-col gap-2 group">
+                                    <label class="font-label-mono text-xs text-black uppercase font-bold">Contraseña</label>
+                                    <input id="usr-pass" required type="password" class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-body-md py-3 px-4 rounded-none outline-none focus:bg-white transition-colors" placeholder="Mínimo 6 caracteres"/>
+                                </div>
+                                <div class="flex flex-col gap-2 group">
+                                    <label class="font-label-mono text-xs text-black uppercase font-bold">Rol de Acceso</label>
+                                    <select id="usr-rol" required class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-body-md py-3 px-4 rounded-none outline-none focus:bg-white transition-colors cursor-pointer">
+                                        <option value="EDITOR">Editor (Eventos y Noticias)</option>
+                                        <option value="SUPERADMIN">Super Admin (Acceso Total)</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="w-full bg-primary-container text-white font-inter font-black uppercase tracking-widest py-4 border-2 border-primary-container hover:bg-black hover:border-black transition-none clip-corner flex items-center justify-center gap-2 mt-6">
+                                    <span class="material-symbols-outlined">person_add</span> Crear Administrador
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- List -->
+                <div class="col-span-1 lg:col-span-7 flex flex-col gap-6">
+                    <div class="bg-white border-2 border-black block-shadow relative z-10 flex flex-col h-[800px]">
+                        <div class="bg-black text-white flex items-center justify-between p-4 border-b-2 border-black scanline shrink-0">
+                            <h3 class="font-inter font-bold uppercase tracking-widest text-sm">Administradores Autorizados // LOG</h3>
+                            <input type="text" id="search-usuarios" placeholder="Buscar localmente..." class="bg-black border border-white text-white font-label-mono text-xs px-2 py-1 outline-none w-1/3" onkeyup="renderLocal('usuarios')">
+                        </div>
+                        <div id="lista-usuarios" class="divide-y-2 divide-black flex-1 bg-neutral-50 overflow-y-auto custom-scrollbar"></div>
+                        <button onclick="cargarMas('usuarios', 'email', 'asc')" class="w-full bg-surface-container-high border-t-2 border-black py-3 font-inter font-bold uppercase text-xs hover:bg-neutral-200 transition-colors">Cargar Más</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Capitulos -->
+            <div id="tab-capitulos" class="tab-content hidden max-w-[1440px] mx-auto relative">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <!-- Formulario -->
+                    <div class="col-span-1 lg:col-span-5 flex flex-col gap-6">
+                        <div class="bg-white border-2 border-black block-shadow relative z-10 flex flex-col">
+                            <div class="bg-black text-white flex items-center gap-3 p-4 border-b-2 border-black scanline">
+                                <span class="material-symbols-outlined text-primary-container">domain_add</span>
+                                <h3 class="font-inter font-bold uppercase tracking-widest text-sm" id="title-capitulos">Alta de Capítulo // REGISTRO</h3>
+                            </div>
+                            <div class="p-6 flex-1 flex flex-col">
+                                <form id="form-capitulo" class="space-y-5 flex-1">
+                                    <input type="hidden" id="cap-edit-id">
+                                    <div class="grid grid-cols-2 gap-6">
+                                        <div class="flex flex-col gap-2 group">
+                                            <label class="font-label-mono text-xs text-black uppercase font-bold">Cod. Capítulo <span class="text-tertiary font-normal">— Auto</span></label>
+                                            <input id="cap-codigo" readonly class="w-full bg-surface-container border-2 border-black focus:ring-0 font-label-mono py-3 px-4 rounded-none outline-none text-tertiary cursor-not-allowed uppercase" placeholder="Se genera al guardar"/>
+                                        </div>
+                                        <div class="flex flex-col gap-2 group">
+                                            <label class="font-label-mono text-xs text-black uppercase font-bold">Estado</label>
+                                            <select id="cap-estado" required class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-label-mono py-3 px-4 rounded-none outline-none focus:bg-white transition-colors cursor-pointer">
+                                                <option value="ACTIVO">Activo</option>
+                                                <option value="EN FORMACIÓN">En Formación</option>
+                                                <option value="INACTIVO">Inactivo</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col gap-2 group">
+                                        <label class="font-label-mono text-xs text-black uppercase font-bold">Universidad</label>
+                                        <input id="cap-universidad" required class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-body-md py-3 px-4 rounded-none outline-none focus:bg-white transition-colors uppercase" placeholder="Ej: Universidad Nacional de Ingeniería" type="text"/>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-6">
+                                        <div class="flex flex-col gap-2 group">
+                                            <label class="font-label-mono text-xs text-black uppercase font-bold">Facultad</label>
+                                            <input id="cap-facultad" required class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-body-md py-3 px-4 rounded-none outline-none focus:bg-white transition-colors" placeholder="Ej: Fac. Ing. Mecánica" type="text"/>
+                                        </div>
+                                        <div class="flex flex-col gap-2 group">
+                                            <label class="font-label-mono text-xs text-black uppercase font-bold">Sede (Ciudad)</label>
+                                            <input id="cap-sede" required class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-body-md py-3 px-4 rounded-none outline-none focus:bg-white transition-colors uppercase" placeholder="Ej: Lima" type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-6">
+                                        <div class="flex flex-col gap-2 group">
+                                            <label class="font-label-mono text-xs text-black uppercase font-bold">Año de Fundación</label>
+                                            <input id="cap-anio" type="number" min="1950" max="2030" class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-label-mono py-3 px-4 rounded-none outline-none focus:bg-white transition-colors" placeholder="Ej: 2020"/>
+                                        </div>
+                                        <div class="flex flex-col gap-2 group">
+                                            <label class="font-label-mono text-xs text-black uppercase font-bold">URL Imagen / Logo</label>
+                                            <input id="cap-imagen" class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-body-md py-3 px-4 rounded-none outline-none focus:bg-white transition-colors" placeholder="URL (opcional)" type="url"/>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col gap-2 group">
+                                        <label class="font-label-mono text-xs text-black uppercase font-bold">Misión Operativa</label>
+                                        <textarea id="cap-mision" rows="3" class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-body-md py-3 px-4 rounded-none outline-none focus:bg-white transition-colors resize-y" placeholder="Breve descripción de la misión del capítulo..."></textarea>
+                                    </div>
+                                    <!-- JUNTA DIRECTIVA -->
+                                    <div class="border-2 border-black">
+                                        <div class="bg-secondary text-white px-4 py-2 flex justify-between items-center border-b-2 border-black">
+                                            <span class="font-label-mono text-xs uppercase flex items-center gap-2"><span class="material-symbols-outlined text-sm">groups</span> Junta Directiva</span>
+                                            <button type="button" onclick="addJuntaItem()" class="bg-white text-black font-label-mono text-[10px] uppercase px-3 py-1 hover:bg-primary-container hover:text-white transition-colors">+ Miembro</button>
+                                        </div>
+                                        <div id="cap-junta-list" class="divide-y divide-black/20 max-h-48 overflow-y-auto"></div>
+                                        <div id="cap-junta-empty" class="p-3 text-center font-label-mono text-xs text-tertiary uppercase">Sin miembros — Click en "+ Miembro"</div>
+                                    </div>
+                                    <!-- PROYECTOS -->
+                                    <div class="border-2 border-black">
+                                        <div class="bg-tertiary-container text-on-tertiary-container px-4 py-2 flex justify-between items-center border-b-2 border-black">
+                                            <span class="font-label-mono text-xs uppercase flex items-center gap-2"><span class="material-symbols-outlined text-sm">engineering</span> Proyectos Destacados</span>
+                                            <button type="button" onclick="addProyectoItem()" class="bg-white text-black font-label-mono text-[10px] uppercase px-3 py-1 hover:bg-primary-container hover:text-white transition-colors">+ Proyecto</button>
+                                        </div>
+                                        <div id="cap-proyectos-list" class="divide-y divide-black/20 max-h-48 overflow-y-auto"></div>
+                                        <div id="cap-proyectos-empty" class="p-3 text-center font-label-mono text-xs text-tertiary uppercase">Sin proyectos — Click en "+ Proyecto"</div>
+                                    </div>
+                                    <button type="submit" class="w-full bg-primary-container text-white font-inter font-black uppercase tracking-widest py-4 border-2 border-primary-container hover:bg-black hover:border-black transition-none clip-corner flex items-center justify-center gap-2 mt-4">
+                                        <span class="material-symbols-outlined">save</span> Guardar Registro
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Lista -->
+                    <div class="col-span-1 lg:col-span-7 flex flex-col gap-6">
+                        <div class="bg-white border-2 border-black block-shadow relative z-10 flex flex-col h-[800px]">
+                            <div class="bg-black text-white flex items-center justify-between p-4 border-b-2 border-black scanline shrink-0">
+                                <h3 class="font-inter font-bold uppercase tracking-widest text-sm">Directorio Autorizado // RED NACIONAL</h3>
+                                <input type="text" id="search-capitulos-admin" placeholder="Buscar localmente..." class="bg-black border border-white text-white font-label-mono text-xs px-2 py-1 outline-none w-1/3" onkeyup="renderLocal('capitulos')">
+                            </div>
+                            <div id="lista-capitulos" class="divide-y-2 divide-black flex-1 bg-neutral-50 overflow-y-auto custom-scrollbar"></div>
+                            <button onclick="cargarMas('capitulos', 'codigo', 'asc')" class="w-full bg-surface-container-high border-t-2 border-black py-3 font-inter font-bold uppercase text-xs hover:bg-neutral-200 transition-colors">Cargar Más</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Tab: Directorio -->
+            <div id="tab-directorio" class="tab-content hidden max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-gutter relative">
+                <!-- Form -->
+                <div class="col-span-1 lg:col-span-5 flex flex-col gap-6">
+                    <div class="bg-white border-2 border-black block-shadow relative z-10 p-0 flex flex-col">
+                        <div class="bg-black text-white font-label-mono p-3 uppercase flex justify-between items-center border-b-2 border-black scanline">
+                            <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm text-primary-container">contact_page</span> <span class="text-xs">MOD_INPUT_04 // DIRECTORIO</span></div>
+                        </div>
+                        <div class="p-6">
+                            <form id="form-directorio" class="space-y-6">
+                                <input type="hidden" id="dir-edit-id">
+                                <div class="flex flex-col gap-2 group">
+                                    <label class="font-label-mono text-xs text-black uppercase font-bold">Nombre del Líder</label>
+                                    <input id="dir-nombre" required class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-body-md py-3 px-4 rounded-none outline-none focus:bg-white transition-colors" placeholder="Ej: Carlos Mendoza" type="text"/>
+                                </div>
+                                <div class="grid grid-cols-2 gap-6">
+                                    <div class="flex flex-col gap-2 group">
+                                        <label class="font-label-mono text-xs text-black uppercase font-bold">Cargo / Rol</label>
+                                        <input id="dir-cargo" required class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-body-md py-3 px-3 rounded-none outline-none focus:bg-white transition-colors" placeholder="Ej: PRESIDENTE DE CAPÍTULO" type="text"/>
+                                    </div>
+                                    <div class="flex flex-col gap-2 group">
+                                        <label class="font-label-mono text-xs text-black uppercase font-bold">ID (REF) <span class="text-tertiary font-normal">— Auto</span></label>
+                                        <input id="dir-id" readonly class="w-full bg-surface-container border-2 border-black font-label-mono py-3 px-3 rounded-none outline-none text-tertiary cursor-not-allowed" type="text" placeholder="DIR-001"/>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col gap-2 group">
+                                    <label class="font-label-mono text-xs text-black uppercase font-bold">Universidad / Institución</label>
+                                    <input id="dir-universidad" required class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-body-md py-3 px-4 rounded-none outline-none focus:bg-white transition-colors" placeholder="Ej: Universidad Nacional de Ingeniería" type="text"/>
+                                </div>
+                                <div class="grid grid-cols-2 gap-6">
+                                    <div class="flex flex-col gap-2 group">
+                                        <label class="font-label-mono text-xs text-black uppercase font-bold">Email de Contacto</label>
+                                        <input id="dir-email" class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-body-md py-3 px-3 rounded-none outline-none focus:bg-white transition-colors" placeholder="email@ejemplo.com" type="email"/>
+                                    </div>
+                                    <div class="flex flex-col gap-2 group">
+                                        <label class="font-label-mono text-xs text-black uppercase font-bold">Foto (Archivo)</label>
+                                        <input id="dir-img-file" class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-label-mono py-2 px-3 rounded-none outline-none focus:bg-white transition-colors cursor-pointer file:bg-black file:text-white file:border-0 file:px-4 file:py-2 file:mr-4 file:font-label-mono file:uppercase file:cursor-pointer hover:file:bg-primary" type="file" accept="image/*"/>
+                                        <img id="dir-img-preview" class="hidden mt-2 border-2 border-black max-h-40 object-cover w-full" />
+                                    </div>
+                                </div>
+                                <div class="flex flex-col gap-2 group">
+                                    <label class="font-label-mono text-xs text-black uppercase font-bold">URL Perfil (LinkedIn/Web)</label>
+                                    <input id="dir-perfil" class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-body-md py-3 px-4 rounded-none outline-none focus:bg-white transition-colors" placeholder="https://..." type="url"/>
+                                </div>
+                                <button type="submit" class="w-full bg-primary-container text-white font-inter font-black uppercase tracking-widest py-4 border-2 border-primary-container hover:bg-black hover:border-black transition-none flex items-center justify-center gap-2 mt-6">
+                                    <span class="material-symbols-outlined">person_add</span> Guardar en Directorio
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- List -->
+                <div class="col-span-1 lg:col-span-7 flex flex-col gap-6">
+                    <div class="bg-white border-2 border-black block-shadow relative z-10 flex flex-col h-[800px]">
+                        <div class="bg-black text-white flex items-center justify-between p-4 border-b-2 border-black scanline shrink-0">
+                            <h3 class="font-inter font-bold uppercase tracking-widest text-sm">Directorio Autorizado // RED NACIONAL</h3>
+                            <input type="text" id="search-directorio" placeholder="Buscar líder..." class="bg-black border border-white text-white font-label-mono text-xs px-2 py-1 outline-none w-1/3" onkeyup="renderLocal('directorio_nacional')">
+                        </div>
+                        <div id="lista-directorio" class="divide-y-2 divide-black flex-1 bg-neutral-50 overflow-y-auto custom-scrollbar"></div>
+                        <button onclick="cargarMas('directorio_nacional', 'timestamp')" class="w-full bg-surface-container-high border-t-2 border-black py-3 font-inter font-bold uppercase text-xs hover:bg-neutral-200 transition-colors">Cargar Más</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="fixed bottom-4 right-4 z-[60] flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- Confirm Modal -->
+    <div id="confirm-modal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white border-2 border-black block-shadow max-w-md w-full relative">
+            <div class="bg-black text-white p-4 border-b-2 border-black scanline flex items-center gap-3">
+                <span class="material-symbols-outlined text-primary-container">warning</span>
+                <h3 class="font-label-mono text-sm uppercase tracking-widest">Alerta de Destrucción</h3>
+            </div>
+            <div class="p-6 flex flex-col gap-4">
+                <p class="font-body-md text-sm text-neutral-600">Esta acción es irreversible y será registrada en la bitácora de auditoría. Escriba <strong class="text-black">ELIMINAR</strong> para confirmar.</p>
+                <input type="text" id="confirm-input" class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-label-mono p-3 rounded-none outline-none focus:bg-white text-center uppercase" placeholder="Escriba ELIMINAR">
+                <div class="flex gap-4 mt-2">
+                    <button id="confirm-cancel" class="flex-1 bg-white border-2 border-black text-black font-inter font-black uppercase tracking-widest py-3 hover:bg-neutral-100 transition-colors">Cancelar</button>
+                    <button id="confirm-accept" class="flex-1 bg-primary-container border-2 border-primary-container text-white font-inter font-black uppercase tracking-widest py-3 hover:bg-black hover:border-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase Scripts -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, deleteDoc, updateDoc, doc, setDoc, getDoc, getDocs, onSnapshot, serverTimestamp, query, orderBy, limit, startAfter, getCountFromServer } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-storage.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCNW5JWDEO8BgfpUODrhUNy7p1P0ZEecJE",
+            authDomain: "aneimera-peru.firebaseapp.com",
+            projectId: "aneimera-peru",
+            storageBucket: "aneimera-peru.firebasestorage.app",
+            messagingSenderId: "706894806005",
+            appId: "1:706894806005:web:e238c117955b77d011febc",
+            measurementId: "G-HXTQ9VHVXF"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+
+        // Secondary app to create users without logging out
+        const secondaryApp = initializeApp(firebaseConfig, "Secondary");
+        const secondaryAuth = getAuth(secondaryApp);
+
+        const escapeHTML = (str) => {
+            if (!str) return '';
+            return String(str).replace(/[&<>'"]/g, 
+                tag => ({
+                    '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+                }[tag])
+            );
+        };
+
+        // UI Elements
+        const loginSection = document.getElementById('login-section');
+        const dashboardSection = document.getElementById('dashboard-section');
+        const btnLogout = document.getElementById('btn-logout');
+        
+        // Tab Switcher Logic
+        window.switchTab = (tabId) => {
+            const titles = {
+                'dashboard': 'PANEL DE CONTROL //',
+                'eventos': 'GESTIÓN DE EVENTOS //',
+                'noticias': 'GESTIÓN DE NOTICIAS //',
+                'postulaciones': 'REVISIÓN POSTULACIONES //',
+                'directorio': 'DIRECTORIO NACIONAL //',
+                'usuarios': 'ADMINISTRAR USUARIOS //',
+                'capitulos': 'GESTIÓN DE CAPÍTULOS //'
+            };
+            document.getElementById('page-title').innerText = titles[tabId] || 'PANEL DE CONTROL //';
+
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('bg-black', '!text-white'));
+            
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(el => {
+                if(el.getAttribute('onclick') && el.getAttribute('onclick').includes(tabId)) {
+                    el.classList.add('bg-black', '!text-white');
+                }
+            });
+
+            // Auto-generar IDs al entrar a cada pestaña
+            if (tabId === 'eventos' && typeof autoGenerateEventId === 'function') autoGenerateEventId();
+            if (tabId === 'noticias' && typeof autoGenerateNoticiaId === 'function') autoGenerateNoticiaId();
+            if (tabId === 'directorio' && typeof autoGenerateDirId === 'function') autoGenerateDirId();
+            if (tabId === 'capitulos' && typeof autoGenerateCapCodigo === 'function') autoGenerateCapCodigo();
+        };
+
+        window.showToast = (message, type = 'success') => {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            const toast = document.createElement('div');
+            const isError = type === 'error';
+            toast.className = `font-label-mono text-xs uppercase tracking-widest p-4 border-2 border-black flex items-center gap-3 transition-all duration-300 transform translate-x-full ${isError ? 'bg-primary-container text-white' : 'bg-green-500 text-white'}`;
+            toast.innerHTML = `
+                <span class="material-symbols-outlined">${isError ? 'error' : 'check_circle'}</span>
+                <span>${message}</span>
+            `;
+            container.appendChild(toast);
+            
+            requestAnimationFrame(() => toast.classList.remove('translate-x-full'));
+            
+            setTimeout(() => {
+                toast.classList.add('translate-x-full');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        };
+
+        let inactivityTimer;
+        const resetInactivityTimer = () => {
+            clearTimeout(inactivityTimer);
+            if (auth.currentUser) {
+                inactivityTimer = setTimeout(() => {
+                    signOut(auth);
+                    showToast("Sesión cerrada por inactividad", "error");
+                }, 60 * 60 * 1000); // 60 minutes
+            }
+        };
+
+        ['mousemove', 'mousedown', 'keypress', 'touchmove', 'scroll'].forEach(evt => 
+            document.addEventListener(evt, resetInactivityTimer, { passive: true })
+        );
+
+        // UI Initializations (Quill & Charts)
+        const quillConfig = { theme: 'snow', modules: { toolbar: [['bold', 'italic', 'underline'], [{'list': 'ordered'}, {'list': 'bullet'}], ['link']] } };
+        const quillEv = new Quill('#quill-ev-desc', quillConfig);
+        const quillNot = new Quill('#quill-not-desc', quillConfig);
+
+        let chartPost, chartEvt;
+        const initCharts = () => {
+            try {
+                const ctxP = document.getElementById('chart-postulaciones').getContext('2d');
+                const ctxE = document.getElementById('chart-eventos').getContext('2d');
+                chartPost = new Chart(ctxP, { type: 'doughnut', data: { labels: ['Aprobados', 'Rechazados', 'Pendientes'], datasets: [{ data: [0,0,0], backgroundColor: ['#22c55e', '#ef4444', '#f59e0b'], borderWidth: 2, borderColor: '#000' }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { font: { family: "'Space Mono', monospace", size: 10 } } } } } });
+                chartEvt = new Chart(ctxE, { type: 'bar', data: { labels: ['Conferencia', 'Taller', 'Networking'], datasets: [{ label: 'Total', data: [0,0,0], backgroundColor: '#000', borderWidth: 2, borderColor: '#000' }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { precision: 0 } } } } });
+            } catch (err) {
+                console.error("Error inicializando charts:", err);
+            }
+        };
+        initCharts();
+
+        // Image Previews
+        const setupImagePreview = (inputId, previewId) => {
+            const input = document.getElementById(inputId);
+            const preview = document.getElementById(previewId);
+            if(input && preview) {
+                input.addEventListener('change', function() {
+                    const file = this.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            preview.src = e.target.result;
+                            preview.classList.remove('hidden');
+                        }
+                        reader.readAsDataURL(file);
+                    } else {
+                        preview.src = '';
+                        preview.classList.add('hidden');
+                    }
+                });
+            }
+        };
+        setupImagePreview('ev-img-file', 'ev-img-preview');
+        setupImagePreview('not-img-file', 'not-img-preview');
+        setupImagePreview('dir-img-file', 'dir-img-preview');
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                try {
+                    const docSnap = await getDoc(doc(db, "usuarios", user.uid));
+                    if (docSnap.exists() && docSnap.data().rol === 'SUPERADMIN') {
+                        document.getElementById('nav-usuarios').classList.remove('hidden');
+                        window.currentUserRole = 'SUPERADMIN';
+                    } else {
+                        document.getElementById('nav-usuarios').classList.add('hidden');
+                        window.currentUserRole = 'EDITOR';
+                    }
+                } catch(e) { window.currentUserRole = 'EDITOR'; }
+                
+                loginSection.classList.add('hidden');
+                dashboardSection.classList.remove('hidden');
+                resetInactivityTimer();
+                loadData();
+            } else {
+                loginSection.classList.remove('hidden');
+                dashboardSection.classList.add('hidden');
+                clearTimeout(inactivityTimer);
+            }
+        });
+
+        // Login Logic
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const errorDiv = document.getElementById('login-error');
+            const btnSubmit = e.target.querySelector('button[type="submit"]');
+            
+            const originalText = btnSubmit.innerHTML;
+            btnSubmit.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> AUTENTICANDO...';
+            btnSubmit.disabled = true;
+            errorDiv.classList.add('hidden');
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                showToast("Acceso Concedido", "success");
+            } catch (error) {
+                console.error("Login Error:", error);
+                errorDiv.innerText = "Error: Credenciales inválidas o problema de red";
+                errorDiv.classList.remove('hidden');
+            } finally {
+                btnSubmit.innerHTML = originalText;
+                btnSubmit.disabled = false;
+            }
+        });
+
+        // Logout
+        btnLogout.addEventListener('click', () => {
+            signOut(auth);
+            showToast("Sesión Finalizada", "success");
+        });
+
+        // Global functions
+        const registrarAuditoria = async (accion, coleccion, docId) => {
+            if (!auth.currentUser) return;
+            try {
+                await addDoc(collection(db, "audit_log"), {
+                    timestamp: serverTimestamp(),
+                    emailAdmin: auth.currentUser.email,
+                    uidAdmin: auth.currentUser.uid,
+                    accion: accion,
+                    coleccion: coleccion,
+                    documentoId: docId
+                });
+            } catch (err) {
+                console.error("No se pudo registrar auditoría:", err);
+            }
+        };
+
+        window.eliminarSeguro = (col, id) => {
+            const modal = document.getElementById('confirm-modal');
+            const input = document.getElementById('confirm-input');
+            const btnAccept = document.getElementById('confirm-accept');
+            const btnCancel = document.getElementById('confirm-cancel');
+            
+            modal.classList.remove('hidden');
+            input.value = '';
+            btnAccept.disabled = true;
+            
+            const validateInput = (e) => {
+                btnAccept.disabled = e.target.value.trim().toUpperCase() !== 'ELIMINAR';
+            };
+            input.oninput = validateInput;
+            
+            const closeModal = () => {
+                modal.classList.add('hidden');
+                input.oninput = null;
+                btnAccept.onclick = null;
+            };
+
+            btnCancel.onclick = closeModal;
+
+            btnAccept.onclick = async () => {
+                btnAccept.innerHTML = 'PROCESANDO...';
+                try {
+                    await deleteDoc(doc(db, col, id));
+                    await registrarAuditoria("DELETE", col, id);
+                } catch(e) {
+                    console.error("Error al eliminar", e);
+                }
+                btnAccept.innerHTML = 'ACEPTAR';
+                closeModal();
+            };
+        };
+
+        window.updateStatus = async (col, id, newStatus) => {
+            try {
+                await updateDoc(doc(db, col, id), { status: newStatus });
+                await registrarAuditoria(`STATUS_UPDATE_${newStatus}`, col, id);
+                showToast(`Estado actualizado a ${newStatus}`, "success");
+            } catch(err) {
+                showToast("Error actualizando estado.", "error");
+            }
+        };
+
+        window.addCronogramaItem = (horaInicio='', horaFin='', titulo='', desc='', ponente='') => {
+            const list = document.getElementById('ev-cronograma-list');
+            document.getElementById('ev-cronograma-empty').classList.add('hidden');
+            const item = document.createElement('div');
+            item.className = 'crono-item p-3 bg-white';
+            item.innerHTML = `
+                <div class="grid grid-cols-12 gap-2">
+                    <input class="crono-hora-inicio col-span-2 bg-neutral-50 border border-black font-label-mono text-[11px] px-1 py-1 rounded-none outline-none text-center" type="time" value="${escapeHTML(horaInicio)}">
+                    <span class="col-span-1 flex items-center justify-center font-label-mono text-[10px] text-tertiary">→</span>
+                    <input class="crono-hora-fin col-span-2 bg-neutral-50 border border-black font-label-mono text-[11px] px-1 py-1 rounded-none outline-none text-center" type="time" value="${escapeHTML(horaFin)}">
+                    <input class="crono-titulo col-span-4 bg-neutral-50 border border-black font-label-mono text-[11px] px-2 py-1 rounded-none outline-none" placeholder="Título del bloque" value="${escapeHTML(titulo)}">
+                    <input class="crono-ponente col-span-2 bg-neutral-50 border border-black font-label-mono text-[11px] px-2 py-1 rounded-none outline-none" placeholder="Ponente" value="${escapeHTML(ponente)}">
+                    <button type="button" onclick="this.closest('.crono-item').remove(); checkCronoEmpty()" class="col-span-1 bg-primary-container text-white font-label-mono text-[11px] hover:bg-black transition-colors flex items-center justify-center"><span class="material-symbols-outlined text-sm">close</span></button>
+                </div>
+                <textarea class="crono-desc w-full bg-neutral-50 border border-black font-label-mono text-[11px] px-2 py-1 mt-1 rounded-none outline-none resize-none" rows="1" placeholder="Descripción breve del bloque...">${escapeHTML(desc)}</textarea>
+            `;
+            list.appendChild(item);
+        };
+
+        window.checkCronoEmpty = () => {
+            const list = document.getElementById('ev-cronograma-list');
+            const empty = document.getElementById('ev-cronograma-empty');
+            if (list.querySelectorAll('.crono-item').length === 0) empty.classList.remove('hidden');
+            else empty.classList.add('hidden');
+        };
+
+        // Auto-generar ID de evento
+        window.autoGenerateEventId = async () => {
+            if (document.getElementById('ev-edit-id').value) return;
+            try {
+                const snap = await getCountFromServer(collection(db, 'eventos'));
+                const nextNum = String(snap.data().count + 1).padStart(3, '0');
+                const year = new Date().getFullYear();
+                document.getElementById('ev-id').value = `EVT-${year}-${nextNum}`;
+            } catch(e) {
+                document.getElementById('ev-id').value = `EVT-${new Date().getFullYear()}-001`;
+            }
+        };
+
+        window.autoGenerateNoticiaId = async () => {
+            if (document.getElementById('not-edit-id').value) return;
+            try {
+                const snap = await getCountFromServer(collection(db, 'noticias'));
+                const nextNum = String(snap.data().count + 1).padStart(3, '0');
+                const year = new Date().getFullYear();
+                document.getElementById('not-id').value = `PUB-${year}-${nextNum}`;
+            } catch(e) {
+                document.getElementById('not-id').value = `PUB-${new Date().getFullYear()}-001`;
+            }
+        };
+
+        window.autoGenerateCapCodigo = async () => {
+            if (document.getElementById('cap-edit-id').value) return;
+            try {
+                const snap = await getCountFromServer(collection(db, 'capitulos'));
+                const nextNum = String(snap.data().count + 1).padStart(3, '0');
+                document.getElementById('cap-codigo').value = `CHAP-${nextNum}`;
+            } catch(e) {
+                document.getElementById('cap-codigo').value = `CHAP-001`;
+            }
+        };
+
+        window.autoGenerateDirId = async () => {
+            if (document.getElementById('dir-edit-id').value) return;
+            try {
+                const snap = await getCountFromServer(collection(db, 'directorio_nacional'));
+                const nextNum = String(snap.data().count + 1).padStart(3, '0');
+                document.getElementById('dir-id').value = `DIR-${nextNum}`;
+            } catch(e) {
+                document.getElementById('dir-id').value = `DIR-001`;
+            }
+        };
+
+        // Junta Directiva builder
+        window.addJuntaItem = (nombre='', cargo='', carrera='') => {
+            const list = document.getElementById('cap-junta-list');
+            document.getElementById('cap-junta-empty').classList.add('hidden');
+            const item = document.createElement('div');
+            item.className = 'junta-item p-2 bg-white';
+            item.innerHTML = `
+                <div class="grid grid-cols-12 gap-2">
+                    <input class="junta-nombre col-span-4 bg-neutral-50 border border-black font-label-mono text-[11px] px-2 py-1 rounded-none outline-none" placeholder="Nombre completo" value="${escapeHTML(nombre)}">
+                    <input class="junta-cargo col-span-3 bg-neutral-50 border border-black font-label-mono text-[11px] px-2 py-1 rounded-none outline-none" placeholder="Cargo (Ej: PRESIDENCIA)" value="${escapeHTML(cargo)}">
+                    <input class="junta-carrera col-span-4 bg-neutral-50 border border-black font-label-mono text-[11px] px-2 py-1 rounded-none outline-none" placeholder="Carrera" value="${escapeHTML(carrera)}">
+                    <button type="button" onclick="this.closest('.junta-item').remove(); checkJuntaEmpty()" class="col-span-1 bg-primary-container text-white font-label-mono text-[11px] hover:bg-black transition-colors flex items-center justify-center"><span class="material-symbols-outlined text-sm">close</span></button>
+                </div>
+            `;
+            list.appendChild(item);
+        };
+        window.checkJuntaEmpty = () => {
+            const list = document.getElementById('cap-junta-list');
+            document.getElementById('cap-junta-empty').classList.toggle('hidden', list.querySelectorAll('.junta-item').length > 0);
+        };
+
+        // Proyectos builder
+        window.addProyectoItem = (titulo='', descripcion='', tipo='') => {
+            const list = document.getElementById('cap-proyectos-list');
+            document.getElementById('cap-proyectos-empty').classList.add('hidden');
+            const item = document.createElement('div');
+            item.className = 'proyecto-item p-2 bg-white';
+            item.innerHTML = `
+                <div class="grid grid-cols-12 gap-2">
+                    <input class="proy-titulo col-span-5 bg-neutral-50 border border-black font-label-mono text-[11px] px-2 py-1 rounded-none outline-none" placeholder="Nombre del proyecto" value="${escapeHTML(titulo)}">
+                    <input class="proy-tipo col-span-3 bg-neutral-50 border border-black font-label-mono text-[11px] px-2 py-1 rounded-none outline-none" placeholder="Tipo (Ej: INVESTIGACIÓN)" value="${escapeHTML(tipo)}">
+                    <input class="proy-desc col-span-3 bg-neutral-50 border border-black font-label-mono text-[11px] px-2 py-1 rounded-none outline-none" placeholder="Breve descripción" value="${escapeHTML(descripcion)}">
+                    <button type="button" onclick="this.closest('.proyecto-item').remove(); checkProyectosEmpty()" class="col-span-1 bg-primary-container text-white font-label-mono text-[11px] hover:bg-black transition-colors flex items-center justify-center"><span class="material-symbols-outlined text-sm">close</span></button>
+                </div>
+            `;
+            list.appendChild(item);
+        };
+        window.checkProyectosEmpty = () => {
+            const list = document.getElementById('cap-proyectos-list');
+            document.getElementById('cap-proyectos-empty').classList.toggle('hidden', list.querySelectorAll('.proyecto-item').length > 0);
+        };
+
+        window.editarEvento = async (id) => {
+            try {
+                const snapshot = await getDoc(doc(db, "eventos", id));
+                if(snapshot.exists()) {
+                    const data = snapshot.data();
+                    document.getElementById('ev-edit-id').value = id;
+                    document.getElementById('ev-titulo').value = data.titulo || '';
+                    document.getElementById('ev-fecha').value = data.fecha || '';
+                    document.getElementById('ev-hora').value = data.hora || '';
+                    document.getElementById('ev-lugar').value = data.lugar || '';
+                    document.getElementById('ev-tipo').value = data.tipo || 'CONFERENCIA MAGISTRAL';
+                    document.getElementById('ev-id').value = data.eventId || '';
+                    quillEv.root.innerHTML = data.descripcion || '';
+                    document.getElementById('ev-link').value = data.linkForms || '';
+                    document.getElementById('ev-estado').value = data.estado || 'PUBLICADO';
+                    document.getElementById('ev-fecha-prog').value = data.fechaProgramada || '';
+                    document.getElementById('ev-prog-wrapper').classList.toggle('hidden', data.estado !== 'PROGRAMADO');
+                    
+                    // Cargar cronograma
+                    document.getElementById('ev-cronograma-list').innerHTML = '';
+                    if (data.cronograma && Array.isArray(data.cronograma)) {
+                        data.cronograma.forEach(c => {
+                            const hi = c.horaInicio || (c.hora ? c.hora.split(' - ')[0]?.trim() : '');
+                            const hf = c.horaFin || (c.hora ? c.hora.split(' - ')[1]?.trim() : '');
+                            addCronogramaItem(hi, hf, c.titulo, c.descripcion, c.ponente);
+                        });
+                    }
+                    checkCronoEmpty();
+
+                    // Cargar requisitos
+                    document.getElementById('ev-requisitos').value = (data.requisitos || []).join('\n');
+
+                    switchTab('eventos');
+                    window.scrollTo(0,0);
+                    
+                    const btn = document.querySelector('#form-evento button[type="submit"]');
+                    if (btn) btn.innerHTML = '<span class="material-symbols-outlined">update</span> Actualizar Evento';
+                }
+            } catch(e) {
+                console.error('editarEvento:', e);
+                showToast('Error al cargar el evento para editar.', 'error');
+            }
+        };
+
+        window.editarNoticia = async (id) => {
+            try {
+                const snapshot = await getDoc(doc(db, "noticias", id));
+                if(snapshot.exists()) {
+                    const data = snapshot.data();
+                    document.getElementById('not-edit-id').value = id;
+                    document.getElementById('not-titulo').value = data.titulo || '';
+                    document.getElementById('not-cat').value = data.categoria || 'INVESTIGACIÓN';
+                    document.getElementById('not-id').value = data.noticiaId || '';
+                    quillNot.root.innerHTML = data.descripcion || '';
+                    document.getElementById('not-estado').value = data.estado || 'PUBLICADO';
+                    document.getElementById('not-fecha-prog').value = data.fechaProgramada || '';
+                    document.getElementById('not-prog-wrapper').classList.toggle('hidden', data.estado !== 'PROGRAMADO');
+                    document.getElementById('not-tags').value = (data.tags || []).join(', ');
+                    
+                    switchTab('noticias');
+                    window.scrollTo(0,0);
+                    
+                    const btn = document.querySelector('#form-noticia button[type="submit"]');
+                    if (btn) btn.innerHTML = '<span class="material-symbols-outlined">update</span> Actualizar Noticia';
+                }
+            } catch(e) {
+                console.error('editarNoticia:', e);
+                showToast('Error al cargar la noticia para editar.', 'error');
+            }
+        };
+
+        async function uploadImage(file, folder) {
+            if (!file) return null;
+            if (file.size > 2 * 1024 * 1024) {
+                throw new Error("El archivo excede el límite de 2MB. Por favor optimice la imagen.");
+            }
+            try {
+                const fileRef = ref(storage, `${folder}/${Date.now()}_${file.name}`);
+                await uploadBytes(fileRef, file);
+                return await getDownloadURL(fileRef);
+            } catch (err) {
+                console.error("Storage Error:", err);
+                throw new Error("Fallo al subir la imagen al servidor. Intente nuevamente.");
+            }
+        }
+
+        // Formularios
+        document.getElementById('form-evento').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Procesando...';
+            btn.disabled = true;
+
+            try {
+                const fileInput = document.getElementById('ev-img-file');
+                let imageUrl = "";
+                if (fileInput.files.length > 0) {
+                    btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Subiendo Imagen...';
+                    imageUrl = await uploadImage(fileInput.files[0], 'eventos');
+                }
+                
+                btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Guardando...';
+
+                const editId = document.getElementById('ev-edit-id').value;
+                const rawEvHtml = quillEv.root.innerHTML === '<p><br></p>' ? '' : quillEv.root.innerHTML;
+                const descVal = rawEvHtml ? DOMPurify.sanitize(rawEvHtml, {
+                    ALLOWED_TAGS: ['p','br','strong','em','u','ol','ul','li','a','h2','h3','blockquote'],
+                    ALLOWED_ATTR: ['href','target','rel']
+                }) : '';
+                if(!descVal) throw new Error("La descripción no puede estar vacía");
+
+                // Recoger cronograma
+                const cronogramaItems = [];
+                document.querySelectorAll('#ev-cronograma-list .crono-item').forEach(item => {
+                    const hi = item.querySelector('.crono-hora-inicio').value;
+                    const hf = item.querySelector('.crono-hora-fin').value;
+                    cronogramaItems.push({
+                        hora: hi && hf ? `${hi} - ${hf}` : (hi || hf || ''),
+                        horaInicio: hi,
+                        horaFin: hf,
+                        titulo: item.querySelector('.crono-titulo').value,
+                        descripcion: item.querySelector('.crono-desc').value,
+                        ponente: item.querySelector('.crono-ponente').value
+                    });
+                });                // Recoger requisitos
+                const reqText = document.getElementById('ev-requisitos').value;
+                const requisitos = reqText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+
+                const docData = {
+                    titulo: document.getElementById('ev-titulo').value,
+                    fecha: document.getElementById('ev-fecha').value,
+                    hora: document.getElementById('ev-hora').value,
+                    lugar: document.getElementById('ev-lugar').value,
+                    tipo: document.getElementById('ev-tipo').value,
+                    eventId: document.getElementById('ev-id').value,
+                    descripcion: descVal,
+                    linkForms: document.getElementById('ev-link').value,
+                    estado: document.getElementById('ev-estado').value,
+                    fechaProgramada: document.getElementById('ev-fecha-prog').value,
+                    cronograma: cronogramaItems,
+                    requisitos: requisitos
+                };
+
+                if (imageUrl) docData.imagenUrl = imageUrl;
+
+                if (editId) {
+                    await updateDoc(doc(db, "eventos", editId), docData);
+                    await registrarAuditoria("UPDATE", "eventos", editId);
+                    document.getElementById('ev-edit-id').value = "";
+                    btn.innerHTML = '<span class="material-symbols-outlined">publish</span> Guardar Evento';
+                    showToast("Evento actualizado", "success");
+                } else {
+                    docData.timestamp = serverTimestamp();
+                    if(!imageUrl) docData.imagenUrl = '';
+                    const newDoc = await addDoc(collection(db, "eventos"), docData);
+                    await registrarAuditoria("CREATE", "eventos", newDoc.id);
+                    showToast("Evento creado", "success");
+                }
+                
+                e.target.reset();
+                document.getElementById('ev-prog-wrapper').classList.add('hidden');
+                document.getElementById('ev-cronograma-list').innerHTML = '';
+                document.getElementById('ev-requisitos').value = '';
+                checkCronoEmpty();
+                quillEv.root.innerHTML = '';
+                // Regenerar ID para el siguiente evento
+                autoGenerateEventId();
+            } catch (error) {
+                showToast(error.message || "Error al guardar evento.", "error");
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        });
+
+        document.getElementById('form-noticia').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Procesando...';
+            btn.disabled = true;
+
+            try {
+                const fileInput = document.getElementById('not-img-file');
+                let imageUrl = "";
+                if (fileInput.files.length > 0) {
+                    btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Subiendo Imagen...';
+                    imageUrl = await uploadImage(fileInput.files[0], 'noticias');
+                }
+
+                btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Guardando...';
+
+                const editId = document.getElementById('not-edit-id').value;
+                const rawNotHtml = quillNot.root.innerHTML === '<p><br></p>' ? '' : quillNot.root.innerHTML;
+                const descVal = rawNotHtml ? DOMPurify.sanitize(rawNotHtml, {
+                    ALLOWED_TAGS: ['p','br','strong','em','u','ol','ul','li','a','h2','h3','blockquote'],
+                    ALLOWED_ATTR: ['href','target','rel']
+                }) : '';
+                if(!descVal) throw new Error("El cuerpo de la noticia no puede estar vacío");
+
+                const docData = {
+                    titulo: document.getElementById('not-titulo').value,
+                    categoria: document.getElementById('not-cat').value,
+                    noticiaId: document.getElementById('not-id').value,
+                    descripcion: descVal,
+                    estado: document.getElementById('not-estado').value,
+                    fechaProgramada: document.getElementById('not-fecha-prog').value,
+                    tags: document.getElementById('not-tags').value.split(',').map(t => t.trim()).filter(t => t.length > 0)
+                };
+
+                if (imageUrl) docData.imagenUrl = imageUrl;
+
+                if (editId) {
+                    await updateDoc(doc(db, "noticias", editId), docData);
+                    await registrarAuditoria("UPDATE", "noticias", editId);
+                    document.getElementById('not-edit-id').value = "";
+                    btn.innerHTML = '<span class="material-symbols-outlined">publish</span> Guardar Noticia';
+                    showToast("Noticia actualizada", "success");
+                } else {
+                    docData.timestamp = serverTimestamp();
+                    if(!imageUrl) docData.imagenUrl = '';
+                    const newDoc = await addDoc(collection(db, "noticias"), docData);
+                    await registrarAuditoria("CREATE", "noticias", newDoc.id);
+                    showToast("Noticia creada", "success");
+                }
+
+                e.target.reset();
+                document.getElementById('not-prog-wrapper').classList.add('hidden');
+                document.getElementById('not-tags').value = '';
+                quillNot.root.innerHTML = '';
+                autoGenerateNoticiaId();
+            } catch (error) {
+                showToast(error.message || "Error al guardar noticia.", "error");
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        });
+
+        document.getElementById('form-usuario').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Creando...';
+            btn.disabled = true;
+            
+            const email = document.getElementById('usr-email').value;
+            const pass = document.getElementById('usr-pass').value;
+            const rol = document.getElementById('usr-rol').value;
+
+            try {
+                // Creates user in Secondary App so it doesn't log the admin out!
+                const newUserCred = await createUserWithEmailAndPassword(secondaryAuth, email, pass);
+                await signOut(secondaryAuth);
+                await setDoc(doc(db, "usuarios", newUserCred.user.uid), { email: email, rol: rol, timestamp: serverTimestamp() });
+                await registrarAuditoria("CREATE", "usuarios", email);
+                e.target.reset();
+                showToast("Administrador creado con éxito.", "success");
+            } catch (error) {
+                showToast("Error al crear usuario: " + error.message, "error");
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        });
+
+        document.getElementById('form-capitulo').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Procesando...';
+            btn.disabled = true;
+
+            try {
+                const editId = document.getElementById('cap-edit-id').value;
+
+                // Recoger junta directiva
+                const juntaItems = [];
+                document.querySelectorAll('#cap-junta-list .junta-item').forEach(item => {
+                    juntaItems.push({
+                        nombre: item.querySelector('.junta-nombre').value,
+                        cargo: item.querySelector('.junta-cargo').value,
+                        carrera: item.querySelector('.junta-carrera').value
+                    });
+                });
+                // Recoger proyectos
+                const proyItems = [];
+                document.querySelectorAll('#cap-proyectos-list .proyecto-item').forEach(item => {
+                    proyItems.push({
+                        titulo: item.querySelector('.proy-titulo').value,
+                        tipo: item.querySelector('.proy-tipo').value,
+                        descripcion: item.querySelector('.proy-desc').value
+                    });
+                });
+
+                const docData = {
+                    codigo: document.getElementById('cap-codigo').value.toUpperCase(),
+                    universidad: document.getElementById('cap-universidad').value.toUpperCase(),
+                    facultad: document.getElementById('cap-facultad').value,
+                    sede: document.getElementById('cap-sede').value.toUpperCase(),
+                    estado: document.getElementById('cap-estado').value,
+                    imagenUrl: document.getElementById('cap-imagen').value,
+                    mision: document.getElementById('cap-mision').value,
+                    anioFundacion: document.getElementById('cap-anio').value,
+                    juntaDirectiva: juntaItems,
+                    proyectos: proyItems,
+                    timestamp: serverTimestamp()
+                };
+
+                if (editId) {
+                    await updateDoc(doc(db, "capitulos", editId), docData);
+                    await registrarAuditoria("UPDATE", "capitulos", editId);
+                    document.getElementById('cap-edit-id').value = "";
+                    document.getElementById('title-capitulos').innerText = "Alta de Capítulo // REGISTRO";
+                    showToast("Capítulo actualizado", "success");
+                } else {
+                    const newDoc = await addDoc(collection(db, "capitulos"), docData);
+                    await registrarAuditoria("CREATE", "capitulos", newDoc.id);
+                    showToast("Capítulo creado", "success");
+                }
+                e.target.reset();
+                document.getElementById('cap-junta-list').innerHTML = '';
+                document.getElementById('cap-proyectos-list').innerHTML = '';
+                document.getElementById('cap-mision').value = '';
+                checkJuntaEmpty();
+                checkProyectosEmpty();
+                autoGenerateCapCodigo();
+            } catch (error) {
+                showToast("Error al guardar: " + error.message, "error");
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        });
+        document.getElementById('form-directorio').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Procesando...';
+            btn.disabled = true;
+
+            try {
+                const fileInput = document.getElementById('dir-img-file');
+                let imageUrl = "";
+                if (fileInput.files.length > 0) {
+                    imageUrl = await uploadImage(fileInput.files[0], 'directorio');
+                }
+
+                const editId = document.getElementById('dir-edit-id').value;
+                const docData = {
+                    nombre: document.getElementById('dir-nombre').value,
+                    cargo: document.getElementById('dir-cargo').value,
+                    directorioId: document.getElementById('dir-id').value,
+                    universidad: document.getElementById('dir-universidad').value,
+                    email: document.getElementById('dir-email').value,
+                    perfilUrl: document.getElementById('dir-perfil').value,
+                    timestamp: serverTimestamp()
+                };
+                if (imageUrl) docData.fotoUrl = imageUrl;
+
+                if (editId) {
+                    await updateDoc(doc(db, "directorio_nacional", editId), docData);
+                    await registrarAuditoria("UPDATE", "directorio_nacional", editId);
+                    document.getElementById('dir-edit-id').value = "";
+                    btn.innerHTML = '<span class="material-symbols-outlined">person_add</span> Guardar en Directorio';
+                    showToast("Miembro actualizado", "success");
+                } else {
+                    if(!imageUrl) docData.fotoUrl = '';
+                    const newDoc = await addDoc(collection(db, "directorio_nacional"), docData);
+                    await registrarAuditoria("CREATE", "directorio_nacional", newDoc.id);
+                    showToast("Miembro añadido", "success");
+                }
+                e.target.reset();
+                autoGenerateDirId();
+            } catch (error) {
+                showToast("Error: " + error.message, "error");
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        });
+
+        // Renders
+        function renderEventoItem(docSnap) {
+            const data = docSnap.data();
+            const id = docSnap.id;
+            const progBadge = data.estado === 'PROGRAMADO' ? `<span class="bg-yellow-500 text-white font-label-mono text-[10px] px-2 py-0.5 uppercase flex items-center gap-1 font-bold">PROGRAMADO</span>` : `<span class="bg-green-100 text-green-800 border border-green-800 font-label-mono text-[10px] px-2 py-0.5 uppercase flex items-center gap-1 font-bold"><span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> LIVE</span>`;
+
+            return `
+                <div class="p-4 hover:bg-white transition-colors flex flex-col md:flex-row gap-4 items-start md:items-center relative group border-b border-black">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-1">
+                            ${progBadge}
+                            <span class="font-label-mono text-[10px] text-neutral-500 font-bold uppercase">${escapeHTML(data.tipo || 'N/A')}</span>
+                        </div>
+                        <h4 class="font-headline-sm text-lg text-black mb-1 font-black leading-tight">${escapeHTML(data.titulo)}</h4>
+                        <p class="font-body-md text-sm text-neutral-600 mb-2 truncate">${escapeHTML(data.lugar || 'Lugar por confirmar')}</p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-2 shrink-0">
+                        <button onclick="editarEvento('${id}')" class="w-10 h-10 border-2 border-black bg-white text-black flex items-center justify-center hover:bg-black hover:text-white transition-all" title="Editar Registro">
+                            <span class="material-symbols-outlined text-sm">edit</span>
+                        </button>
+                        <button onclick="eliminarSeguro('eventos', '${id}')" class="w-10 h-10 border-2 border-black bg-white text-primary-container flex items-center justify-center hover:bg-primary-container hover:text-white transition-all" title="Eliminar Registro">
+                            <span class="material-symbols-outlined text-sm">delete</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderNoticiaItem(docSnap) {
+            const data = docSnap.data();
+            const id = docSnap.id;
+            const progBadge = data.estado === 'PROGRAMADO' ? `<span class="bg-yellow-500 text-white font-label-mono text-[10px] px-2 py-0.5 uppercase flex items-center gap-1 font-bold">PROGRAMADO</span>` : `<span class="bg-green-100 text-green-800 border border-green-800 font-label-mono text-[10px] px-2 py-0.5 uppercase flex items-center gap-1 font-bold"><span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> LIVE</span>`;
+            
+            return `
+                <div class="p-4 hover:bg-white transition-colors flex flex-col md:flex-row gap-4 items-start md:items-center relative group border-b border-black">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-1">
+                            ${progBadge}
+                            <span class="font-label-mono text-[10px] text-neutral-500 font-bold uppercase">CAT: ${escapeHTML(data.categoria || 'GENERAL')}</span>
+                        </div>
+                        <h4 class="font-headline-sm text-lg text-black mb-1 font-black leading-tight">${escapeHTML(data.titulo)}</h4>
+                        <p class="font-body-md text-sm text-neutral-600 mb-2 truncate">${escapeHTML((data.descripcion || '').replace(/<[^>]*>?/gm, ''))}</p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-2 shrink-0">
+                        <button onclick="setFeaturedNoticia('${id}')" class="bg-yellow-400 text-black font-label-mono text-[10px] px-2 py-1 uppercase font-bold hover:bg-yellow-300 transition-colors flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[14px]">star</span> DESTACAR
+                        </button>
+                        <button onclick="editarNoticia('${id}')" class="w-10 h-10 border-2 border-black bg-white text-black flex items-center justify-center hover:bg-black hover:text-white transition-all" title="Editar Registro">
+                            <span class="material-symbols-outlined text-sm">edit</span>
+                        </button>
+                        <button onclick="eliminarSeguro('noticias', '${id}')" class="w-10 h-10 border-2 border-black bg-white text-primary-container flex items-center justify-center hover:bg-primary-container hover:text-white transition-all" title="Eliminar Registro">
+                            <span class="material-symbols-outlined text-sm">delete</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderCapituloItem(docSnap) {
+            const data = docSnap.data();
+            const id = docSnap.id;
+            const estadoClass = data.estado === 'ACTIVO' ? 'bg-green-100 text-green-800' : 'bg-neutral-100 text-neutral-800';
+            return `
+                <div class="p-4 hover:bg-white transition-colors flex flex-col md:flex-row gap-4 items-start md:items-center relative group border-b border-black">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-1">
+                            <span class="font-label-mono text-[10px] text-black font-bold uppercase">${escapeHTML(data.codigo)}</span>
+                            <span class="${estadoClass} font-label-mono text-[9px] px-2 py-0.5 uppercase font-bold border border-current">${escapeHTML(data.estado || 'N/A')}</span>
+                        </div>
+                        <h4 class="font-headline-sm text-lg text-black mb-1 font-black leading-tight uppercase">${escapeHTML(data.universidad)}</h4>
+                        <p class="font-label-mono text-[10px] text-neutral-500 uppercase">${escapeHTML(data.sede)}</p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-2 shrink-0">
+                        <button onclick="editarCapitulo('${id}')" class="w-10 h-10 border-2 border-black bg-white text-black flex items-center justify-center hover:bg-black hover:text-white transition-all">
+                            <span class="material-symbols-outlined text-sm">edit</span>
+                        </button>
+                        <button onclick="eliminarSeguro('capitulos', '${id}')" class="w-10 h-10 border-2 border-black bg-white text-primary-container flex items-center justify-center hover:bg-primary-container hover:text-white transition-all">
+                            <span class="material-symbols-outlined text-sm">delete</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderPostulacionItem(docSnap) {
+            const data = docSnap.data();
+            const id = docSnap.id;
+            const statusColors = {
+                'pendiente': 'bg-black text-white',
+                'APROBADO': 'bg-green-500 text-white',
+                'RECHAZADO': 'bg-primary-container text-white'
+            };
+            const sc = statusColors[data.status] || statusColors['pendiente'];
+
+            return `
+                <div class="p-6 hover:bg-white transition-colors relative group border-b border-black flex flex-col md:flex-row gap-4 justify-between">
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-headline-sm text-xl text-black font-black uppercase">${escapeHTML(data.nombres)} ${escapeHTML(data.apellidos)}</h4>
+                            <span class="${sc} px-2 py-1 font-label-mono text-[10px] uppercase font-bold">${escapeHTML(data.status || 'PENDIENTE')}</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <p class="font-label-mono text-[10px] text-tertiary uppercase">Contacto</p>
+                                <p class="font-body-md text-sm font-bold text-black">${escapeHTML(data.email)}<br>${escapeHTML(data.telefono)}</p>
+                            </div>
+                            <div>
+                                <p class="font-label-mono text-[10px] text-tertiary uppercase">Educación</p>
+                                <p class="font-body-md text-sm font-bold text-black">${escapeHTML(data.universidad)}<br>${escapeHTML(data.carrera)} (${escapeHTML(data.ciclo)})</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-row md:flex-col gap-2 shrink-0 justify-center">
+                        <button onclick="updateStatus('postulaciones_membresia', '${id}', 'APROBADO')" class="bg-white border-2 border-green-500 text-green-600 font-bold uppercase text-[10px] px-4 py-2 hover:bg-green-500 hover:text-white transition-colors text-center w-full">Aprobar</button>
+                        <button onclick="updateStatus('postulaciones_membresia', '${id}', 'RECHAZADO')" class="bg-white border-2 border-primary-container text-primary-container font-bold uppercase text-[10px] px-4 py-2 hover:bg-primary-container hover:text-white transition-colors text-center w-full">Rechazar</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderUsuarioItem(docSnap) {
+            const data = docSnap.data();
+            const id = docSnap.id;
+            return `
+                <div class="p-6 hover:bg-white transition-colors relative group border-b border-black flex justify-between items-center">
+                    <div>
+                        <p class="font-headline-sm text-lg text-black font-black">${escapeHTML(data.email)}</p>
+                        <p class="font-label-mono text-[10px] text-tertiary">ACTIVO EN SISTEMA</p>
+                    </div>
+                    <button onclick="eliminarSeguro('usuarios', '${id}')" class="w-10 h-10 border-2 border-black bg-white text-primary-container flex items-center justify-center hover:bg-primary-container hover:text-white transition-all">
+                        <span class="material-symbols-outlined text-sm">delete</span>
+                    </button>
+                </div>
+            `;
+        }
+
+        window.editarCapitulo = async (id) => {
+            try {
+                const dSnap = await getDoc(doc(db, "capitulos", id));
+                if (dSnap.exists()) {
+                    const d = dSnap.data();
+                    document.getElementById('cap-edit-id').value = id;
+                    document.getElementById('cap-codigo').value = d.codigo || '';
+                    document.getElementById('cap-universidad').value = d.universidad || '';
+                    document.getElementById('cap-facultad').value = d.facultad || '';
+                    document.getElementById('cap-sede').value = d.sede || '';
+                    document.getElementById('cap-estado').value = d.estado || 'ACTIVO';
+                    document.getElementById('cap-imagen').value = d.imagenUrl || '';
+                    document.getElementById('cap-mision').value = d.mision || '';
+                    document.getElementById('cap-anio').value = d.anioFundacion || '';
+
+                    // Cargar junta directiva
+                    document.getElementById('cap-junta-list').innerHTML = '';
+                    if (d.juntaDirectiva && Array.isArray(d.juntaDirectiva)) {
+                        d.juntaDirectiva.forEach(j => addJuntaItem(j.nombre, j.cargo, j.carrera));
+                    }
+                    checkJuntaEmpty();
+
+                    // Cargar proyectos
+                    document.getElementById('cap-proyectos-list').innerHTML = '';
+                    if (d.proyectos && Array.isArray(d.proyectos)) {
+                        d.proyectos.forEach(p => addProyectoItem(p.titulo, p.descripcion, p.tipo));
+                    }
+                    checkProyectosEmpty();
+
+                    document.getElementById('title-capitulos').innerText = "Editando Capítulo // " + d.codigo;
+                    switchTab('capitulos');
+                    window.scrollTo(0,0);
+                    showToast("Cargado para edición", "success");
+                }
+            } catch(e) {
+                showToast("Error al cargar capítulo", "error");
+            }
+        };
+
+        window.editarMiembro = async (id) => {
+            try {
+                const dSnap = await getDoc(doc(db, "directorio_nacional", id));
+                if (dSnap.exists()) {
+                    const d = dSnap.data();
+                    document.getElementById('dir-edit-id').value = id;
+                    document.getElementById('dir-nombre').value = d.nombre || '';
+                    document.getElementById('dir-cargo').value = d.cargo || '';
+                    document.getElementById('dir-id').value = d.directorioId || '';
+                    document.getElementById('dir-universidad').value = d.universidad || '';
+                    document.getElementById('dir-email').value = d.email || '';
+                    document.getElementById('dir-perfil').value = d.perfilUrl || '';
+                    
+                    switchTab('directorio');
+                    window.scrollTo(0,0);
+                    const btn = document.querySelector('#form-directorio button[type="submit"]');
+                    btn.innerHTML = '<span class="material-symbols-outlined">update</span> Actualizar Miembro';
+                }
+            } catch(e) { showToast("Error al cargar miembro", "error"); }
+        };
+
+        function renderMiembroItem(docSnap) {
+            const data = docSnap.data();
+            const id = docSnap.id;
+            return `
+                <div class="p-4 hover:bg-white transition-colors flex items-center gap-4 relative group border-b border-black">
+                    <div class="w-12 h-12 bg-surface-dim border border-black flex items-center justify-center shrink-0">
+                        ${data.fotoUrl ? `<img src="${data.fotoUrl}" class="w-full h-full object-cover grayscale">` : `<span class="material-symbols-outlined">person</span>`}
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="bg-black text-white font-label-mono text-[9px] px-2 py-0.5 uppercase">${escapeHTML(data.directorioId)}</span>
+                            <span class="font-label-mono text-[10px] text-primary font-bold uppercase">${escapeHTML(data.cargo)}</span>
+                        </div>
+                        <h4 class="font-headline-sm text-base text-black font-black uppercase leading-tight">${escapeHTML(data.nombre)}</h4>
+                        <p class="font-label-mono text-[10px] text-neutral-500 uppercase">${escapeHTML(data.universidad)}</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="editarMiembro('${id}')" class="w-8 h-8 border border-black bg-white flex items-center justify-center hover:bg-black hover:text-white transition-all">
+                            <span class="material-symbols-outlined text-xs">edit</span>
+                        </button>
+                        <button onclick="eliminarSeguro('directorio_nacional', '${id}')" class="w-8 h-8 border border-black bg-white text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+                            <span class="material-symbols-outlined text-xs">delete</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        const localData = { eventos: [], noticias: [], postulaciones_membresia: [], usuarios: [], capitulos: [], directorio_nacional: [] };
+        const lastVisible = { eventos: null, noticias: null, postulaciones_membresia: null, usuarios: null, capitulos: null, directorio_nacional: null };
+
+        window.renderLocal = (colName) => {
+            if (colName === 'usuarios' && window.currentUserRole !== 'SUPERADMIN') return;
+            let searchId = colName === 'postulaciones_membresia' ? 'postulaciones' : (colName === 'directorio_nacional' ? 'directorio' : colName);
+            let term = document.getElementById(`search-${searchId}`)?.value.toLowerCase() || '';
+            let arr = localData[colName];
+            if (term) {
+                arr = arr.filter(doc => JSON.stringify(doc.data()).toLowerCase().includes(term));
+            }
+            
+            const L1 = document.getElementById(`lista-${searchId}`);
+            const L2 = document.getElementById(`dash-lista-${searchId}`);
+            
+            if(L1) L1.innerHTML = '';
+            if(L2) L2.innerHTML = '';
+            
+            let pendAlertCount = 0;
+            const now = new Date();
+
+            if (arr.length === 0) {
+                const emptyHTML = `
+                    <div class="flex flex-col items-center justify-center p-12 text-center h-full">
+                        <span class="material-symbols-outlined text-6xl text-neutral-300 mb-4">folder_off</span>
+                        <h4 class="font-inter font-black uppercase tracking-widest text-neutral-400">SISTEMA LIMPIO</h4>
+                        <p class="font-body-md text-sm text-neutral-400 mt-2">No se encontraron registros activos en esta vista.</p>
+                    </div>
+                `;
+                if(L1) L1.innerHTML = emptyHTML;
+                if(L2) L2.innerHTML = emptyHTML;
+            } else {
+                arr.forEach(doc => {
+                    let html = '';
+                    if (colName === 'eventos') html = renderEventoItem(doc);
+                    if (colName === 'noticias') html = renderNoticiaItem(doc);
+                    if (colName === 'capitulos') html = renderCapituloItem(doc);
+                    if (colName === 'postulaciones_membresia') {
+                        html = renderPostulacionItem(doc);
+                        const d = doc.data();
+                        if (d.status === 'pendiente' && d.fecha_registro) {
+                            const fDate = d.fecha_registro.toDate ? d.fecha_registro.toDate() : new Date();
+                            const diffHours = (now - fDate) / (1000 * 60 * 60);
+                            if (diffHours > 48) pendAlertCount++;
+                        }
+                    }
+                    if (colName === 'usuarios') html = renderUsuarioItem(doc);
+                    if (colName === 'directorio_nacional') html = renderMiembroItem(doc);
+                    
+                    if(L1) L1.innerHTML += html;
+                    if(L2) L2.innerHTML += html;
+                });
+            }
+
+            if (colName === 'postulaciones_membresia') {
+                const badge = document.getElementById('badge-pendientes');
+                if (badge) {
+                    if (pendAlertCount > 0) {
+                        badge.innerText = pendAlertCount;
+                        badge.classList.remove('hidden');
+                    } else {
+                        badge.classList.add('hidden');
+                    }
+                }
+                
+                if (chartPost) {
+                    let apr=0, rec=0, pen=0;
+                    arr.forEach(d => { const s = d.data().status; if(s==='APROBADO') apr++; else if(s==='RECHAZADO') rec++; else pen++; });
+                    chartPost.data.datasets[0].data = [apr, rec, pen];
+                    chartPost.update();
+                }
+            }
+
+            if (colName === 'eventos' && chartEvt) {
+                let conf=0, tall=0, net=0;
+                arr.forEach(d => { const t = d.data().tipo; if(t==='CONFERENCIA MAGISTRAL') conf++; else if(t==='TALLER TÉCNICO') tall++; else net++; });
+                chartEvt.data.datasets[0].data = [conf, tall, net];
+                chartEvt.update();
+            }
+
+            const statEl = document.getElementById(`stat-${searchId}`);
+            if (statEl) statEl.innerText = localData[colName].length;
+        };
+
+        window.cargarMas = async (colName, orderField, direction = "desc") => {
+            if (!lastVisible[colName]) return;
+            const q = query(collection(db, colName), orderBy(orderField, direction), startAfter(lastVisible[colName]), limit(20));
+            const snap = await getDocs(q);
+            if(snap.empty) {
+                showToast("No hay más registros antiguos.", "error");
+                return;
+            }
+            lastVisible[colName] = snap.docs[snap.docs.length - 1];
+            
+            let existingIds = localData[colName].map(d => d.id);
+            let newDocs = snap.docs.filter(d => !existingIds.includes(d.id));
+            
+            localData[colName] = [...localData[colName], ...newDocs];
+            renderLocal(colName);
+        };
+
+        window.exportCSV = () => {
+            const arr = localData['postulaciones_membresia'];
+            if(arr.length === 0) return showToast("No hay datos para exportar.", "error");
+            
+            let csv = "ID,Nombres,Apellidos,Email,Telefono,Universidad,Carrera,Ciclo,Area Interes,Status,Fecha Registro\n";
+            arr.forEach(doc => {
+                const d = doc.data();
+                let dateStr = "";
+                if(d.fecha_registro && d.fecha_registro.toDate) dateStr = d.fecha_registro.toDate().toISOString();
+                
+                const row = [
+                    doc.id, d.nombres, d.apellidos, d.email, d.telefono, 
+                    d.universidad, d.carrera, d.ciclo, d.area_interes, d.status, dateStr
+                ].map(v => `"${(v || '').toString().replace(/"/g, '""')}"`).join(",");
+                
+                csv += row + "\n";
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", `postulaciones_export_${Date.now()}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        };
+
+        window.exportXLSX = () => {
+            if(typeof XLSX === 'undefined') return showToast("Librería Excel no cargada.", "error");
+            const arr = localData['postulaciones_membresia'];
+            if(arr.length === 0) return showToast("No hay datos para exportar.", "error");
+
+            const data = arr.map(doc => {
+                const d = doc.data();
+                return {
+                    "ID": doc.id,
+                    "Nombres": d.nombres || '',
+                    "Apellidos": d.apellidos || '',
+                    "Email": d.email || '',
+                    "Telefono": d.telefono || '',
+                    "Universidad": d.universidad || '',
+                    "Carrera": d.carrera || '',
+                    "Ciclo": d.ciclo || '',
+                    "Area Interes": d.area_interes || '',
+                    "Status": d.status || '',
+                    "Fecha Registro": (d.fecha_registro && d.fecha_registro.toDate) ? d.fecha_registro.toDate().toISOString() : ''
+                };
+            });
+
+            const ws = XLSX.utils.json_to_sheet(data);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Postulaciones");
+            XLSX.writeFile(wb, `postulaciones_export_${Date.now()}.xlsx`);
+        };
+
+        window.setFeaturedNoticia = async (noticiaId) => {
+            if (!confirm(`¿Establecer esta noticia como Reportaje Principal en el portal?`)) return;
+            try {
+                await setDoc(doc(db, "config", "featured_noticia"), {
+                    noticiaId: noticiaId,
+                    updatedAt: serverTimestamp()
+                });
+                showToast('Reportaje Principal actualizado correctamente.', 'success');
+            } catch (err) {
+                console.error(err);
+                showToast('Error al actualizar el Reportaje Principal.', 'error');
+            }
+        };
+
+        const initialLoadDone = { eventos: false, noticias: false, postulaciones_membresia: false, usuarios: false, capitulos: false, directorio_nacional: false };
+
+        function loadData() {
+            const handleLiveSnapshot = (colName, snap) => {
+                let existingIds = snap.docs.map(d => d.id);
+                // Remove updated/deleted docs from local array
+                localData[colName] = localData[colName].filter(d => !existingIds.includes(d.id));
+                // Add the new snapshot docs to the front (since it is live top elements)
+                localData[colName] = [...snap.docs, ...localData[colName]];
+                
+                if (initialLoadDone[colName]) {
+                    snap.docChanges().forEach((change) => {
+                        if (change.type === "added") {
+                            showToast(`Nuevo registro detectado en ${colName}`, 'success');
+                        }
+                    });
+                }
+                
+                initialLoadDone[colName] = true;
+                if (snap.docs.length > 0) {
+                    lastVisible[colName] = snap.docs[snap.docs.length - 1];
+                }
+                
+                renderLocal(colName);
+            };
+
+            onSnapshot(query(collection(db, "eventos"), orderBy("timestamp", "desc"), limit(20)), (snap) => handleLiveSnapshot('eventos', snap));
+            onSnapshot(query(collection(db, "noticias"), orderBy("timestamp", "desc"), limit(20)), (snap) => handleLiveSnapshot('noticias', snap));
+            onSnapshot(query(collection(db, "capitulos"), orderBy("timestamp", "desc"), limit(20)), (snap) => handleLiveSnapshot('capitulos', snap));
+            onSnapshot(query(collection(db, "postulaciones_membresia"), orderBy("fecha_registro", "desc"), limit(20)), (snap) => handleLiveSnapshot('postulaciones_membresia', snap));
+            
+            // Note: Users query will fail if SUPERADMIN role is not present, handled by rules
+            if(window.currentUserRole === 'SUPERADMIN') {
+                onSnapshot(query(collection(db, "usuarios"), orderBy("email", "asc"), limit(20)), (snap) => handleLiveSnapshot('usuarios', snap));
+            }
+
+            onSnapshot(query(collection(db, "directorio_nacional"), orderBy("timestamp", "desc"), limit(20)), (snap) => handleLiveSnapshot('directorio_nacional', snap));
+        }
+    </script>
+</body>
+</html>
