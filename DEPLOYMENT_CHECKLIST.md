@@ -1,7 +1,7 @@
 # Checklist de Despliegue — ANEIMERA PERÚ
 
 **Estado:** ✅ Código listo para producción  
-**Última actualización:** 2024  
+**Última actualización:** 2026  
 **Responsable de despliegue:** [Tu nombre]
 
 ---
