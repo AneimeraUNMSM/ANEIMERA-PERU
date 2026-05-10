@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://aneimera-peru.web.app/sitemap.xml
+Sitemap: https://aneimeraunmsm.github.io/ANEIMERA_PERU/sitemap.xml
