@@ -2007,7 +2007,7 @@ Traer laptop con software instalado"></textarea>
                         { path: "price", label: "Precio" },
                     ]
                 },
-                { id: "capitulos_c", label: "Capítulos (Prototipo)", page: "red", repeater: "capitulos",
+                { id: "capitulos", label: "Capítulos", page: "capitulos", repeater: "capitulos",
                     item: [
                         { path: "code", label: "Código" },
                         { path: "city", label: "Ciudad" },
@@ -2015,25 +2015,29 @@ Traer laptop con software instalado"></textarea>
                         { path: "members", label: "Miembros", type: "number" },
                     ]
                 },
-                { id: "eventos_c", label: "Eventos (Prototipo)", page: "eventos", repeater: "eventos",
+                { id: "eventos", label: "Eventos", page: "eventos", repeater: "eventos",
                     item: [
                         { path: "title", label: "Título", area: true },
+                        { path: "summary", label: "Resumen", area: true },
                         { path: "date", label: "Fecha" },
                         { path: "month", label: "Mes (3 letras)" },
                         { path: "day", label: "Día" },
                         { path: "tag", label: "Tipo" },
                         { path: "venue", label: "Sede" },
+                        { path: "capacity", label: "Capacidad", type: "number" },
+                        { path: "spotsLeft", label: "Cupos restantes", type: "number" },
                     ]
                 },
-                { id: "membresia_c", label: "Membresía · Planes", page: "membresia", repeater: "membresia.plans",
+                { id: "membresia", label: "Membresía · Planes", page: "membresia", repeater: "membresia.plans",
                     item: [
                         { path: "name", label: "Plan" },
                         { path: "price", label: "Precio" },
                         { path: "period", label: "Periodo" },
                         { path: "target", label: "Para quién", area: true },
+                        { path: "featured", label: "Destacado", type: "checkbox" },
                     ]
                 },
-                { id: "noticias_c", label: "Noticias (Prototipo)", page: "noticias", repeater: "noticias",
+                { id: "noticias", label: "Noticias", page: "noticias", repeater: "noticias",
                     item: [
                         { path: "title", label: "Título", area: true },
                         { path: "summary", label: "Resumen", area: true },
@@ -2041,6 +2045,7 @@ Traer laptop con software instalado"></textarea>
                         { path: "date", label: "Fecha" },
                         { path: "author", label: "Autor" },
                         { path: "readTime", label: "Tiempo lectura" },
+                        { path: "photo", label: "Foto (placeholder)" },
                     ]
                 },
             ];
