@@ -1237,6 +1237,9 @@
 
                     if (typeof obj[key] === 'string') {
                         valueToPathMap[obj[key]] = path;
+                    } else if (typeof obj[key] === 'number') {
+                        // También mapear números (útil para métricas)
+                        valueToPathMap[String(obj[key])] = path;
                     } else if (Array.isArray(obj[key])) {
                         obj[key].forEach((item, i) => {
                             if (typeof item === 'object') {
@@ -1257,7 +1260,7 @@
             const c = window.ANEIMERA_CONTENT;
             if (!c) return;
 
-            // Buscar y actualizar todos los nodos de texto
+            // 1. ACTUALIZAR NODOS DE TEXTO (como antes)
             const walker = document.createTreeWalker(
                 document.body,
                 NodeFilter.SHOW_TEXT,
@@ -1299,6 +1302,41 @@
                 if (value && el.textContent !== value) {
                     if (el.childNodes.length === 1 && el.childNodes[0].nodeType === 3) {
                         el.textContent = value;
+                    }
+                }
+            });
+
+            // 2. ACTUALIZAR ATRIBUTOS data-target (para contadores de métricas)
+            document.querySelectorAll('.counter-value[data-target]').forEach(el => {
+                // Buscar etiqueta asociada (hermano siguiente o anterior)
+                const labelEl = el.nextElementSibling || el.previousElementSibling;
+                const labelText = labelEl?.textContent?.trim() || '';
+
+                // Mapear etiqueta a path de contenido
+                let path = null;
+                
+                if (labelText === 'Capítulos Activos') {
+                    path = 'hero.stats.0.value';
+                } else if (labelText === 'Miembros Inscritos') {
+                    path = 'hero.stats.1.value';
+                } else if (labelText === 'Años de Excelencia') {
+                    path = 'impactMetrics.0.value';
+                } else if (labelText === 'Proyectos Anuales') {
+                    path = 'impactMetrics.1.value';
+                } else if (labelText === 'Horas de Capacitación') {
+                    path = 'impactMetrics.2.value';
+                }
+
+                if (path) {
+                    const newValue = getValueByPath(c, path);
+                    if (newValue && String(el.getAttribute('data-target')) !== String(newValue)) {
+                        el.setAttribute('data-target', newValue);
+                        el.textContent = '0'; // Reset para que el contador anime
+                        
+                        if (!el.hasAttribute('data-cms-path')) {
+                            el.setAttribute('data-cms-path', path);
+                            el.classList.add('editable-field');
+                        }
                     }
                 }
             });
