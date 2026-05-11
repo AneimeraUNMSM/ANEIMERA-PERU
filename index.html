@@ -1119,20 +1119,54 @@
             if (!el.hasAttribute('aria-hidden')) el.setAttribute('aria-hidden', 'true');
         });
     });
-    </script>
-
     <!-- CMS Editor Integration -->
     <script>
+        // Mapeo de rutas de contenido a selectores de elementos
+        const CMS_MAPPINGS = {
+            'brand.name': 'a[href="#"] strong, .brand-name',
+            'brand.suffix': '.brand-suffix',
+            'hero.eyebrow': '.hero-eyebrow',
+            'hero.title': 'h1.hero-title',
+            'hero.subtitle': 'p.hero-subtitle',
+            'footer.email': 'a[href^="mailto:"]',
+            'footer.phone': '[data-phone]',
+        };
+
+        // Observar cambios en ANEIMERA_CONTENT y actualizar la página
+        const contentHandler = {
+            get(target, prop) {
+                return target[prop];
+            },
+            set(target, prop, value) {
+                target[prop] = value;
+                updateContentOnPage();
+                return true;
+            }
+        };
+
+        // Reemplazar proxys cuando sea necesario
+        if (window.ANEIMERA_CONTENT && typeof Proxy !== 'undefined') {
+            const originalContent = window.ANEIMERA_CONTENT;
+            window.ANEIMERA_CONTENT = new Proxy(originalContent, contentHandler);
+        }
+
+        // Inicializar contenido dinámico cuando se cargue la página
+        document.addEventListener('DOMContentLoaded', () => {
+            updateContentOnPage();
+            // Re-aplicar estilos CMS después de que los estilos de Tailwind estén listos
+            setTimeout(applyStylesForCMS, 100);
+        });
+
         window.addEventListener('message', (e) => {
             const data = e.data || {};
             if (data.type === "aneimera:setContent" && data.path) {
                 window.setContentPath(data.path, data.value);
-                updateContentOnPage();
+                setTimeout(updateContentOnPage, 50);
             }
             if (data.type === "aneimera:replaceContent" && data.content) {
                 window.ANEIMERA_CONTENT = data.content;
                 try { localStorage.setItem("aneimera.content", JSON.stringify(data.content)); } catch {}
-                updateContentOnPage();
+                setTimeout(updateContentOnPage, 50);
             }
             if (data.type === "aneimera:cmsMode") {
                 document.body.classList.toggle("cms-mode", !!data.on);
@@ -1168,39 +1202,103 @@
         function updateContentOnPage() {
             const c = window.ANEIMERA_CONTENT;
             if (!c) return;
-            // Update brand/footer
-            if (c.brand) {
-                document.querySelectorAll('[data-cms-path="brand.name"]').forEach(el => el.innerText = c.brand.name);
-                document.querySelectorAll('[data-cms-path="brand.suffix"]').forEach(el => el.innerText = c.brand.suffix);
-                document.querySelectorAll('[data-cms-path="footer.email"]').forEach(el => el.innerText = c.footer?.email || '');
-            }
-            // Update hero
-            if (c.hero) {
-                document.querySelectorAll('[data-cms-path="hero.eyebrow"]').forEach(el => el.innerText = c.hero.eyebrow);
-                document.querySelectorAll('[data-cms-path="hero.title"]').forEach(el => el.innerText = c.hero.title);
-                document.querySelectorAll('[data-cms-path="hero.subtitle"]').forEach(el => el.innerText = c.hero.subtitle);
+
+            // Actualizar navegación y marca
+            updateElementContent('[data-cms-path="brand.name"]', 'brand.name', c.brand?.name);
+            updateElementContent('[data-cms-path="brand.suffix"]', 'brand.suffix', c.brand?.suffix);
+            updateElementContent('[data-cms-path="footer.email"]', 'footer.email', c.footer?.email);
+            updateElementContent('[data-cms-path="footer.phone"]', 'footer.phone', c.footer?.phone);
+
+            // Actualizar hero
+            updateElementContent('[data-cms-path="hero.eyebrow"]', 'hero.eyebrow', c.hero?.eyebrow);
+            updateElementContent('[data-cms-path="hero.title"]', 'hero.title', c.hero?.title);
+            updateElementContent('[data-cms-path="hero.subtitle"]', 'hero.subtitle', c.hero?.subtitle);
+
+            // Actualizar métricas
+            const metricsContainer = document.querySelector('[data-cms-section="metrics"]');
+            if (metricsContainer && c.metrics) {
+                const html = c.metrics.map((m, i) => `
+                    <div data-cms-path="metrics.${i}">
+                        <span data-cms-path="metrics.${i}.label">${escapeHTML(m.label)}</span>:
+                        <span data-cms-path="metrics.${i}.value">${escapeHTML(m.value)}</span>
+                        <span data-cms-path="metrics.${i}.suffix">${escapeHTML(m.suffix)}</span>
+                        <span data-cms-path="metrics.${i}.note">${escapeHTML(m.note)}</span>
+                    </div>
+                `).join('');
+                metricsContainer.innerHTML = html;
+                markEditableElements();
             }
         }
 
-        // CSS para modo CMS
-        const style = document.createElement('style');
-        style.textContent = `
-            body.cms-mode [data-cms-path] {
-                outline: 1px dashed transparent;
-                outline-offset: 2px;
-                transition: outline-color .15s, background .15s;
-                cursor: text;
+        function updateElementContent(selector, path, value) {
+            const els = document.querySelectorAll(selector);
+            els.forEach(el => {
+                if (el.innerText !== value) {
+                    el.innerText = value;
+                    el.setAttribute('data-cms-path', path);
+                    el.classList.add('editable-field');
+                }
+            });
+            // Si no existe, buscar elementos con el valor actual y actualizar
+            if (els.length === 0) {
+                const defaultValue = window.ANEIMERA_CONTENT_DEFAULTS ? getValueByPath(window.ANEIMERA_CONTENT_DEFAULTS, path) : null;
+                if (defaultValue) {
+                    document.querySelectorAll('*').forEach(el => {
+                        if (el.innerText && el.innerText.includes(defaultValue) && !el.querySelector('[data-cms-path]')) {
+                            if (el.childNodes.length === 1 && el.childNodes[0].nodeType === 3) {
+                                el.innerText = value;
+                                el.setAttribute('data-cms-path', path);
+                                el.classList.add('editable-field');
+                            }
+                        }
+                    });
+                }
             }
-            body.cms-mode [data-cms-path]:hover {
-                outline-color: #b5000b;
-                background: rgba(179, 0, 11, 0.05);
+        }
+
+        function getValueByPath(obj, path) {
+            return path.split('.').reduce((a, b) => a?.[b], obj);
+        }
+
+        function markEditableElements() {
+            document.querySelectorAll('[data-cms-path]').forEach(el => {
+                el.classList.add('editable-field');
+            });
+        }
+
+        function escapeHTML(str) {
+            if (!str) return '';
+            const div = document.createElement('div');
+            div.innerText = str;
+            return div.innerHTML;
+        }
+
+        function applyStylesForCMS() {
+            if (!document.getElementById('cms-styles')) {
+                const style = document.createElement('style');
+                style.id = 'cms-styles';
+                style.textContent = `
+                    body.cms-mode [data-cms-path] {
+                        outline: 1px dashed transparent;
+                        outline-offset: 2px;
+                        transition: outline-color .15s, background .15s;
+                        cursor: text;
+                        min-height: 1.5em;
+                    }
+                    body.cms-mode [data-cms-path]:hover {
+                        outline-color: #b5000b;
+                        background: rgba(179, 0, 11, 0.05);
+                    }
+                    body.cms-mode [data-cms-path].cms-active {
+                        outline-color: #b5000b;
+                        background: rgba(179, 0, 11, 0.1);
+                    }
+                `;
+                document.head.appendChild(style);
             }
-            body.cms-mode [data-cms-path].cms-active {
-                outline-color: #b5000b;
-                background: rgba(179, 0, 11, 0.1);
-            }
-        `;
-        document.head.appendChild(style);
+        }
+
+        applyStylesForCMS();
     </script>
 
     <script src="js/main.js" defer></script>
