@@ -1,6 +1,6 @@
 // Register service worker and set lazy-loading for images
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js').then(() => {
+  navigator.serviceWorker.register('./sw.js').then(() => {
     console.log('Service Worker registrado');
   }).catch((err) => console.warn('SW registro fallido:', err));
 }

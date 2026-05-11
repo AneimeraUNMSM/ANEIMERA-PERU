@@ -1,11 +1,11 @@
-const CACHE_NAME = 'aneimera-cache-v1';
+const CACHE_NAME = 'aneimera-cache-v2';
 const PRECACHE_URLS = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/assets/favicon.png',
-  '/assets/fonts/Inter.woff2',
-  '/assets/fonts/MaterialSymbolsOutlined.woff2'
+  './',
+  './index.html',
+  './manifest.json',
+  './assets/favicon.png',
+  './assets/fonts/Inter.woff2',
+  './assets/fonts/MaterialSymbolsOutlined.woff2'
 ];
 
 self.addEventListener('install', (event) => {
@@ -15,7 +15,6 @@ self.addEventListener('install', (event) => {
         if (!r.ok) throw new Error('fetch-failed');
         return cache.put(u, r.clone()).then(() => true);
       })));
-      // ignore failures
       return results;
     })
   );
@@ -23,14 +22,26 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('activate', (event) => {
-  event.waitUntil(self.clients.claim());
+  event.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
+    ).then(() => self.clients.claim())
+  );
 });
 
 self.addEventListener('fetch', (event) => {
   const requestUrl = new URL(event.request.url);
+  const basePath = new URL('./', self.location.href).pathname;
+  const relPath = requestUrl.pathname.startsWith(basePath)
+    ? requestUrl.pathname.slice(basePath.length - 1)
+    : requestUrl.pathname;
 
-  // Serve precached fonts and core files from cache, fallback to network and cache response
-  if (PRECACHE_URLS.includes(requestUrl.pathname) || requestUrl.pathname.startsWith('/assets/fonts/')) {
+  const isFontOrCore = PRECACHE_URLS.some(u => {
+    const resolved = new URL(u, self.location.href).pathname;
+    return resolved === requestUrl.pathname;
+  }) || requestUrl.pathname.startsWith(basePath + 'assets/fonts/');
+
+  if (isFontOrCore) {
     event.respondWith(
       caches.match(event.request).then((cached) => {
         if (cached) return cached;
@@ -38,23 +49,18 @@ self.addEventListener('fetch', (event) => {
           const copy = response.clone();
           caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
           return response;
-        }).catch(() => caches.match('/index.html'));
+        });
       })
     );
     return;
   }
 
-  // For other requests use network-first then cache fallback
+  // Network-first for everything else (HTML pages, JS, CSS)
   event.respondWith(
-    caches.match(event.request).then((cached) => {
-      const network = fetch(event.request).then((response) => {
-        // Update runtime cache with fresh response
-        const copy = response.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
-        return response;
-      }).catch(() => null);
-      // Return cached first, but update in background (stale-while-revalidate)
-      return cached || network;
-    })
+    fetch(event.request).then((response) => {
+      const copy = response.clone();
+      caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+      return response;
+    }).catch(() => caches.match(event.request))
   );
 });
