@@ -2065,32 +2065,50 @@ Traer laptop con software instalado"></textarea>
             function renderSections() {
                 console.log('[ANEIMERA] renderSections called', { schemas: CONTENT_SCHEMA.length });
                 const list = document.getElementById('content-section-list');
-                if (!list) return;
-                list.innerHTML = CONTENT_SCHEMA.map(s => `
+                console.log('[ANEIMERA] content-section-list element:', !!list);
+                if (!list) {
+                    console.error('[ANEIMERA] ERROR: content-section-list element not found!');
+                    return;
+                }
+                const html = CONTENT_SCHEMA.map(s => `
                     <button onclick="selectContentSection('${s.id}')" id="csn-${s.id}"
                         class="content-nav-btn w-full text-left px-4 py-3 border-b border-black/5 font-inter text-[11px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-none flex items-center justify-between">
                         <span>${escapeHTML(s.label)}</span>
                         <span class="font-label-mono text-[9px] opacity-40">${s.repeater ? 'LISTA' : 'CAMPOS'}</span>
                     </button>
                 `).join('');
+                console.log('[ANEIMERA] HTML generated for sections:', html.length, 'chars');
+                list.innerHTML = html;
+                console.log('[ANEIMERA] renderSections complete');
             }
 
             window.selectContentSection = (id) => {
+                console.log('[ANEIMERA] selectContentSection called', { id });
                 activeSection = id;
                 document.querySelectorAll('.content-nav-btn').forEach(el => el.classList.remove('bg-black', 'text-white'));
                 document.getElementById(`csn-${id}`)?.classList.add('bg-black', 'text-white');
                 const s = CONTENT_SCHEMA.find(s => s.id === id);
+                console.log('[ANEIMERA] Found schema:', { label: s?.label });
                 document.getElementById('content-section-title').innerText = `EDITANDO // ${(s?.label || id).toUpperCase()}`;
                 renderFields(id);
                 if (s?.page) sendToPreview({ type: 'aneimera:navigate', page: s.page });
             };
 
-            function selectSection(id) { window.selectContentSection(id); }
+            function selectSection(id) {
+                console.log('[ANEIMERA] selectSection called', { id });
+                window.selectContentSection(id);
+            }
 
             function renderFields(id) {
+                console.log('[ANEIMERA] renderFields called', { id });
                 const schema = CONTENT_SCHEMA.find(s => s.id === id);
+                console.log('[ANEIMERA] Schema for renderFields:', { id, found: !!schema, hasFields: !!schema?.fields, hasRepeater: !!schema?.repeater });
                 const box = document.getElementById('content-form-fields');
-                if (!schema || !box) return;
+                console.log('[ANEIMERA] content-form-fields element:', !!box);
+                if (!schema || !box) {
+                    console.error('[ANEIMERA] ERROR in renderFields: schema or box not found', { schema: !!schema, box: !!box });
+                    return;
+                }
 
                 if (schema.fields) {
                     box.innerHTML = schema.fields.map(f => field(f.path, f.label, f.area, f.type)).join('');
@@ -2121,6 +2139,7 @@ Traer laptop con software instalado"></textarea>
                         markSaved();
                     });
                 });
+                console.log('[ANEIMERA] renderFields complete');
             }
 
             function field(path, label, area, type) {
