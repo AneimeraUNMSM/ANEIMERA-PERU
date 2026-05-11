@@ -47,7 +47,9 @@ self.addEventListener('fetch', (event) => {
         if (cached) return cached;
         return fetch(event.request).then((response) => {
           const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+          if (event.request.method === 'GET') {
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+          }
           return response;
         });
       })
@@ -55,12 +57,14 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Network-first for everything else (HTML pages, JS, CSS)
-  event.respondWith(
-    fetch(event.request).then((response) => {
-      const copy = response.clone();
-      caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
-      return response;
-    }).catch(() => caches.match(event.request))
-  );
+  // Network-first for everything else (HTML pages, JS, CSS) - only cache GET
+  if (event.request.method === 'GET') {
+    event.respondWith(
+      fetch(event.request).then((response) => {
+        const copy = response.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+        return response;
+      }).catch(() => caches.match(event.request))
+    );
+  }
 });
