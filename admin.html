@@ -2325,6 +2325,11 @@ Traer laptop con software instalado"></textarea>
                         throw new Error(`No se pudo publicar (${putRes.status}): ${text}`);
                     }
 
+                    // Guardar exitosamente en localStorage después de publicar
+                    try {
+                        localStorage.setItem('aneimera.content', JSON.stringify(content));
+                    } catch {}
+
                     const result = await putRes.json();
                     const commitUrl = result?.commit?.html_url || '';
                     const pageUrl = `https://${owner.toLowerCase()}.github.io/${repo}/index.html`;

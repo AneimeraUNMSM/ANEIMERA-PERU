@@ -150,26 +150,36 @@ window.ANEIMERA_CONTENT_DEFAULTS = {
   
   // Cargar desde content.json si existe (producción), si no usar localStorage, si no defaults
   async function loadContent() {
+    let source = 'defaults';
+    
     try {
       // Intenta cargar content.json primero (para GitHub Pages y producción)
       const response = await fetch('./content.json', { cache: 'no-store' });
       if (response.ok) {
         const json = await response.json();
         window.ANEIMERA_CONTENT = json;
-        window.dispatchEvent(new CustomEvent('aneimera:content-ready', { detail: { source: 'content.json' } }));
+        
+        // Guardar en localStorage como backup para cambios locales no publicados
+        try {
+          localStorage.setItem("aneimera.content", JSON.stringify(json));
+        } catch {}
+        
+        source = 'content.json';
+        window.dispatchEvent(new CustomEvent('aneimera:content-ready', { detail: { source } }));
         return;
       }
     } catch (e) {
-      // content.json no existe, continuar con localStorage
+      // content.json no existe o fallo de red, continuar con localStorage
     }
     
-    // Fallback a localStorage (para desarrollo/admin)
+    // Fallback a localStorage (para cambios no publicados aún)
     try {
       const raw = localStorage.getItem("aneimera.content");
       window.ANEIMERA_CONTENT = raw
         ? deepMerge(window.ANEIMERA_CONTENT_DEFAULTS, JSON.parse(raw))
         : JSON.parse(JSON.stringify(window.ANEIMERA_CONTENT_DEFAULTS));
-      window.dispatchEvent(new CustomEvent('aneimera:content-ready', { detail: { source: raw ? 'localStorage' : 'defaults' } }));
+      source = raw ? 'localStorage' : 'defaults';
+      window.dispatchEvent(new CustomEvent('aneimera:content-ready', { detail: { source } }));
     } catch {
       window.ANEIMERA_CONTENT = JSON.parse(JSON.stringify(window.ANEIMERA_CONTENT_DEFAULTS));
       window.dispatchEvent(new CustomEvent('aneimera:content-ready', { detail: { source: 'defaults' } }));
