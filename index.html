@@ -34,6 +34,7 @@
         }
         </script>
         <link rel="manifest" href="manifest.json">
+        <script src="js/c-content-core.js"></script>
         <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
         <link rel="preload" href="assets/fonts/Inter.woff2" as="font" type="font/woff2" crossorigin>
         <link rel="preload" href="assets/fonts/MaterialSymbolsOutlined.woff2" as="font" type="font/woff2" crossorigin>
@@ -1120,7 +1121,88 @@
     });
     </script>
 
-    <script type="module" src="js/app.js"></script>
+    <!-- CMS Editor Integration -->
+    <script>
+        window.addEventListener('message', (e) => {
+            const data = e.data || {};
+            if (data.type === "aneimera:setContent" && data.path) {
+                window.setContentPath(data.path, data.value);
+                updateContentOnPage();
+            }
+            if (data.type === "aneimera:replaceContent" && data.content) {
+                window.ANEIMERA_CONTENT = data.content;
+                try { localStorage.setItem("aneimera.content", JSON.stringify(data.content)); } catch {}
+                updateContentOnPage();
+            }
+            if (data.type === "aneimera:cmsMode") {
+                document.body.classList.toggle("cms-mode", !!data.on);
+            }
+        });
+
+        const onInput = (e) => {
+            const el = e.target.closest?.("[data-cms-path]");
+            if (!el || !document.body.classList.contains("cms-mode")) return;
+            const path = el.dataset.cmsPath;
+            window.setContentPath(path, el.innerText);
+            window.parent?.postMessage({ type: "aneimera:contentChanged", path, value: el.innerText }, "*");
+        };
+        document.addEventListener("input", onInput);
+
+        const onClick = (e) => {
+            if (!document.body.classList.contains("cms-mode")) return;
+            const el = e.target.closest?.("[data-cms-path]");
+            if (!el) return;
+            e.preventDefault();
+            el.contentEditable = "true";
+            el.classList.add("cms-active");
+            el.focus();
+            document.querySelectorAll("[data-cms-path].cms-active").forEach(o => {
+                if (o !== el) { o.classList.remove("cms-active"); o.contentEditable = "false"; }
+            });
+            window.parent?.postMessage({ type: "aneimera:focusedPath", path: el.dataset.cmsPath }, "*");
+        };
+        document.addEventListener("click", onClick, true);
+
+        window.parent?.postMessage({ type: "aneimera:ready" }, "*");
+
+        function updateContentOnPage() {
+            const c = window.ANEIMERA_CONTENT;
+            if (!c) return;
+            // Update brand/footer
+            if (c.brand) {
+                document.querySelectorAll('[data-cms-path="brand.name"]').forEach(el => el.innerText = c.brand.name);
+                document.querySelectorAll('[data-cms-path="brand.suffix"]').forEach(el => el.innerText = c.brand.suffix);
+                document.querySelectorAll('[data-cms-path="footer.email"]').forEach(el => el.innerText = c.footer?.email || '');
+            }
+            // Update hero
+            if (c.hero) {
+                document.querySelectorAll('[data-cms-path="hero.eyebrow"]').forEach(el => el.innerText = c.hero.eyebrow);
+                document.querySelectorAll('[data-cms-path="hero.title"]').forEach(el => el.innerText = c.hero.title);
+                document.querySelectorAll('[data-cms-path="hero.subtitle"]').forEach(el => el.innerText = c.hero.subtitle);
+            }
+        }
+
+        // CSS para modo CMS
+        const style = document.createElement('style');
+        style.textContent = `
+            body.cms-mode [data-cms-path] {
+                outline: 1px dashed transparent;
+                outline-offset: 2px;
+                transition: outline-color .15s, background .15s;
+                cursor: text;
+            }
+            body.cms-mode [data-cms-path]:hover {
+                outline-color: #b5000b;
+                background: rgba(179, 0, 11, 0.05);
+            }
+            body.cms-mode [data-cms-path].cms-active {
+                outline-color: #b5000b;
+                background: rgba(179, 0, 11, 0.1);
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+
     <script src="js/main.js" defer></script>
     <script src="js/capitulos-filter.js" defer></script>
     <script src="js/eventos-filter.js" defer></script>

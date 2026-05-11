@@ -43,69 +43,8 @@
         const params = new URLSearchParams(location.search);
         return params.get("page") || "home";
       });
-      const [, force] = React.useReducer(x => x + 1, 0);
 
-      const navigate = (p) => {
-        setPage(p);
-        const u = new URL(location.href);
-        u.searchParams.set("page", p);
-        history.replaceState(null, "", u);
-        window.scrollTo({ top: 0, behavior: "instant" });
-      };
-
-      React.useEffect(() => {
-        const onMsg = (e) => {
-          const data = e.data || {};
-          if (data.type === "aneimera:setContent" && data.path) {
-            window.setContentPath(data.path, data.value);
-            force();
-          }
-          if (data.type === "aneimera:replaceContent" && data.content) {
-            window.ANEIMERA_CONTENT = data.content;
-            try { localStorage.setItem("aneimera.content", JSON.stringify(data.content)); } catch {}
-            force();
-          }
-          if (data.type === "aneimera:cmsMode") {
-            document.body.classList.toggle("cms-mode", !!data.on);
-          }
-          if (data.type === "aneimera:navigate" && data.page) navigate(data.page);
-        };
-        window.addEventListener("message", onMsg);
-
-        const onInput = (e) => {
-          const el = e.target.closest?.("[data-cms-path]");
-          if (!el || !document.body.classList.contains("cms-mode")) return;
-          const path = el.dataset.cmsPath;
-          window.setContentPath(path, el.innerText);
-          window.parent?.postMessage({ type: "aneimera:contentChanged", path, value: el.innerText }, "*");
-        };
-        document.addEventListener("input", onInput);
-
-        const onClick = (e) => {
-          if (!document.body.classList.contains("cms-mode")) return;
-          const el = e.target.closest?.("[data-cms-path]");
-          if (!el) return;
-          e.preventDefault();
-          el.contentEditable = "true";
-          el.classList.add("cms-active");
-          el.focus();
-          document.querySelectorAll("[data-cms-path].cms-active").forEach(o => { if (o !== el) { o.classList.remove("cms-active"); o.contentEditable = "false"; } });
-          window.parent?.postMessage({ type: "aneimera:focusedPath", path: el.dataset.cmsPath }, "*");
-        };
-        document.addEventListener("click", onClick, true);
-
-        window.parent?.postMessage({ type: "aneimera:ready" }, "*");
-        return () => {
-          window.removeEventListener("message", onMsg);
-          document.removeEventListener("input", onInput);
-          document.removeEventListener("click", onClick, true);
-        };
-      }, []);
-
-      const Placeholder = () => <div style={{padding: '2rem', textAlign: 'center', color: '#999'}}>Página en construcción — las páginas necesitan sus componentes JSX (c-home.jsx, c-eventos.jsx, etc.)</div>;
-      const Page = Placeholder;
-
-      return <Page />;
+      return <div style={{padding: '2rem', textAlign: 'center', color: '#999'}}>Prototipo-C — esta página no se está usando</div>;
     }
 
     ReactDOM.createRoot(document.getElementById("root")).render(<App />);
