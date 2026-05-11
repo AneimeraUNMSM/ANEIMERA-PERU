@@ -1072,7 +1072,7 @@ Traer laptop con software instalado"></textarea>
                     document.getElementById('ev-lugar').value = data.lugar || '';
                     document.getElementById('ev-tipo').value = data.tipo || 'CONFERENCIA MAGISTRAL';
                     document.getElementById('ev-id').value = data.eventId || '';
-                    window.quillEv?.root.innerHTML = data.descripcion || '';
+                    if (window.quillEv) window.quillEv.root.innerHTML = data.descripcion || '';
                     document.getElementById('ev-link').value = data.linkForms || '';
                     document.getElementById('ev-estado').value = data.estado || 'PUBLICADO';
                     document.getElementById('ev-fecha-prog').value = data.fechaProgramada || '';
@@ -1113,7 +1113,7 @@ Traer laptop con software instalado"></textarea>
                     document.getElementById('not-titulo').value = data.titulo || '';
                     document.getElementById('not-cat').value = data.categoria || 'INVESTIGACIÓN';
                     document.getElementById('not-id').value = data.noticiaId || '';
-                    window.quillNot?.root.innerHTML = data.descripcion || '';
+                    if (window.quillNot) window.quillNot.root.innerHTML = data.descripcion || '';
                     document.getElementById('not-estado').value = data.estado || 'PUBLICADO';
                     document.getElementById('not-fecha-prog').value = data.fechaProgramada || '';
                     document.getElementById('not-prog-wrapper').classList.toggle('hidden', data.estado !== 'PROGRAMADO');
@@ -1225,7 +1225,7 @@ Traer laptop con software instalado"></textarea>
                 document.getElementById('ev-cronograma-list').innerHTML = '';
                 document.getElementById('ev-requisitos').value = '';
                 checkCronoEmpty();
-                window.quillEv?.root.innerHTML = '';
+                if (window.quillEv) window.quillEv.root.innerHTML = '';
                 // Regenerar ID para el siguiente evento
                 autoGenerateEventId();
             } catch (error) {
@@ -1290,7 +1290,7 @@ Traer laptop con software instalado"></textarea>
                 e.target.reset();
                 document.getElementById('not-prog-wrapper').classList.add('hidden');
                 document.getElementById('not-tags').value = '';
-                window.quillNot?.root.innerHTML = '';
+                if (window.quillNot) window.quillNot.root.innerHTML = '';
                 autoGenerateNoticiaId();
             } catch (error) {
                 showToast(error.message || "Error al guardar noticia.", "error");
