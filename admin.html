@@ -23,6 +23,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js" integrity="sha384-T/4KgSWuZEPozpPz7rnnp/5lDSnpY1VPJCojf1S81uTHS1E38qgLfMgVsAeRCWc4" crossorigin="anonymous"></script>
     <!-- SheetJS for Export -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" integrity="sha384-vtjasyidUo0kW94K5MXDXntzOJpQgBKXmE7e2Ga4LG0skTTLeBi97eFAXsqewJjw" crossorigin="anonymous"></script>
+    <!-- Content Management System -->
+    <script src="js/c-content-core.js"></script>
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -149,6 +151,9 @@
                 </a>
                 <a href="#" id="nav-usuarios" onclick="switchTab('usuarios')" class="hidden nav-item text-black flex items-center p-4 w-full border-b border-black/5 hover:bg-black hover:text-white transition-none group">
                     <span class="material-symbols-outlined mr-3">group</span> Usuarios
+                </a>
+                <a href="#" onclick="switchTab('contenido')" class="nav-item text-black flex items-center p-4 w-full border-b border-black/5 hover:bg-black hover:text-white transition-none group">
+                    <span class="material-symbols-outlined mr-3">web</span> Contenido Estático
                 </a>
             </div>
             
@@ -648,6 +653,58 @@ Traer laptop con software instalado"></textarea>
                     </div>
                 </div>
             </div>
+
+            <!-- Tab: Contenido Estático -->
+            <div id="tab-contenido" class="tab-content hidden max-w-[1440px] mx-auto relative">
+                <div class="border-2 border-black block-shadow overflow-hidden" style="display:grid; grid-template-columns:220px 1fr 1fr; height:calc(100vh - 210px);">
+                    <!-- Col 1: Section list -->
+                    <div class="border-r-2 border-black flex flex-col overflow-hidden bg-white">
+                        <div class="bg-black text-white p-3 border-b-2 border-black scanline shrink-0">
+                            <p class="font-label-mono text-[10px] uppercase tracking-widest text-neutral-400">SECCIONES // CONTENIDO</p>
+                        </div>
+                        <div id="content-section-list" class="flex-1 overflow-y-auto custom-scrollbar"></div>
+                        <div class="border-t-2 border-black p-3 flex flex-col gap-2 shrink-0 bg-neutral-50">
+                            <button onclick="exportContentJson()" class="w-full bg-white border-2 border-black text-black font-inter font-black uppercase text-[10px] tracking-widest py-2 hover:bg-black hover:text-white transition-none flex items-center justify-center gap-1.5">
+                                <span class="material-symbols-outlined text-sm">download</span> Exportar JSON
+                            </button>
+                            <button onclick="resetContentDefaults()" class="w-full bg-white border-2 border-primary-container text-primary-container font-inter font-black uppercase text-[10px] tracking-widest py-2 hover:bg-primary-container hover:text-white transition-none flex items-center justify-center gap-1.5">
+                                <span class="material-symbols-outlined text-sm">restart_alt</span> Restaurar Todo
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Col 2: Form -->
+                    <div class="border-r-2 border-black flex flex-col overflow-hidden bg-white">
+                        <div class="bg-black text-white p-3 border-b-2 border-black scanline shrink-0 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-sm text-primary-container">terminal</span>
+                                <span id="content-section-title" class="font-label-mono text-[10px] uppercase">EDITANDO // SELECCIONA UNA SECCIÓN</span>
+                            </div>
+                            <span id="content-saved-indicator" class="font-label-mono text-[10px] text-neutral-500 uppercase">Auto-guardado</span>
+                        </div>
+                        <div id="content-form-fields" class="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-4 bg-neutral-50"></div>
+                    </div>
+                    <!-- Col 3: Preview -->
+                    <div class="flex flex-col overflow-hidden">
+                        <div class="bg-black text-white p-3 border-b-2 border-black scanline shrink-0 flex items-center gap-3">
+                            <div class="flex gap-1.5 shrink-0">
+                                <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-yellow-400"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
+                            </div>
+                            <div class="flex-1 bg-neutral-800 px-3 py-1 font-label-mono text-[10px] text-neutral-400 truncate">aneimera.pe / preview</div>
+                            <label class="flex items-center gap-2 cursor-pointer shrink-0">
+                                <div class="relative">
+                                    <input type="checkbox" id="cms-mode-toggle" class="sr-only" onchange="toggleCmsMode(this.checked)">
+                                    <div id="cms-toggle-track" class="w-8 h-4 bg-neutral-600 rounded-full transition-colors"></div>
+                                    <div id="cms-toggle-thumb" class="absolute top-0.5 left-0.5 w-3 h-3 bg-white rounded-full transition-all"></div>
+                                </div>
+                                <span class="font-label-mono text-[10px] uppercase">Edición Live</span>
+                            </label>
+                        </div>
+                        <iframe id="content-preview-frame" src="Prototipo-C.html" class="flex-1 border-none bg-white"></iframe>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 
@@ -721,7 +778,8 @@ Traer laptop con software instalado"></textarea>
                 'postulaciones': 'REVISIÓN POSTULACIONES //',
                 'directorio': 'DIRECTORIO NACIONAL //',
                 'usuarios': 'ADMINISTRAR USUARIOS //',
-                'capitulos': 'GESTIÓN DE CAPÍTULOS //'
+                'capitulos': 'GESTIÓN DE CAPÍTULOS //',
+                'contenido': 'EDITOR DE CONTENIDO //'
             };
             document.getElementById('page-title').innerText = titles[tabId] || 'PANEL DE CONTROL //';
 
@@ -1875,6 +1933,234 @@ Traer laptop con software instalado"></textarea>
             }
 
             onSnapshot(query(collection(db, "directorio_nacional"), orderBy("timestamp", "desc"), limit(20)), (snap) => handleLiveSnapshot('directorio_nacional', snap));
+        }
+
+        // ===== CONTENT EDITOR MODULE =====
+        {
+            const CONTENT_SCHEMA = [
+                { id: "brand", label: "Marca · Footer", page: "home", fields: [
+                    { path: "brand.name", label: "Nombre" },
+                    { path: "brand.suffix", label: "País" },
+                    { path: "brand.tagline", label: "Tagline", area: true },
+                    { path: "footer.email", label: "Email" },
+                    { path: "footer.phone", label: "Teléfono" },
+                    { path: "footer.legal", label: "Aviso legal", area: true },
+                ]},
+                { id: "hero", label: "Hero · Home", page: "home", fields: [
+                    { path: "hero.eyebrow", label: "Eyebrow" },
+                    { path: "hero.title", label: "Titular", area: true },
+                    { path: "hero.subtitle", label: "Subtítulo", area: true },
+                    { path: "hero.primaryCta.label", label: "CTA primaria" },
+                    { path: "hero.secondaryCta.label", label: "CTA secundaria" },
+                ]},
+                { id: "metrics", label: "Métricas · Home", page: "home", repeater: "metrics",
+                    item: [
+                        { path: "label", label: "Etiqueta" },
+                        { path: "value", label: "Valor" },
+                        { path: "suffix", label: "Sufijo" },
+                        { path: "note", label: "Nota" },
+                    ]
+                },
+                { id: "value", label: "Propuesta de Valor", page: "home", repeater: "valueProps",
+                    item: [
+                        { path: "tag", label: "Tag" },
+                        { path: "title", label: "Título", area: true },
+                        { path: "body", label: "Cuerpo", area: true },
+                    ]
+                },
+                { id: "story", label: "Testimonio · Home", page: "home", fields: [
+                    { path: "partnerStory.quote", label: "Quote", area: true },
+                    { path: "partnerStory.name", label: "Nombre" },
+                    { path: "partnerStory.role", label: "Cargo" },
+                ]},
+                { id: "tiers", label: "Niveles de Alianza", page: "home", repeater: "partnership.tiers",
+                    item: [
+                        { path: "code", label: "Código" },
+                        { path: "name", label: "Nombre" },
+                        { path: "price", label: "Precio" },
+                    ]
+                },
+                { id: "capitulos_c", label: "Capítulos (Prototipo)", page: "red", repeater: "capitulos",
+                    item: [
+                        { path: "code", label: "Código" },
+                        { path: "city", label: "Ciudad" },
+                        { path: "name", label: "Universidad", area: true },
+                        { path: "members", label: "Miembros", type: "number" },
+                    ]
+                },
+                { id: "eventos_c", label: "Eventos (Prototipo)", page: "eventos", repeater: "eventos",
+                    item: [
+                        { path: "title", label: "Título", area: true },
+                        { path: "date", label: "Fecha" },
+                        { path: "month", label: "Mes (3 letras)" },
+                        { path: "day", label: "Día" },
+                        { path: "tag", label: "Tipo" },
+                        { path: "venue", label: "Sede" },
+                    ]
+                },
+                { id: "membresia_c", label: "Membresía · Planes", page: "membresia", repeater: "membresia.plans",
+                    item: [
+                        { path: "name", label: "Plan" },
+                        { path: "price", label: "Precio" },
+                        { path: "period", label: "Periodo" },
+                        { path: "target", label: "Para quién", area: true },
+                    ]
+                },
+                { id: "noticias_c", label: "Noticias (Prototipo)", page: "noticias", repeater: "noticias",
+                    item: [
+                        { path: "title", label: "Título", area: true },
+                        { path: "summary", label: "Resumen", area: true },
+                        { path: "tag", label: "Categoría" },
+                        { path: "date", label: "Fecha" },
+                        { path: "author", label: "Autor" },
+                        { path: "readTime", label: "Tiempo lectura" },
+                    ]
+                },
+            ];
+
+            let activeSection = 'hero';
+            let savedTimer = null;
+            let editorInited = false;
+
+            const _orig = window.switchTab;
+            window.switchTab = (tabId) => {
+                _orig(tabId);
+                if (tabId === 'contenido') {
+                    if (!editorInited) { initEditor(); editorInited = true; }
+                    const schema = CONTENT_SCHEMA.find(s => s.id === activeSection);
+                    sendToPreview({ type: 'aneimera:navigate', page: schema?.page || 'home' });
+                }
+            };
+
+            function sendToPreview(msg) {
+                document.getElementById('content-preview-frame')?.contentWindow?.postMessage(msg, '*');
+            }
+
+            function initEditor() {
+                renderSections();
+                selectSection(activeSection);
+                window.addEventListener('message', (e) => {
+                    const d = e.data || {};
+                    if (d.type === 'aneimera:ready') {
+                        sendToPreview({ type: 'aneimera:replaceContent', content: window.ANEIMERA_CONTENT });
+                    }
+                    if (d.type === 'aneimera:contentChanged') {
+                        window.setContentPath(d.path, d.value);
+                        renderFields(activeSection);
+                        markSaved();
+                    }
+                    if (d.type === 'aneimera:focusedPath') {
+                        const el = document.querySelector(`[data-cpath="${d.path}"]`);
+                        if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); el.focus(); }
+                    }
+                });
+            }
+
+            function renderSections() {
+                const list = document.getElementById('content-section-list');
+                if (!list) return;
+                list.innerHTML = CONTENT_SCHEMA.map(s => `
+                    <button onclick="selectContentSection('${s.id}')" id="csn-${s.id}"
+                        class="content-nav-btn w-full text-left px-4 py-3 border-b border-black/5 font-inter text-[11px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-none flex items-center justify-between">
+                        <span>${escapeHTML(s.label)}</span>
+                        <span class="font-label-mono text-[9px] opacity-40">${s.repeater ? 'LISTA' : 'CAMPOS'}</span>
+                    </button>
+                `).join('');
+            }
+
+            window.selectContentSection = (id) => {
+                activeSection = id;
+                document.querySelectorAll('.content-nav-btn').forEach(el => el.classList.remove('bg-black', 'text-white'));
+                document.getElementById(`csn-${id}`)?.classList.add('bg-black', 'text-white');
+                const s = CONTENT_SCHEMA.find(s => s.id === id);
+                document.getElementById('content-section-title').innerText = `EDITANDO // ${(s?.label || id).toUpperCase()}`;
+                renderFields(id);
+                if (s?.page) sendToPreview({ type: 'aneimera:navigate', page: s.page });
+            };
+
+            function selectSection(id) { window.selectContentSection(id); }
+
+            function renderFields(id) {
+                const schema = CONTENT_SCHEMA.find(s => s.id === id);
+                const box = document.getElementById('content-form-fields');
+                if (!schema || !box) return;
+
+                if (schema.fields) {
+                    box.innerHTML = schema.fields.map(f => field(f.path, f.label, f.area, f.type)).join('');
+                } else if (schema.repeater) {
+                    const arr = window.getContentPath(schema.repeater) || [];
+                    box.innerHTML = arr.length === 0
+                        ? `<div class="text-center py-8 font-label-mono text-xs text-tertiary uppercase">Lista vacía</div>`
+                        : arr.map((item, i) => {
+                            const label = item.title || item.name || item.label || item.code || `#${i+1}`;
+                            return `<details class="border-2 border-black mb-2">
+                                <summary class="bg-black text-white px-4 py-2.5 font-label-mono text-[10px] uppercase cursor-pointer list-none flex justify-between items-center hover:bg-neutral-800">
+                                    <span class="text-neutral-400 mr-2">#${String(i+1).padStart(2,'0')}</span><span>${escapeHTML(String(label))}</span>
+                                    <span class="material-symbols-outlined text-sm ml-auto">expand_more</span>
+                                </summary>
+                                <div class="p-4 space-y-3 bg-neutral-50">
+                                    ${schema.item.map(f => field(`${schema.repeater}.${i}.${f.path}`, f.label, f.area, f.type)).join('')}
+                                </div>
+                            </details>`;
+                        }).join('');
+                }
+
+                box.querySelectorAll('[data-cpath]').forEach(el => {
+                    el.addEventListener('input', () => {
+                        const path = el.dataset.cpath;
+                        const value = el.type === 'number' ? Number(el.value) : el.value;
+                        window.setContentPath(path, value);
+                        sendToPreview({ type: 'aneimera:setContent', path, value });
+                        markSaved();
+                    });
+                });
+            }
+
+            function field(path, label, area, type) {
+                const raw = window.getContentPath(path) ?? '';
+                const v = String(raw).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+                const cls = "w-full bg-white border-2 border-black focus:border-primary-container font-body-md py-2 px-3 rounded-none outline-none text-sm focus:bg-white transition-colors";
+                return `<div class="flex flex-col gap-1.5">
+                    <label class="font-label-mono text-[10px] uppercase font-bold flex flex-wrap gap-1">
+                        ${escapeHTML(label)}<span class="text-tertiary font-normal">${escapeHTML(path)}</span>
+                    </label>
+                    ${area
+                        ? `<textarea data-cpath="${escapeHTML(path)}" rows="3" class="${cls} resize-y">${v}</textarea>`
+                        : `<input data-cpath="${escapeHTML(path)}" type="${type||'text'}" value="${v}" class="${cls}">`
+                    }
+                </div>`;
+            }
+
+            function markSaved() {
+                const el = document.getElementById('content-saved-indicator');
+                if (!el) return;
+                el.innerText = '✓ Guardado';
+                el.style.color = '#22c55e';
+                clearTimeout(savedTimer);
+                savedTimer = setTimeout(() => { el.innerText = 'Auto-guardado'; el.style.color = ''; }, 1500);
+            }
+
+            window.exportContentJson = () => {
+                const blob = new Blob([JSON.stringify(window.ANEIMERA_CONTENT, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = Object.assign(document.createElement('a'), { href: url, download: 'aneimera-content.json' });
+                a.click(); URL.revokeObjectURL(url);
+            };
+
+            window.resetContentDefaults = () => {
+                if (!confirm('¿Restaurar todo el contenido al estado por defecto?')) return;
+                localStorage.removeItem('aneimera.content');
+                window.ANEIMERA_CONTENT = JSON.parse(JSON.stringify(window.ANEIMERA_CONTENT_DEFAULTS));
+                renderFields(activeSection);
+                sendToPreview({ type: 'aneimera:replaceContent', content: window.ANEIMERA_CONTENT });
+                showToast('Contenido restaurado a valores por defecto.', 'success');
+            };
+
+            window.toggleCmsMode = (on) => {
+                document.getElementById('cms-toggle-track').style.background = on ? '#e30613' : '';
+                document.getElementById('cms-toggle-thumb').style.left = on ? '18px' : '2px';
+                sendToPreview({ type: 'aneimera:cmsMode', on });
+            };
         }
     </script>
 </body>
