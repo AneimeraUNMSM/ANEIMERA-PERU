@@ -1121,68 +1121,72 @@
     });
     <!-- CMS Editor Integration -->
     <script>
-        // Mapeo de rutas de contenido a selectores de elementos
-        const CMS_MAPPINGS = {
-            'brand.name': 'a[href="#"] strong, .brand-name',
-            'brand.suffix': '.brand-suffix',
-            'hero.eyebrow': '.hero-eyebrow',
-            'hero.title': 'h1.hero-title',
-            'hero.subtitle': 'p.hero-subtitle',
-            'footer.email': 'a[href^="mailto:"]',
-            'footer.phone': '[data-phone]',
-        };
-
-        // Observar cambios en ANEIMERA_CONTENT y actualizar la página
+        // Crear un Proxy para observar cambios en el contenido
+        let updateScheduled = false;
         const contentHandler = {
-            get(target, prop) {
-                return target[prop];
-            },
             set(target, prop, value) {
                 target[prop] = value;
-                updateContentOnPage();
+                if (!updateScheduled) {
+                    updateScheduled = true;
+                    setTimeout(() => {
+                        updateAllContentOnPage();
+                        updateScheduled = false;
+                    }, 50);
+                }
                 return true;
             }
         };
 
-        // Reemplazar proxys cuando sea necesario
+        // Aplicar Proxy si es soportado
         if (window.ANEIMERA_CONTENT && typeof Proxy !== 'undefined') {
-            const originalContent = window.ANEIMERA_CONTENT;
-            window.ANEIMERA_CONTENT = new Proxy(originalContent, contentHandler);
+            window.ANEIMERA_CONTENT = new Proxy(window.ANEIMERA_CONTENT, contentHandler);
         }
 
-        // Inicializar contenido dinámico cuando se cargue la página
-        document.addEventListener('DOMContentLoaded', () => {
-            updateContentOnPage();
-            // Re-aplicar estilos CMS después de que los estilos de Tailwind estén listos
-            setTimeout(applyStylesForCMS, 100);
-        });
+        // Inicializar cuando DOM esté listo
+        function initCMS() {
+            buildContentMap();
+            updateAllContentOnPage();
+            applyStylesForCMS();
+        }
 
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCMS);
+        } else {
+            initCMS();
+        }
+
+        // Escuchar mensajes del editor
         window.addEventListener('message', (e) => {
             const data = e.data || {};
             if (data.type === "aneimera:setContent" && data.path) {
                 window.setContentPath(data.path, data.value);
-                setTimeout(updateContentOnPage, 50);
+                setTimeout(updateAllContentOnPage, 50);
             }
             if (data.type === "aneimera:replaceContent" && data.content) {
                 window.ANEIMERA_CONTENT = data.content;
                 try { localStorage.setItem("aneimera.content", JSON.stringify(data.content)); } catch {}
-                setTimeout(updateContentOnPage, 50);
+                setTimeout(() => {
+                    buildContentMap();
+                    updateAllContentOnPage();
+                }, 50);
             }
             if (data.type === "aneimera:cmsMode") {
                 document.body.classList.toggle("cms-mode", !!data.on);
             }
         });
 
-        const onInput = (e) => {
+        // Escuchar ediciones inline
+        document.addEventListener("input", (e) => {
             const el = e.target.closest?.("[data-cms-path]");
             if (!el || !document.body.classList.contains("cms-mode")) return;
             const path = el.dataset.cmsPath;
-            window.setContentPath(path, el.innerText);
-            window.parent?.postMessage({ type: "aneimera:contentChanged", path, value: el.innerText }, "*");
-        };
-        document.addEventListener("input", onInput);
+            const value = el.textContent || el.innerText;
+            window.setContentPath(path, value);
+            window.parent?.postMessage({ type: "aneimera:contentChanged", path, value }, "*");
+        });
 
-        const onClick = (e) => {
+        // Permitir edición al hacer clic
+        document.addEventListener("click", (e) => {
             if (!document.body.classList.contains("cms-mode")) return;
             const el = e.target.closest?.("[data-cms-path]");
             if (!el) return;
@@ -1194,83 +1198,98 @@
                 if (o !== el) { o.classList.remove("cms-active"); o.contentEditable = "false"; }
             });
             window.parent?.postMessage({ type: "aneimera:focusedPath", path: el.dataset.cmsPath }, "*");
-        };
-        document.addEventListener("click", onClick, true);
+        }, true);
 
-        window.parent?.postMessage({ type: "aneimera:ready" }, "*");
+        // Notificar al editor que estamos listo
+        setTimeout(() => window.parent?.postMessage({ type: "aneimera:ready" }, "*"), 100);
 
-        function updateContentOnPage() {
+        // Mapeo de contenido: valor -> ruta CMS
+        let valueToPathMap = {};
+
+        function buildContentMap() {
+            valueToPathMap = {};
+            const defaults = window.ANEIMERA_CONTENT_DEFAULTS || {};
+
+            function mapValues(obj, prefix = '') {
+                for (const key in obj) {
+                    if (obj[key] === null || obj[key] === undefined) continue;
+                    const path = prefix ? `${prefix}.${key}` : key;
+
+                    if (typeof obj[key] === 'string') {
+                        valueToPathMap[obj[key]] = path;
+                    } else if (Array.isArray(obj[key])) {
+                        obj[key].forEach((item, i) => {
+                            if (typeof item === 'object') {
+                                mapValues(item, `${path}.${i}`);
+                            }
+                        });
+                    } else if (typeof obj[key] === 'object') {
+                        mapValues(obj[key], path);
+                    }
+                }
+            }
+
+            mapValues(defaults);
+        }
+
+        function updateAllContentOnPage() {
             const c = window.ANEIMERA_CONTENT;
             if (!c) return;
 
-            // Actualizar navegación y marca
-            updateElementContent('[data-cms-path="brand.name"]', 'brand.name', c.brand?.name);
-            updateElementContent('[data-cms-path="brand.suffix"]', 'brand.suffix', c.brand?.suffix);
-            updateElementContent('[data-cms-path="footer.email"]', 'footer.email', c.footer?.email);
-            updateElementContent('[data-cms-path="footer.phone"]', 'footer.phone', c.footer?.phone);
+            // Buscar y actualizar todos los nodos de texto
+            const walker = document.createTreeWalker(
+                document.body,
+                NodeFilter.SHOW_TEXT,
+                null,
+                false
+            );
 
-            // Actualizar hero
-            updateElementContent('[data-cms-path="hero.eyebrow"]', 'hero.eyebrow', c.hero?.eyebrow);
-            updateElementContent('[data-cms-path="hero.title"]', 'hero.title', c.hero?.title);
-            updateElementContent('[data-cms-path="hero.subtitle"]', 'hero.subtitle', c.hero?.subtitle);
-
-            // Actualizar métricas
-            const metricsContainer = document.querySelector('[data-cms-section="metrics"]');
-            if (metricsContainer && c.metrics) {
-                const html = c.metrics.map((m, i) => `
-                    <div data-cms-path="metrics.${i}">
-                        <span data-cms-path="metrics.${i}.label">${escapeHTML(m.label)}</span>:
-                        <span data-cms-path="metrics.${i}.value">${escapeHTML(m.value)}</span>
-                        <span data-cms-path="metrics.${i}.suffix">${escapeHTML(m.suffix)}</span>
-                        <span data-cms-path="metrics.${i}.note">${escapeHTML(m.note)}</span>
-                    </div>
-                `).join('');
-                metricsContainer.innerHTML = html;
-                markEditableElements();
-            }
-        }
-
-        function updateElementContent(selector, path, value) {
-            const els = document.querySelectorAll(selector);
-            els.forEach(el => {
-                if (el.innerText !== value) {
-                    el.innerText = value;
-                    el.setAttribute('data-cms-path', path);
-                    el.classList.add('editable-field');
-                }
-            });
-            // Si no existe, buscar elementos con el valor actual y actualizar
-            if (els.length === 0) {
-                const defaultValue = window.ANEIMERA_CONTENT_DEFAULTS ? getValueByPath(window.ANEIMERA_CONTENT_DEFAULTS, path) : null;
-                if (defaultValue) {
-                    document.querySelectorAll('*').forEach(el => {
-                        if (el.innerText && el.innerText.includes(defaultValue) && !el.querySelector('[data-cms-path]')) {
-                            if (el.childNodes.length === 1 && el.childNodes[0].nodeType === 3) {
-                                el.innerText = value;
-                                el.setAttribute('data-cms-path', path);
-                                el.classList.add('editable-field');
-                            }
-                        }
+            const nodesToUpdate = [];
+            let node;
+            while (node = walker.nextNode()) {
+                const text = node.nodeValue?.trim();
+                if (text && text.length > 0 && valueToPathMap[text]) {
+                    nodesToUpdate.push({
+                        node,
+                        path: valueToPathMap[text],
+                        text
                     });
                 }
             }
-        }
 
-        function getValueByPath(obj, path) {
-            return path.split('.').reduce((a, b) => a?.[b], obj);
-        }
+            // Actualizar nodos encontrados
+            nodesToUpdate.forEach(({ node, path, text }) => {
+                const newValue = getValueByPath(c, path);
+                if (newValue && newValue !== text) {
+                    if (node.parentElement) {
+                        if (!node.parentElement.hasAttribute('data-cms-path')) {
+                            node.parentElement.setAttribute('data-cms-path', path);
+                            node.parentElement.classList.add('editable-field');
+                        }
+                        node.nodeValue = newValue;
+                    }
+                }
+            });
 
-        function markEditableElements() {
+            // Marcar elementos existentes con data-cms-path
             document.querySelectorAll('[data-cms-path]').forEach(el => {
-                el.classList.add('editable-field');
+                const path = el.getAttribute('data-cms-path');
+                const value = getValueByPath(c, path);
+                if (value && el.textContent !== value) {
+                    if (el.childNodes.length === 1 && el.childNodes[0].nodeType === 3) {
+                        el.textContent = value;
+                    }
+                }
             });
         }
 
-        function escapeHTML(str) {
-            if (!str) return '';
-            const div = document.createElement('div');
-            div.innerText = str;
-            return div.innerHTML;
+        function getValueByPath(obj, path) {
+            if (!path || !obj) return null;
+            return path.split('.').reduce((current, segment) => {
+                if (!current) return null;
+                const index = parseInt(segment);
+                return isNaN(index) ? current[segment] : current[index];
+            }, obj);
         }
 
         function applyStylesForCMS() {
@@ -1279,27 +1298,26 @@
                 style.id = 'cms-styles';
                 style.textContent = `
                     body.cms-mode [data-cms-path] {
-                        outline: 1px dashed transparent;
+                        outline: 2px dashed rgba(179, 0, 11, 0.3);
                         outline-offset: 2px;
-                        transition: outline-color .15s, background .15s;
+                        transition: outline .15s, background .15s;
                         cursor: text;
-                        min-height: 1.5em;
+                        position: relative;
                     }
                     body.cms-mode [data-cms-path]:hover {
-                        outline-color: #b5000b;
+                        outline: 2px dashed #b5000b;
                         background: rgba(179, 0, 11, 0.05);
                     }
                     body.cms-mode [data-cms-path].cms-active {
-                        outline-color: #b5000b;
+                        outline: 2px solid #b5000b;
                         background: rgba(179, 0, 11, 0.1);
                     }
                 `;
                 document.head.appendChild(style);
             }
         }
-
-        applyStylesForCMS();
     </script>
+
 
     <script src="js/main.js" defer></script>
     <script src="js/capitulos-filter.js" defer></script>
