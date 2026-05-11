@@ -1937,6 +1937,7 @@ Traer laptop con software instalado"></textarea>
 
         // ===== CONTENT EDITOR MODULE =====
         {
+            console.log('[ANEIMERA] Content editor module starting');
             const CONTENT_SCHEMA = [
                 { id: "brand", label: "Marca · Footer", page: "home", fields: [
                     { path: "brand.name", label: "Nombre" },
@@ -2023,8 +2024,12 @@ Traer laptop con software instalado"></textarea>
             let editorInited = false;
 
             const _orig = window.switchTab;
+            if (!_orig) {
+                console.error('[ANEIMERA] ERROR: window.switchTab not found before override!');
+            }
             window.switchTab = (tabId) => {
-                _orig(tabId);
+                console.log('[ANEIMERA] switchTab wrapper called', { tabId, editorInited, hasOrig: !!_orig });
+                if (_orig) _orig(tabId);
                 if (tabId === 'contenido') {
                     if (!editorInited) { initEditor(); editorInited = true; }
                     const schema = CONTENT_SCHEMA.find(s => s.id === activeSection);
@@ -2037,6 +2042,7 @@ Traer laptop con software instalado"></textarea>
             }
 
             function initEditor() {
+                console.log('[ANEIMERA] initEditor called', { activeSection, ANEIMERA_CONTENT: !!window.ANEIMERA_CONTENT });
                 renderSections();
                 selectSection(activeSection);
                 window.addEventListener('message', (e) => {
@@ -2057,6 +2063,7 @@ Traer laptop con software instalado"></textarea>
             }
 
             function renderSections() {
+                console.log('[ANEIMERA] renderSections called', { schemas: CONTENT_SCHEMA.length });
                 const list = document.getElementById('content-section-list');
                 if (!list) return;
                 list.innerHTML = CONTENT_SCHEMA.map(s => `
