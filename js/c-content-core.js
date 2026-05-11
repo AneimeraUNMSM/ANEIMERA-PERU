@@ -152,10 +152,11 @@ window.ANEIMERA_CONTENT_DEFAULTS = {
   async function loadContent() {
     try {
       // Intenta cargar content.json primero (para GitHub Pages y producción)
-      const response = await fetch('./content.json');
+      const response = await fetch('./content.json', { cache: 'no-store' });
       if (response.ok) {
         const json = await response.json();
         window.ANEIMERA_CONTENT = json;
+        window.dispatchEvent(new CustomEvent('aneimera:content-ready', { detail: { source: 'content.json' } }));
         return;
       }
     } catch (e) {
@@ -168,12 +169,14 @@ window.ANEIMERA_CONTENT_DEFAULTS = {
       window.ANEIMERA_CONTENT = raw
         ? deepMerge(window.ANEIMERA_CONTENT_DEFAULTS, JSON.parse(raw))
         : JSON.parse(JSON.stringify(window.ANEIMERA_CONTENT_DEFAULTS));
+      window.dispatchEvent(new CustomEvent('aneimera:content-ready', { detail: { source: raw ? 'localStorage' : 'defaults' } }));
     } catch {
       window.ANEIMERA_CONTENT = JSON.parse(JSON.stringify(window.ANEIMERA_CONTENT_DEFAULTS));
+      window.dispatchEvent(new CustomEvent('aneimera:content-ready', { detail: { source: 'defaults' } }));
     }
   }
   
-  loadContent();
+  window.ANEIMERA_CONTENT_READY = loadContent();
 })();
 
 window.setContentPath = function(path, value) {

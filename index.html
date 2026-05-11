@@ -1151,11 +1151,25 @@
             applyStylesForCMS();
         }
 
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initCMS);
-        } else {
-            initCMS();
+        function initCMSWhenContentReady() {
+            const ready = window.ANEIMERA_CONTENT_READY;
+            if (ready && typeof ready.then === 'function') {
+                ready.finally(() => initCMS());
+            } else {
+                initCMS();
+            }
         }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCMSWhenContentReady);
+        } else {
+            initCMSWhenContentReady();
+        }
+
+        window.addEventListener('aneimera:content-ready', () => {
+            buildContentMap();
+            updateAllContentOnPage();
+        });
 
         // Escuchar mensajes del editor
         window.addEventListener('message', (e) => {
@@ -1214,6 +1228,7 @@
         function buildContentMap() {
             valueToPathMap = {};
             const defaults = window.ANEIMERA_CONTENT_DEFAULTS || {};
+            const current = window.ANEIMERA_CONTENT || {};
 
             function mapValues(obj, prefix = '') {
                 for (const key in obj) {
@@ -1235,6 +1250,7 @@
             }
 
             mapValues(defaults);
+            mapValues(current);
         }
 
         function updateAllContentOnPage() {
