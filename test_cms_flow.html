@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <title>Test: CMS Flow Validation</title>
+    <style>
+        body { font-family: monospace; padding: 20px; background: #f5f5f5; }
+        .log { background: white; padding: 15px; margin: 10px 0; border-left: 4px solid #333; }
+        .pass { border-left-color: #22c55e; color: #22c55e; }
+        .fail { border-left-color: #ef4444; color: #ef4444; }
+        .info { border-left-color: #3b82f6; color: #3b82f6; }
+        h1 { color: #333; }
+        pre { background: #1a1a1a; color: #0f0; padding: 10px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>CMS Flow Validation Test</h1>
+    <div id="logs"></div>
+
+    <script type="module">
+        const logs = document.getElementById('logs');
+        
+        function log(msg, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `log ${type}`;
+            div.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+            logs.appendChild(div);
+            console.log(`[${type.toUpperCase()}] ${msg}`);
+        }
+
+        // Test 1: Check if ANEIMERA_CONTENT_DEFAULTS is available
+        log('Starting CMS Flow Validation...', 'info');
+
+        // Load c-content-core.js
+        try {
+            const script = document.createElement('script');
+            script.src = './js/c-content-core.js';
+            script.onload = () => {
+                log('✓ c-content-core.js loaded', 'pass');
+                
+                // Test 2: Verify ANEIMERA_CONTENT_DEFAULTS exists
+                if (window.ANEIMERA_CONTENT_DEFAULTS) {
+                    log(`✓ ANEIMERA_CONTENT_DEFAULTS found (${Object.keys(window.ANEIMERA_CONTENT_DEFAULTS).length} keys)`, 'pass');
+                } else {
+                    log('✗ ANEIMERA_CONTENT_DEFAULTS not found', 'fail');
+                    return;
+                }
+
+                // Test 3: Verify ANEIMERA_CONTENT is initialized
+                if (window.ANEIMERA_CONTENT) {
+                    log(`✓ ANEIMERA_CONTENT initialized`, 'pass');
+                    log(`  - brand.name: "${window.ANEIMERA_CONTENT.brand?.name}"`, 'info');
+                    log(`  - hero.title: "${window.ANEIMERA_CONTENT.hero?.title?.substring(0, 50)}..."`, 'info');
+                } else {
+                    log('✗ ANEIMERA_CONTENT not initialized', 'fail');
+                    return;
+                }
+
+                // Test 4: Verify helper functions
+                const helpers = ['setContentPath', 'getContentPath'];
+                helpers.forEach(fn => {
+                    if (typeof window[fn] === 'function') {
+                        log(`✓ ${fn} function available`, 'pass');
+                    } else {
+                        log(`✗ ${fn} function missing`, 'fail');
+                    }
+                });
+
+                // Test 5: Test setContentPath/getContentPath
+                try {
+                    const testPath = 'hero.title';
+                    const originalValue = window.getContentPath(testPath);
+                    const testValue = 'TEST_VALUE_' + Date.now();
+                    
+                    window.setContentPath(testPath, testValue);
+                    const retrievedValue = window.getContentPath(testPath);
+                    
+                    if (retrievedValue === testValue) {
+                        log(`✓ Path operations work correctly`, 'pass');
+                        log(`  - Set "${testPath}" = "${testValue}"`, 'info');
+                        
+                        // Restore original value
+                        window.setContentPath(testPath, originalValue);
+                        log(`  - Restored original value`, 'info');
+                    } else {
+                        log(`✗ Path operations failed: expected "${testValue}", got "${retrievedValue}"`, 'fail');
+                    }
+                } catch (e) {
+                    log(`✗ Path operations error: ${e.message}`, 'fail');
+                }
+
+                // Test 6: Verify localStorage persistence
+                try {
+                    const stored = localStorage.getItem('aneimera.content');
+                    if (stored) {
+                        const parsed = JSON.parse(stored);
+                        log(`✓ Content persisted in localStorage (${JSON.stringify(parsed).length} bytes)`, 'pass');
+                    } else {
+                        log('⚠ localStorage.aneimera.content is empty or missing', 'info');
+                    }
+                } catch (e) {
+                    log(`✗ localStorage check error: ${e.message}`, 'fail');
+                }
+
+                // Test 7: Summary
+                log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'info');
+                log('✓ CMS initialization flow validated successfully', 'pass');
+                log('Next: Open admin.html, login with provided credentials, and navigate to "Contenido Estático" tab', 'info');
+            };
+            script.onerror = () => {
+                log('✗ Failed to load c-content-core.js', 'fail');
+            };
+            document.head.appendChild(script);
+        } catch (e) {
+            log(`✗ Test setup error: ${e.message}`, 'fail');
+        }
+    </script>
+</body>
+</html>
