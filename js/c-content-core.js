@@ -20,6 +20,10 @@ window.ANEIMERA_CONTENT_DEFAULTS = {
        subtitle: "Asociación Nacional de Estudiantes de Ingeniería Mecánica, Eléctrica, Electrónica y Ramas Afines. Impulsando la excelencia técnica y el desarrollo profesional desde 1998.",
        primaryCta:   { label: "EXPLORAR CAPÍTULOS" },
        secondaryCta: { label: "¿POR QUÉ ALIARSE? →" },
+       stats: [
+         { label: "Capítulos Activos", value: "12", suffix: "+" },
+         { label: "Miembros Inscritos", value: "5", suffix: "k+" },
+       ],
   },
   impactMetrics: [
     { value: "25+", label: "Años de Excelencia", body: "Formando líderes en el sector industrial y tecnológico peruano." },
@@ -143,14 +147,33 @@ window.ANEIMERA_CONTENT_DEFAULTS = {
     }
     return out;
   }
-  try {
-    const raw = localStorage.getItem("aneimera.content");
-    window.ANEIMERA_CONTENT = raw
-      ? deepMerge(window.ANEIMERA_CONTENT_DEFAULTS, JSON.parse(raw))
-      : JSON.parse(JSON.stringify(window.ANEIMERA_CONTENT_DEFAULTS));
-  } catch {
-    window.ANEIMERA_CONTENT = JSON.parse(JSON.stringify(window.ANEIMERA_CONTENT_DEFAULTS));
+  
+  // Cargar desde content.json si existe (producción), si no usar localStorage, si no defaults
+  async function loadContent() {
+    try {
+      // Intenta cargar content.json primero (para GitHub Pages y producción)
+      const response = await fetch('./content.json');
+      if (response.ok) {
+        const json = await response.json();
+        window.ANEIMERA_CONTENT = json;
+        return;
+      }
+    } catch (e) {
+      // content.json no existe, continuar con localStorage
+    }
+    
+    // Fallback a localStorage (para desarrollo/admin)
+    try {
+      const raw = localStorage.getItem("aneimera.content");
+      window.ANEIMERA_CONTENT = raw
+        ? deepMerge(window.ANEIMERA_CONTENT_DEFAULTS, JSON.parse(raw))
+        : JSON.parse(JSON.stringify(window.ANEIMERA_CONTENT_DEFAULTS));
+    } catch {
+      window.ANEIMERA_CONTENT = JSON.parse(JSON.stringify(window.ANEIMERA_CONTENT_DEFAULTS));
+    }
   }
+  
+  loadContent();
 })();
 
 window.setContentPath = function(path, value) {

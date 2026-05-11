@@ -1,0 +1,176 @@
+{
+  "brand": {
+    "name": "ANEIMERA",
+    "suffix": "PERÚ",
+    "tagline": "Asociación Nacional de Estudiantes de Ingeniería Mecánica, Eléctrica y Ramas Afines."
+  },
+  "nav": [
+    {
+      "id": "home",
+      "label": "Inicio"
+    },
+    {
+      "id": "red",
+      "label": "Capítulos"
+    },
+    {
+      "id": "eventos",
+      "label": "Eventos"
+    },
+    {
+      "id": "membresia",
+      "label": "Membresía"
+    },
+    {
+      "id": "noticias",
+      "label": "Noticias"
+    }
+  ],
+  "hero": {
+    "title": "INGENIERÍA QUE TRANSFORMA EL PERÚ",
+    "subtitle": "Asociación Nacional de Estudiantes de Ingeniería Mecánica, Eléctrica, Electrónica y Ramas Afines. Impulsando la excelencia técnica y el desarrollo profesional desde 1998.",
+    "primaryCta": {
+      "label": "EXPLORAR CAPÍTULOS"
+    },
+    "secondaryCta": {
+      "label": "¿POR QUÉ ALIARSE? →"
+    },
+    "stats": [
+      {
+        "label": "Capítulos Activos",
+        "value": "12",
+        "suffix": "+"
+      },
+      {
+        "label": "Miembros Inscritos",
+        "value": "5",
+        "suffix": "k+"
+      }
+    ]
+  },
+  "impactMetrics": [
+    {
+      "value": "25+",
+      "label": "Años de Excelencia",
+      "body": "Formando líderes en el sector industrial y tecnológico peruano."
+    },
+    {
+      "value": "50+",
+      "label": "Proyectos Anuales",
+      "body": "Iniciativas de investigación y desarrollo a nivel nacional."
+    },
+    {
+      "value": "10k",
+      "label": "Horas de Capacitación",
+      "body": "Cursos, talleres y seminarios técnicos para nuestros miembros."
+    }
+  ],
+  "trustStrip": {
+    "label": "CONFÍAN EN LA RED",
+    "code": "REGISTRO_NACIONAL_06",
+    "logos": [
+      {
+        "name": "UNI"
+      },
+      {
+        "name": "PUCP"
+      },
+      {
+        "name": "UNMSM"
+      },
+      {
+        "name": "UNSA"
+      },
+      {
+        "name": "UNT"
+      },
+      {
+        "name": "UNSAAC"
+      }
+    ]
+  },
+  "valueProps": [
+    {
+      "tag": "TALENTO",
+      "title": "Pipeline de talento técnico verificado.",
+      "body": "Acceso prioritario a estudiantes en últimos ciclos y egresados recientes con perfiles técnicos validados por sus capítulos."
+    },
+    {
+      "tag": "I+D",
+      "title": "Proyectos conjuntos con universidades.",
+      "body": "Co-financiamos tesis y prototipos con problemas reales de tu industria. Coordinación a través de los directorios académicos."
+    },
+    {
+      "tag": "MARCA",
+      "title": "Presencia editorial nacional.",
+      "body": "Patrocinio de eventos, contenido en el boletín mensual y reconocimiento como aliado en los 12 capítulos."
+    }
+  ],
+  "partnership": {
+    "eyebrow": "POR QUÉ ALIARSE",
+    "title": "Una sola red, tres formas de generar valor.",
+    "body": "Diseñamos cada alianza alrededor de tus objetivos. Contratación, I+D o marca empleadora — armamos el plan en una semana.",
+    "cta": "PROGRAMAR CONVERSACIÓN →",
+    "note": "RESPUESTA < 48H",
+    "tiers": [
+      {
+        "code": "T-01 · COLABORADOR",
+        "name": "Colaborador",
+        "price": "Desde 1,200 USD / año",
+        "bullets": [
+          "Logo en pie de página",
+          "Acceso al boletín mensual",
+          "1 charla técnica al año",
+          "Reporte semestral"
+        ]
+      },
+      {
+        "code": "T-02 · ESTRATÉGICO",
+        "name": "Estratégico",
+        "price": "Desde 4,800 USD / año",
+        "bullets": [
+          "Logo en home + eventos",
+          "Pipeline directo (50/año)",
+          "4 charlas + 1 visita técnica",
+          "Co-branding de un congreso",
+          "Reporte trimestral"
+        ]
+      },
+      {
+        "code": "T-03 · FUNDADOR",
+        "name": "Fundador",
+        "price": "Custom · plan anual",
+        "bullets": [
+          "Posicionamiento como fundador",
+          "Pipeline ilimitado + scouting",
+          "Programa de prácticas exclusivo",
+          "Co-financiamiento de I+D",
+          "Asiento en mesa consultiva"
+        ]
+      }
+    ]
+  },
+  "areas": [
+    {
+      "title": "Ingeniería Mecánica",
+      "body": "Diseño, análisis y manufactura de sistemas térmicos y mecánicos avanzados."
+    },
+    {
+      "title": "Ingeniería Eléctrica",
+      "body": "Generación, transmisión y distribución de energía para el desarrollo sostenible."
+    },
+    {
+      "title": "Ingeniería Electrónica",
+      "body": "Innovación en sistemas de control, automatización y telecomunicaciones."
+    },
+    {
+      "title": "Ramas Afines",
+      "body": "Integración multidisciplinaria en mecatrónica, energía y tecnologías emergentes."
+    }
+  ],
+  "footer": {
+    "email": "contacto@aneimera.pe",
+    "phone": "+51 1 200 4567 · Lun a Vie · 9-18",
+    "legal": "© 2026 ANEIMERA PERÚ. Asociación civil sin fines de lucro inscrita en SUNARP."
+  }
+}
