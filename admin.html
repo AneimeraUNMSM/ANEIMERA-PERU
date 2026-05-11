@@ -1937,7 +1937,33 @@ Traer laptop con software instalado"></textarea>
 
         // ===== CONTENT EDITOR MODULE =====
         {
-            console.log('[ANEIMERA] Content editor module starting');
+            // Variables declared early for use in listeners
+            let activeSection = 'hero';
+            let savedTimer = null;
+            let editorInited = false;
+            let previewMessageListener = null;
+
+            // Install global listener for iframe messages early
+            function setupMessageListener() {
+                if (previewMessageListener) return;
+                previewMessageListener = (e) => {
+                    const d = e.data || {};
+                    if (d.type === 'aneimera:ready') {
+                        sendToPreview({ type: 'aneimera:replaceContent', content: window.ANEIMERA_CONTENT });
+                    }
+                    if (d.type === 'aneimera:contentChanged' && activeSection) {
+                        window.setContentPath(d.path, d.value);
+                        renderFields(activeSection);
+                        markSaved();
+                    }
+                    if (d.type === 'aneimera:focusedPath' && activeSection) {
+                        const el = document.querySelector(`[data-cpath="${d.path}"]`);
+                        if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); el.focus(); }
+                    }
+                };
+                window.addEventListener('message', previewMessageListener);
+            }
+
             const CONTENT_SCHEMA = [
                 { id: "brand", label: "Marca · Footer", page: "home", fields: [
                     { path: "brand.name", label: "Nombre" },
@@ -2019,16 +2045,11 @@ Traer laptop con software instalado"></textarea>
                 },
             ];
 
-            let activeSection = 'hero';
-            let savedTimer = null;
-            let editorInited = false;
-
             const _orig = window.switchTab;
             if (!_orig) {
                 console.error('[ANEIMERA] ERROR: window.switchTab not found before override!');
             }
             window.switchTab = (tabId) => {
-                console.log('[ANEIMERA] switchTab wrapper called', { tabId, editorInited, hasOrig: !!_orig });
                 if (_orig) _orig(tabId);
                 if (tabId === 'contenido') {
                     if (!editorInited) { initEditor(); editorInited = true; }
@@ -2042,30 +2063,12 @@ Traer laptop con software instalado"></textarea>
             }
 
             function initEditor() {
-                console.log('[ANEIMERA] initEditor called', { activeSection, ANEIMERA_CONTENT: !!window.ANEIMERA_CONTENT });
                 renderSections();
                 selectSection(activeSection);
-                window.addEventListener('message', (e) => {
-                    const d = e.data || {};
-                    if (d.type === 'aneimera:ready') {
-                        sendToPreview({ type: 'aneimera:replaceContent', content: window.ANEIMERA_CONTENT });
-                    }
-                    if (d.type === 'aneimera:contentChanged') {
-                        window.setContentPath(d.path, d.value);
-                        renderFields(activeSection);
-                        markSaved();
-                    }
-                    if (d.type === 'aneimera:focusedPath') {
-                        const el = document.querySelector(`[data-cpath="${d.path}"]`);
-                        if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); el.focus(); }
-                    }
-                });
             }
 
             function renderSections() {
-                console.log('[ANEIMERA] renderSections called', { schemas: CONTENT_SCHEMA.length });
                 const list = document.getElementById('content-section-list');
-                console.log('[ANEIMERA] content-section-list element:', !!list);
                 if (!list) {
                     console.error('[ANEIMERA] ERROR: content-section-list element not found!');
                     return;
@@ -2077,34 +2080,26 @@ Traer laptop con software instalado"></textarea>
                         <span class="font-label-mono text-[9px] opacity-40">${s.repeater ? 'LISTA' : 'CAMPOS'}</span>
                     </button>
                 `).join('');
-                console.log('[ANEIMERA] HTML generated for sections:', html.length, 'chars');
                 list.innerHTML = html;
-                console.log('[ANEIMERA] renderSections complete');
             }
 
             window.selectContentSection = (id) => {
-                console.log('[ANEIMERA] selectContentSection called', { id });
                 activeSection = id;
                 document.querySelectorAll('.content-nav-btn').forEach(el => el.classList.remove('bg-black', 'text-white'));
                 document.getElementById(`csn-${id}`)?.classList.add('bg-black', 'text-white');
                 const s = CONTENT_SCHEMA.find(s => s.id === id);
-                console.log('[ANEIMERA] Found schema:', { label: s?.label });
                 document.getElementById('content-section-title').innerText = `EDITANDO // ${(s?.label || id).toUpperCase()}`;
                 renderFields(id);
                 if (s?.page) sendToPreview({ type: 'aneimera:navigate', page: s.page });
             };
 
             function selectSection(id) {
-                console.log('[ANEIMERA] selectSection called', { id });
                 window.selectContentSection(id);
             }
 
             function renderFields(id) {
-                console.log('[ANEIMERA] renderFields called', { id });
                 const schema = CONTENT_SCHEMA.find(s => s.id === id);
-                console.log('[ANEIMERA] Schema for renderFields:', { id, found: !!schema, hasFields: !!schema?.fields, hasRepeater: !!schema?.repeater });
                 const box = document.getElementById('content-form-fields');
-                console.log('[ANEIMERA] content-form-fields element:', !!box);
                 if (!schema || !box) {
                     console.error('[ANEIMERA] ERROR in renderFields: schema or box not found', { schema: !!schema, box: !!box });
                     return;
@@ -2139,7 +2134,6 @@ Traer laptop con software instalado"></textarea>
                         markSaved();
                     });
                 });
-                console.log('[ANEIMERA] renderFields complete');
             }
 
             function field(path, label, area, type) {
@@ -2187,6 +2181,9 @@ Traer laptop con software instalado"></textarea>
                 document.getElementById('cms-toggle-thumb').style.left = on ? '18px' : '2px';
                 sendToPreview({ type: 'aneimera:cmsMode', on });
             };
+
+            // Install message listener now that all functions are defined
+            setupMessageListener();
         }
     </script>
 </body>
