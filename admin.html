@@ -98,7 +98,7 @@
                 <span class="material-symbols-outlined text-primary-container">terminal</span>
                 <h1 class="font-label-mono text-sm uppercase tracking-widest text-white">Acceso Restringido // CMS</h1>
             </div>
-            <form id="login-form" class="p-8 space-y-6 bg-white">
+            <form id="login-form" class="p-8 space-y-6 bg-white" onsubmit="return false">
                 <div class="flex flex-col gap-2 group">
                     <label class="font-label-mono text-xs uppercase text-black font-bold">Identificador (Correo)</label>
                     <input type="email" id="login-email" required class="w-full bg-neutral-50 border-2 border-black focus:ring-0 focus:border-primary-container font-label-mono p-3 rounded-none outline-none focus:bg-white transition-colors">
@@ -779,23 +779,83 @@ Traer laptop con software instalado"></textarea>
             document.addEventListener(evt, resetInactivityTimer, { passive: true })
         );
 
-        // UI Initializations (Quill & Charts)
-        const quillConfig = { theme: 'snow', modules: { toolbar: [['bold', 'italic', 'underline'], [{'list': 'ordered'}, {'list': 'bullet'}], ['link']] } };
-        const quillEv = typeof Quill !== 'undefined' ? new Quill('#quill-ev-desc', quillConfig) : null;
-        const quillNot = typeof Quill !== 'undefined' ? new Quill('#quill-not-desc', quillConfig) : null;
+        // Auth & Login — registrado primero para que funcione aunque falle lo demás
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                try {
+                    const docSnap = await getDoc(doc(db, "usuarios", user.uid));
+                    if (docSnap.exists() && docSnap.data().rol === 'SUPERADMIN') {
+                        document.getElementById('nav-usuarios').classList.remove('hidden');
+                        window.currentUserRole = 'SUPERADMIN';
+                    } else {
+                        document.getElementById('nav-usuarios').classList.add('hidden');
+                        window.currentUserRole = 'EDITOR';
+                    }
+                } catch(e) { window.currentUserRole = 'EDITOR'; }
+
+                loginSection.classList.add('hidden');
+                dashboardSection.classList.remove('hidden');
+                resetInactivityTimer();
+                loadData();
+            } else {
+                loginSection.classList.remove('hidden');
+                dashboardSection.classList.add('hidden');
+                clearTimeout(inactivityTimer);
+            }
+        });
+
+        // Login Logic
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const errorDiv = document.getElementById('login-error');
+            const btnSubmit = e.target.querySelector('button[type="submit"]');
+
+            const originalText = btnSubmit.innerHTML;
+            btnSubmit.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> AUTENTICANDO...';
+            btnSubmit.disabled = true;
+            errorDiv.classList.add('hidden');
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                showToast("Acceso Concedido", "success");
+            } catch (error) {
+                console.error("Login Error:", error);
+                errorDiv.innerText = "Error: " + (error.message || "Credenciales inválidas o problema de red");
+                errorDiv.classList.remove('hidden');
+            } finally {
+                btnSubmit.innerHTML = originalText;
+                btnSubmit.disabled = false;
+            }
+        });
+
+        // Logout
+        btnLogout?.addEventListener('click', () => {
+            signOut(auth);
+            showToast("Sesión Finalizada", "success");
+        });
+
+        // UI Initializations (Quill & Charts) — en try-catch para no bloquear el login
+        try {
+            const quillConfig = { theme: 'snow', modules: { toolbar: [['bold', 'italic', 'underline'], [{'list': 'ordered'}, {'list': 'bullet'}], ['link']] } };
+            window.quillEv = typeof Quill !== 'undefined' ? new Quill('#quill-ev-desc', quillConfig) : null;
+            window.quillNot = typeof Quill !== 'undefined' ? new Quill('#quill-not-desc', quillConfig) : null;
+        } catch(err) {
+            console.error("Error inicializando Quill:", err);
+        }
 
         let chartPost, chartEvt;
-        const initCharts = () => {
-            try {
-                const ctxP = document.getElementById('chart-postulaciones').getContext('2d');
-                const ctxE = document.getElementById('chart-eventos').getContext('2d');
-                chartPost = new Chart(ctxP, { type: 'doughnut', data: { labels: ['Aprobados', 'Rechazados', 'Pendientes'], datasets: [{ data: [0,0,0], backgroundColor: ['#22c55e', '#ef4444', '#f59e0b'], borderWidth: 2, borderColor: '#000' }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { font: { family: "'Space Mono', monospace", size: 10 } } } } } });
-                chartEvt = new Chart(ctxE, { type: 'bar', data: { labels: ['Conferencia', 'Taller', 'Networking'], datasets: [{ label: 'Total', data: [0,0,0], backgroundColor: '#000', borderWidth: 2, borderColor: '#000' }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { precision: 0 } } } } });
-            } catch (err) {
-                console.error("Error inicializando charts:", err);
+        try {
+            if (typeof Chart !== 'undefined') {
+                const ctxP = document.getElementById('chart-postulaciones')?.getContext('2d');
+                const ctxE = document.getElementById('chart-eventos')?.getContext('2d');
+                if (ctxP) chartPost = new Chart(ctxP, { type: 'doughnut', data: { labels: ['Aprobados', 'Rechazados', 'Pendientes'], datasets: [{ data: [0,0,0], backgroundColor: ['#22c55e', '#ef4444', '#f59e0b'], borderWidth: 2, borderColor: '#000' }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { font: { family: "'Space Mono', monospace", size: 10 } } } } } });
+                if (ctxE) chartEvt = new Chart(ctxE, { type: 'bar', data: { labels: ['Conferencia', 'Taller', 'Networking'], datasets: [{ label: 'Total', data: [0,0,0], backgroundColor: '#000', borderWidth: 2, borderColor: '#000' }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { precision: 0 } } } } });
             }
-        };
-        initCharts();
+        } catch(err) {
+            console.error("Error inicializando Charts:", err);
+        }
 
         // Image Previews
         const setupImagePreview = (inputId, previewId) => {
@@ -821,62 +881,6 @@ Traer laptop con software instalado"></textarea>
         setupImagePreview('ev-img-file', 'ev-img-preview');
         setupImagePreview('not-img-file', 'not-img-preview');
         setupImagePreview('dir-img-file', 'dir-img-preview');
-
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                try {
-                    const docSnap = await getDoc(doc(db, "usuarios", user.uid));
-                    if (docSnap.exists() && docSnap.data().rol === 'SUPERADMIN') {
-                        document.getElementById('nav-usuarios').classList.remove('hidden');
-                        window.currentUserRole = 'SUPERADMIN';
-                    } else {
-                        document.getElementById('nav-usuarios').classList.add('hidden');
-                        window.currentUserRole = 'EDITOR';
-                    }
-                } catch(e) { window.currentUserRole = 'EDITOR'; }
-                
-                loginSection.classList.add('hidden');
-                dashboardSection.classList.remove('hidden');
-                resetInactivityTimer();
-                loadData();
-            } else {
-                loginSection.classList.remove('hidden');
-                dashboardSection.classList.add('hidden');
-                clearTimeout(inactivityTimer);
-            }
-        });
-
-        // Login Logic
-        document.getElementById('login-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-            const errorDiv = document.getElementById('login-error');
-            const btnSubmit = e.target.querySelector('button[type="submit"]');
-            
-            const originalText = btnSubmit.innerHTML;
-            btnSubmit.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> AUTENTICANDO...';
-            btnSubmit.disabled = true;
-            errorDiv.classList.add('hidden');
-
-            try {
-                await signInWithEmailAndPassword(auth, email, password);
-                showToast("Acceso Concedido", "success");
-            } catch (error) {
-                console.error("Login Error:", error);
-                errorDiv.innerText = "Error: Credenciales inválidas o problema de red";
-                errorDiv.classList.remove('hidden');
-            } finally {
-                btnSubmit.innerHTML = originalText;
-                btnSubmit.disabled = false;
-            }
-        });
-
-        // Logout
-        btnLogout.addEventListener('click', () => {
-            signOut(auth);
-            showToast("Sesión Finalizada", "success");
-        });
 
         // Global functions
         const registrarAuditoria = async (accion, coleccion, docId) => {
@@ -1068,7 +1072,7 @@ Traer laptop con software instalado"></textarea>
                     document.getElementById('ev-lugar').value = data.lugar || '';
                     document.getElementById('ev-tipo').value = data.tipo || 'CONFERENCIA MAGISTRAL';
                     document.getElementById('ev-id').value = data.eventId || '';
-                    quillEv?.root.innerHTML = data.descripcion || '';
+                    window.quillEv?.root.innerHTML = data.descripcion || '';
                     document.getElementById('ev-link').value = data.linkForms || '';
                     document.getElementById('ev-estado').value = data.estado || 'PUBLICADO';
                     document.getElementById('ev-fecha-prog').value = data.fechaProgramada || '';
@@ -1109,7 +1113,7 @@ Traer laptop con software instalado"></textarea>
                     document.getElementById('not-titulo').value = data.titulo || '';
                     document.getElementById('not-cat').value = data.categoria || 'INVESTIGACIÓN';
                     document.getElementById('not-id').value = data.noticiaId || '';
-                    quillNot?.root.innerHTML = data.descripcion || '';
+                    window.quillNot?.root.innerHTML = data.descripcion || '';
                     document.getElementById('not-estado').value = data.estado || 'PUBLICADO';
                     document.getElementById('not-fecha-prog').value = data.fechaProgramada || '';
                     document.getElementById('not-prog-wrapper').classList.toggle('hidden', data.estado !== 'PROGRAMADO');
@@ -1161,7 +1165,7 @@ Traer laptop con software instalado"></textarea>
                 btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Guardando...';
 
                 const editId = document.getElementById('ev-edit-id').value;
-                const rawEvHtml = quillEv?.root.innerHTML === '<p><br></p>' ? '' : quillEv?.root.innerHTML;
+                const rawEvHtml = window.quillEv?.root.innerHTML === '<p><br></p>' ? '' : window.quillEv?.root.innerHTML;
                 const descVal = rawEvHtml ? DOMPurify.sanitize(rawEvHtml, {
                     ALLOWED_TAGS: ['p','br','strong','em','u','ol','ul','li','a','h2','h3','blockquote'],
                     ALLOWED_ATTR: ['href','target','rel']
@@ -1221,7 +1225,7 @@ Traer laptop con software instalado"></textarea>
                 document.getElementById('ev-cronograma-list').innerHTML = '';
                 document.getElementById('ev-requisitos').value = '';
                 checkCronoEmpty();
-                quillEv?.root.innerHTML = '';
+                window.quillEv?.root.innerHTML = '';
                 // Regenerar ID para el siguiente evento
                 autoGenerateEventId();
             } catch (error) {
@@ -1250,7 +1254,7 @@ Traer laptop con software instalado"></textarea>
                 btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Guardando...';
 
                 const editId = document.getElementById('not-edit-id').value;
-                const rawNotHtml = quillNot?.root.innerHTML === '<p><br></p>' ? '' : quillNot?.root.innerHTML;
+                const rawNotHtml = window.quillNot?.root.innerHTML === '<p><br></p>' ? '' : window.quillNot?.root.innerHTML;
                 const descVal = rawNotHtml ? DOMPurify.sanitize(rawNotHtml, {
                     ALLOWED_TAGS: ['p','br','strong','em','u','ol','ul','li','a','h2','h3','blockquote'],
                     ALLOWED_ATTR: ['href','target','rel']
@@ -1286,7 +1290,7 @@ Traer laptop con software instalado"></textarea>
                 e.target.reset();
                 document.getElementById('not-prog-wrapper').classList.add('hidden');
                 document.getElementById('not-tags').value = '';
-                quillNot?.root.innerHTML = '';
+                window.quillNot?.root.innerHTML = '';
                 autoGenerateNoticiaId();
             } catch (error) {
                 showToast(error.message || "Error al guardar noticia.", "error");
