@@ -1160,6 +1160,9 @@
         // Escuchar mensajes del editor
         window.addEventListener('message', (e) => {
             const data = e.data || {};
+            if (data.type === "aneimera:navigate" && data.page) {
+                switchTab(data.page, false);
+            }
             if (data.type === "aneimera:setContent" && data.path) {
                 window.setContentPath(data.path, data.value);
                 setTimeout(updateAllContentOnPage, 50);
