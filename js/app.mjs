@@ -97,7 +97,9 @@ mobileMenuBtn.addEventListener('click', () => {
         mobileMenu.classList.add('flex');
         mobileMenuBtn.innerHTML = '<span class="material-symbols-outlined text-3xl">close</span>';
     } else {
-  const eventosRef = collection(db, 'eventos');
+        mobileMenu.classList.add('hidden');
+        mobileMenu.classList.remove('flex');
+        mobileMenuBtn.innerHTML = '<span class="material-symbols-outlined text-3xl">menu</span>';
     }
 });
 
@@ -192,22 +194,6 @@ if (formCap) {
       submitBtn.innerHTML = originalText;
     }
   });
-}
-// 4.6 Filtrado de Capítulos (Hardcoded DOM filtering)
-function applyCapituloSearch() {
-  const searchInput = document.getElementById('search-capitulos');
-  if (!searchInput) return;
-  const term = searchInput.value.toLowerCase();
-  const articles = document.querySelectorAll('#grid-capitulos article');
-  articles.forEach(article => {
-    const text = article.innerText.toLowerCase();
-    article.style.display = text.includes(term) ? 'flex' : 'none';
-  });
-};
-
-const searchInputElem = document.getElementById('search-capitulos');
-if (searchInputElem) {
-  searchInputElem.addEventListener('input', applyCapituloSearch);
 }
 
 const applyEventFilters = () => {
@@ -567,7 +553,7 @@ onSnapshot(qCapitulos, (snapshot) => {
     const safeEstado = escapeHTML(data.estado);
 
     const card = `
-      <article class="border border-black bg-white group ${data.estado !== 'ACTIVO' ? 'opacity-75 grayscale hover:grayscale-0' : ''} hover:-translate-y-1 transition-all duration-200 flex flex-col">
+      <article data-city="${escapeHTML(data.sede)}" data-name="${escapeHTML(data.universidad)}" data-code="${safeCod}" class="border border-black bg-white group ${data.estado !== 'ACTIVO' ? 'opacity-75 grayscale hover:grayscale-0' : ''} hover:-translate-y-1 transition-all duration-200 flex flex-col">
         <div class="${bgStatus} font-label-mono text-label-mono p-2 border-b border-black flex justify-between items-center uppercase">
           <span class="truncate">COD: ${safeCod}</span>
           <span class="${txtStatus} px-1 whitespace-nowrap">${safeEstado}</span>
@@ -588,6 +574,4 @@ onSnapshot(qCapitulos, (snapshot) => {
     `;
     container.insertAdjacentHTML('beforeend', card);
   });
-  // Re-aplicar búsqueda si hay un término activo
-  applyCapituloSearch();
 });

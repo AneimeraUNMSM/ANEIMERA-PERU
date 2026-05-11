@@ -299,8 +299,8 @@
 <button onclick="switchTab('capitulos')" class="bg-on-surface text-surface-container-lowest font-inter uppercase font-bold text-sm px-8 py-4 hover:bg-primary-container transition-colors tracking-widest">
                         EXPLORAR CAPÍTULOS
                     </button>
-<button onclick="switchTab('noticias')" class="border-2 border-on-surface text-on-surface font-inter uppercase font-bold text-sm px-8 py-4 hover:bg-surface-container-highest transition-colors tracking-widest bg-surface-container-lowest">
-                        CONOCER MÁS
+<button onclick="document.getElementById('aliarse').scrollIntoView({behavior:'smooth'})" class="border-2 border-on-surface text-on-surface font-inter uppercase font-bold text-sm px-8 py-4 hover:bg-surface-container-highest transition-colors tracking-widest bg-surface-container-lowest">
+                        ¿POR QUÉ ALIARSE? →
                     </button>
 </div>
 </div>
@@ -369,6 +369,105 @@
 </div>
 </section>
 
+<!-- Trust Strip: Confían en la red -->
+<section class="border-y-2 border-on-surface bg-surface-container-lowest py-16 px-4 md:px-16">
+  <div class="max-w-container-max mx-auto">
+    <div class="flex items-baseline justify-between mb-10 border-b-2 border-on-surface pb-4">
+      <span class="font-label-mono text-label-mono uppercase tracking-widest border-l-2 border-primary-container pl-4">CONFÍAN EN LA RED</span>
+      <span class="font-label-mono text-label-mono text-tertiary uppercase">REGISTRO_NACIONAL_06</span>
+    </div>
+    <div class="grid grid-cols-3 md:grid-cols-6 gap-4">
+      <div class="aspect-[3/2] border-2 border-on-surface flex items-center justify-center font-inter font-black uppercase text-xl tracking-tight bg-surface-container-lowest hover:bg-surface-container transition-colors">UNI</div>
+      <div class="aspect-[3/2] border-2 border-on-surface flex items-center justify-center font-inter font-black uppercase text-xl tracking-tight bg-surface-container-lowest hover:bg-surface-container transition-colors">PUCP</div>
+      <div class="aspect-[3/2] border-2 border-on-surface flex items-center justify-center font-inter font-black uppercase text-xl tracking-tight bg-surface-container-lowest hover:bg-surface-container transition-colors">UNMSM</div>
+      <div class="aspect-[3/2] border-2 border-on-surface flex items-center justify-center font-inter font-black uppercase text-xl tracking-tight bg-surface-container-lowest hover:bg-surface-container transition-colors">UNSA</div>
+      <div class="aspect-[3/2] border-2 border-on-surface flex items-center justify-center font-inter font-black uppercase text-xl tracking-tight bg-surface-container-lowest hover:bg-surface-container transition-colors">UNT</div>
+      <div class="aspect-[3/2] border-2 border-on-surface flex items-center justify-center font-inter font-black uppercase text-xl tracking-tight bg-surface-container-lowest hover:bg-surface-container transition-colors">UNSAAC</div>
+    </div>
+  </div>
+</section>
+
+<!-- Por qué aliarse -->
+<section id="aliarse" class="py-24 px-4 md:px-16 bg-surface-container-low">
+  <div class="max-w-container-max mx-auto">
+    <div class="grid grid-cols-12 gap-gutter mb-16 items-end">
+      <div class="col-span-12 lg:col-span-7">
+        <span class="font-label-mono text-label-mono text-primary-container uppercase tracking-widest block mb-4 border-l-2 border-primary-container pl-4">POR QUÉ ALIARSE</span>
+        <h2 class="font-display-xl text-[36px] md:text-6xl uppercase text-on-surface leading-[0.95]">Una sola red,<br/>tres formas de generar valor.</h2>
+      </div>
+      <div class="col-span-12 lg:col-span-5 lg:pl-8">
+        <p class="font-body-lg text-body-lg text-on-surface-variant border-l-2 border-on-surface pl-4">
+          Diseñamos cada alianza alrededor de tus objetivos. Contratación, I+D o marca empleadora — armamos el plan en una semana.
+        </p>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-16">
+      <div class="border-2 border-on-surface bg-surface-container-lowest p-8 flex flex-col hover:bg-surface-container-highest transition-colors shadow-[6px_6px_0px_0px_rgba(26,28,28,1)]">
+        <div class="w-12 h-12 border-2 border-on-surface bg-primary-container text-surface-container-lowest flex items-center justify-center mb-6 font-black text-xl">01</div>
+        <span class="font-label-mono text-label-mono text-tertiary uppercase tracking-widest mb-3">TALENTO</span>
+        <h3 class="font-headline-sm text-2xl uppercase font-black mb-3 leading-tight">Pipeline de talento técnico verificado.</h3>
+        <p class="font-body-md text-body-md text-on-surface-variant flex-1">Acceso prioritario a estudiantes en últimos ciclos y egresados recientes con perfiles validados por sus capítulos.</p>
+      </div>
+      <div class="border-2 border-on-surface bg-surface-container-lowest p-8 flex flex-col hover:bg-surface-container-highest transition-colors shadow-[6px_6px_0px_0px_rgba(26,28,28,1)]">
+        <div class="w-12 h-12 border-2 border-on-surface bg-on-surface text-surface-container-lowest flex items-center justify-center mb-6 font-black text-xl">02</div>
+        <span class="font-label-mono text-label-mono text-tertiary uppercase tracking-widest mb-3">I+D</span>
+        <h3 class="font-headline-sm text-2xl uppercase font-black mb-3 leading-tight">Proyectos conjuntos con universidades.</h3>
+        <p class="font-body-md text-body-md text-on-surface-variant flex-1">Co-financiamos tesis y prototipos con problemas reales de tu industria. Coordinación vía directorios académicos.</p>
+      </div>
+      <div class="border-2 border-on-surface bg-surface-container-lowest p-8 flex flex-col hover:bg-surface-container-highest transition-colors shadow-[6px_6px_0px_0px_rgba(26,28,28,1)]">
+        <div class="w-12 h-12 border-2 border-on-surface bg-surface-container-lowest text-on-surface flex items-center justify-center mb-6 font-black text-xl">03</div>
+        <span class="font-label-mono text-label-mono text-tertiary uppercase tracking-widest mb-3">MARCA</span>
+        <h3 class="font-headline-sm text-2xl uppercase font-black mb-3 leading-tight">Presencia editorial nacional.</h3>
+        <p class="font-body-md text-body-md text-on-surface-variant flex-1">Patrocinio de eventos, boletín mensual y reconocimiento como aliado en los 12 capítulos de la red.</p>
+      </div>
+    </div>
+    <div class="grid grid-cols-12 gap-0 border-2 border-on-surface bg-surface-container-lowest shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+      <div class="col-span-12 md:col-span-4 p-8 border-r-0 md:border-r-2 border-b-2 md:border-b-0 border-on-surface">
+        <div class="font-label-mono text-label-mono text-tertiary tracking-widest mb-2">T-01 · COLABORADOR</div>
+        <h4 class="font-headline-sm text-3xl uppercase font-black mb-2">Colaborador</h4>
+        <p class="font-body-md text-body-md text-on-surface-variant mb-6 pb-6 border-b border-on-surface">Desde 1,200 USD / año</p>
+        <ul class="space-y-3 font-body-md text-body-md">
+          <li class="flex gap-3"><span class="text-primary-container font-black">▪</span> Logo en pie de página</li>
+          <li class="flex gap-3"><span class="text-primary-container font-black">▪</span> Acceso al boletín mensual</li>
+          <li class="flex gap-3"><span class="text-primary-container font-black">▪</span> 1 charla técnica al año</li>
+          <li class="flex gap-3"><span class="text-primary-container font-black">▪</span> Reporte semestral</li>
+        </ul>
+      </div>
+      <div class="col-span-12 md:col-span-4 p-8 border-r-0 md:border-r-2 border-b-2 md:border-b-0 border-on-surface bg-on-surface text-surface-container-lowest relative">
+        <div class="absolute top-0 right-0 bg-primary-container text-surface-container-lowest font-label-mono text-label-mono uppercase px-3 py-1">MÁS ELEGIDA</div>
+        <div class="font-label-mono text-label-mono text-primary-fixed-dim tracking-widest mb-2">T-02 · ESTRATÉGICO</div>
+        <h4 class="font-headline-sm text-3xl uppercase font-black mb-2">Estratégico</h4>
+        <p class="font-body-md text-body-md text-surface-dim mb-6 pb-6 border-b border-surface-dim">Desde 4,800 USD / año</p>
+        <ul class="space-y-3 font-body-md text-body-md">
+          <li class="flex gap-3"><span class="text-primary-fixed-dim font-black">▪</span> Logo en home + eventos</li>
+          <li class="flex gap-3"><span class="text-primary-fixed-dim font-black">▪</span> Pipeline directo (50/año)</li>
+          <li class="flex gap-3"><span class="text-primary-fixed-dim font-black">▪</span> 4 charlas + 1 visita técnica</li>
+          <li class="flex gap-3"><span class="text-primary-fixed-dim font-black">▪</span> Co-branding de un congreso</li>
+          <li class="flex gap-3"><span class="text-primary-fixed-dim font-black">▪</span> Reporte trimestral</li>
+        </ul>
+      </div>
+      <div class="col-span-12 md:col-span-4 p-8">
+        <div class="font-label-mono text-label-mono text-tertiary tracking-widest mb-2">T-03 · FUNDADOR</div>
+        <h4 class="font-headline-sm text-3xl uppercase font-black mb-2">Fundador</h4>
+        <p class="font-body-md text-body-md text-on-surface-variant mb-6 pb-6 border-b border-on-surface">Custom · plan anual</p>
+        <ul class="space-y-3 font-body-md text-body-md">
+          <li class="flex gap-3"><span class="text-primary-container font-black">▪</span> Posicionamiento como fundador</li>
+          <li class="flex gap-3"><span class="text-primary-container font-black">▪</span> Pipeline ilimitado + scouting</li>
+          <li class="flex gap-3"><span class="text-primary-container font-black">▪</span> Programa de prácticas exclusivo</li>
+          <li class="flex gap-3"><span class="text-primary-container font-black">▪</span> Co-financiamiento de I+D</li>
+          <li class="flex gap-3"><span class="text-primary-container font-black">▪</span> Asiento en mesa consultiva</li>
+        </ul>
+      </div>
+    </div>
+    <div class="mt-12 flex flex-wrap gap-4 items-center">
+      <button type="button" onclick="switchTab('membresia')" class="bg-on-surface text-surface-container-lowest font-inter uppercase font-bold text-sm px-8 py-4 hover:bg-primary-container transition-colors tracking-widest shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none">
+        PROGRAMAR CONVERSACIÓN →
+      </button>
+      <span class="font-label-mono text-label-mono text-tertiary uppercase">RESPUESTA &lt; 48H</span>
+    </div>
+  </div>
+</section>
+
     </div>
 
     <div id="tab-capitulos" class="tab-content relative bg-background text-on-background technical-grid min-h-screen">
@@ -404,9 +503,17 @@
 <label class="font-label-mono text-label-mono block mb-1 uppercase">Buscar Capítulo</label>
 <div class="flex border border-black focus-within:border-primary">
 <span class="material-symbols-outlined p-2 text-on-surface-variant">search</span>
-<input id="search-capitulos" class="w-full border-none focus:ring-0 bg-transparent font-body-md text-body-md" placeholder="EJ: UNI, UNMSM..." type="text"/>
+<input id="search-capitulos" class="w-full border-none focus:ring-0 bg-transparent font-body-md text-body-md py-2 px-1" placeholder="UNI, UNMSM, ciudad…" type="text"/>
 </div>
 </div>
+</div>
+<!-- City pill filter bar + result counter -->
+<div class="flex flex-wrap items-center gap-3 mb-10 pb-6 border-b border-on-surface">
+  <span class="font-label-mono text-label-mono uppercase tracking-widest text-tertiary mr-2 hidden md:inline">FILTRO_CIUDAD</span>
+  <div id="capitulos-city-pills" class="flex flex-wrap gap-2 flex-1"></div>
+  <span class="font-label-mono text-label-mono uppercase tracking-widest text-on-surface bg-surface-container px-3 py-1.5 border border-on-surface">
+    <span id="capitulos-count">—</span> / <span id="capitulos-total">—</span>
+  </span>
 </div>
 <div id="grid-capitulos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
     <!-- Contenido dinámico renderizado por JS -->
@@ -516,7 +623,12 @@
 </aside>
 
 <section class="lg:col-span-10 p-8 md:p-12 bg-surface-container-lowest">
-<h2 class="font-headline-sm text-headline-sm uppercase mb-6">Calendario Técnico - Próximos Eventos</h2>
+<div class="flex flex-wrap justify-between items-baseline gap-4 mb-6">
+<h2 class="font-headline-sm text-headline-sm uppercase">Calendario Técnico</h2>
+<span class="font-label-mono text-label-mono text-tertiary uppercase tracking-widest"><span id="eventos-visible-count">—</span> próximos eventos</span>
+</div>
+<!-- Tag pill filters -->
+<div id="eventos-tag-pills" class="flex flex-wrap gap-2 mb-8 pb-6 border-b border-on-surface"></div>
 <div class="space-y-4" id="dynamic-eventos" role="status" aria-busy="true" aria-label="Cargando eventos">
 <div class="h-40 border-2 border-on-background bg-surface-container-low animate-pulse"></div>
 <div class="h-40 border-2 border-on-background bg-surface-container-low animate-pulse"></div>
@@ -1010,5 +1122,8 @@
 
     <script type="module" src="/js/app.mjs"></script>
     <script src="/js/main.js" defer></script>
+    <script src="/js/capitulos-filter.js" defer></script>
+    <script src="/js/eventos-filter.js" defer></script>
+    <script src="/js/noticias-modal.js" defer></script>
 </body>
 </html>
