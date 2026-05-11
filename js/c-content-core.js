@@ -16,11 +16,10 @@ window.ANEIMERA_CONTENT_DEFAULTS = {
     { id: "noticias",  label: "Noticias" },
   ],
   hero: {
-    eyebrow: "12 capítulos · 9 regiones · 5.2k estudiantes activos",
-    title: "La red nacional de futuros ingenieros del Perú.",
-    subtitle: "Conectamos estudiantes de mecánica, eléctrica y electrónica con la industria que los está esperando. Capítulos en 12 universidades, eventos cada semana, una comunidad para toda tu carrera.",
-    primaryCta:   { label: "Programar conversación" },
-    secondaryCta: { label: "Conocer la red" },
+       title: "INGENIERÍA QUE TRANSFORMA EL PERÚ",
+       subtitle: "Asociación Nacional de Estudiantes de Ingeniería Mecánica, Eléctrica, Electrónica y Ramas Afines. Impulsando la excelencia técnica y el desarrollo profesional desde 1998.",
+       primaryCta:   { label: "EXPLORAR CAPÍTULOS" },
+       secondaryCta: { label: "¿POR QUÉ ALIARSE? →" },
   },
   metrics: [
     { label: "Capítulos activos",    value: "12",  suffix: "",  note: "+2 en 2025" },
